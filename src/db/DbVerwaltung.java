@@ -55,7 +55,7 @@ public class DbVerwaltung {
 				
 	}
 
-	public  boolean insertBenutzer(Benutzer user){
+	public boolean insertBenutzer(Benutzer user){
 		 if(this.em==null){
 			 open();
 		 }
@@ -77,6 +77,43 @@ public class DbVerwaltung {
 
 		 
 		 try {
+			 this.em.persist(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		 this.em.close();
+		return true;
+		
+	}
+	
+	public boolean updateBenutzer(Benutzer user){
+		 if(this.em==null){
+			 open();
+		 }
+		 	 
+		 try {
+			 //Benutzer userx = em.find(Benutzer.class, user.getBenutzerId());
+			 em.merge(user);
+			 em.getTransaction().commit();
+			 this.em.persist(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		 this.em.close();
+		return true;
+		
+	}
+
+	public boolean deleteBenutzer(Benutzer user){
+		 if(this.em==null){
+			 open();
+		 }
+		 try {
+			 Benutzer userx = em.find(Benutzer.class, user.getBenutzerId());
+			 em.remove(userx);
+			 em.getTransaction().commit();
 			 this.em.persist(user);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -123,6 +160,41 @@ public class DbVerwaltung {
 		}
 		 this.em.close();
 		return true;
+	}
+	
+	public boolean updateExemplarBenutzer(ExemplarBenutzer exBe){
+		 if(this.em==null){
+			 open();
+		 }
+		 try {
+			 em.getTransaction().commit();
+			 this.em.persist(exBe);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		 this.em.close();
+		return true;
+		
+	}
+	
+	public boolean deleteExemplarBenutzer(ExemplarBenutzer exBe){
+		 if(this.em==null){
+			 open();
+		 }
+		 
+		 try {
+			 ExemplarBenutzer exBex = em.find(ExemplarBenutzer.class,exBe.getId());
+			 em.remove(exBex);
+			 em.getTransaction().commit();
+			 this.em.persist(exBe);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		 this.em.close();
+		return true;
+		
 	}
 	
 	public List<Exemplar> selectAll_Exemplar(){
