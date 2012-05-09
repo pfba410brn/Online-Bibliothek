@@ -8,6 +8,13 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+/**
+ * Die Klasse verwaltet alle schreibenden und lesenden Zugriffe auf die Bibliotheks-Datenbank
+ * über die mit JPA erstellten Entity-Klassen
+ * letzte Änderung: 09.05.2012
+ * @author Christian.Kauf
+ * @version 0.01
+ */
 public class DbVerwaltung {
 	
 	private  EntityManager em;
@@ -17,6 +24,10 @@ public class DbVerwaltung {
 		super();
 	}
 
+	/**
+	 * Die Methode erstellt eine Verbindung zur Datenbank
+	 * @return boolean
+	 */
 	private boolean open(){
 		try {
 			this.factory = Persistence.createEntityManagerFactory("jpa");
@@ -29,6 +40,10 @@ public class DbVerwaltung {
 		}
 		return true;
 	}
+	/**
+	 * Die Methode schließt die Verbindung zur Datenbank
+	 * @return boolean
+	 */
 	
 	private boolean close(){
 		
@@ -60,7 +75,7 @@ public class DbVerwaltung {
 			 open();
 		 }
 		 
-		    String queryString = "SELECT b FROM Benutzer WHERE b.benutzerId < SELECT MAX(x.benutzerId) FROM b)";
+		    String queryString = "SELECT b FROM Benutzer WHERE b.benutzerId < SELECT MAX(b.benutzerId) FROM b)";
 		 	System.out.println(queryString);
 			Query query = this.em.createQuery(queryString);
 	        
@@ -80,6 +95,7 @@ public class DbVerwaltung {
 			 this.em.persist(user);
 		} catch (Exception e) {
 			e.printStackTrace();
+			this.em.close();
 			return false;
 		}
 		 this.em.close();
@@ -99,6 +115,7 @@ public class DbVerwaltung {
 			 this.em.persist(user);
 		} catch (Exception e) {
 			e.printStackTrace();
+			this.em.close();
 			return false;
 		}
 		 this.em.close();
@@ -117,6 +134,7 @@ public class DbVerwaltung {
 			 this.em.persist(user);
 		} catch (Exception e) {
 			e.printStackTrace();
+			this.em.close();
 			return false;
 		}
 		 this.em.close();
@@ -171,6 +189,7 @@ public class DbVerwaltung {
 			 this.em.persist(exBe);
 		} catch (Exception e) {
 			e.printStackTrace();
+			this.em.close();
 			return false;
 		}
 		 this.em.close();
@@ -190,6 +209,7 @@ public class DbVerwaltung {
 			 this.em.persist(exBe);
 		} catch (Exception e) {
 			e.printStackTrace();
+			this.em.close();
 			return false;
 		}
 		 this.em.close();
@@ -217,6 +237,7 @@ public class DbVerwaltung {
 			 this.em.persist(ex);
 		} catch (Exception e) {
 			e.printStackTrace();
+			this.em.close();
 			return false;
 		}
 		 this.em.close();
