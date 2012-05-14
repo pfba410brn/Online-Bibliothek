@@ -30,9 +30,10 @@ public class DbVerwaltung {
 	 */
 	private boolean open(){
 		try {
+			
 			this.factory = Persistence.createEntityManagerFactory("jpa");
 			this.em = factory.createEntityManager();
-
+			
 			this.em.getTransaction().begin();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -49,6 +50,7 @@ public class DbVerwaltung {
 		
 		try {
 			this.em.close();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
@@ -58,9 +60,9 @@ public class DbVerwaltung {
 	}
 	
 	public List<Benutzer> selectAll_Benutzer(){
-		 if(this.em==null){
-			 open();
-		 }
+	
+			open();
+		
 			Query query = this.em.createNamedQuery("Benutzer.findAll");
 	       
 	        @SuppressWarnings("unchecked")
@@ -70,11 +72,23 @@ public class DbVerwaltung {
 				
 	}
 
-	public boolean insertBenutzer(Benutzer user){
-		 if(this.em==null){
-			 open();
-		 }
+	public List<Buch> selectAll_Buecher(){
 		 
+			open();
+		
+			Query query = this.em.createNamedQuery("Buch.findAll");
+	       
+	        @SuppressWarnings("unchecked")
+			List<Buch>resultList = query.getResultList();
+	        close();
+			return resultList;
+				
+	}
+	
+	public boolean insertBenutzer(Benutzer user){
+		
+		    open();
+
 		    String queryString = "SELECT b FROM Benutzer WHERE b.benutzerId < SELECT MAX(b.benutzerId) FROM b)";
 		 	System.out.println(queryString);
 			Query query = this.em.createQuery(queryString);
@@ -104,10 +118,8 @@ public class DbVerwaltung {
 	}
 	
 	public boolean updateBenutzer(Benutzer user){
-		 if(this.em==null){
-			 open();
-		 }
-		 	 
+		 	 open();
+			 	 
 		 try {
 			 //Benutzer userx = em.find(Benutzer.class, user.getBenutzerId());
 			 em.merge(user);
@@ -124,9 +136,9 @@ public class DbVerwaltung {
 	}
 
 	public boolean deleteBenutzer(Benutzer user){
-		 if(this.em==null){
-			 open();
-		 }
+
+		 open();
+		
 		 try {
 			 Benutzer userx = em.find(Benutzer.class, user.getBenutzerId());
 			 em.remove(userx);
@@ -143,9 +155,8 @@ public class DbVerwaltung {
 	}
 	
 	public List<Medium> selectAll_Medium(){
-		if(this.em==null){
-			 open();
-		 }
+			open();
+		
 			Query query = this.em.createNamedQuery("Medium.findAll");
 	       
 	        @SuppressWarnings("unchecked")
@@ -155,9 +166,9 @@ public class DbVerwaltung {
 	}
 	
 	public List<ExemplarBenutzer> selectAll_ExemplarBenutzer(){
-		if(this.em==null){
-			 open();
-		 }
+	
+		   open();
+		
 			Query query = this.em.createNamedQuery("ExemplarBenutzer.findAll");
 	       
 	        @SuppressWarnings("unchecked")
@@ -167,9 +178,9 @@ public class DbVerwaltung {
 	}
 	
 	public  boolean insertExemplarBenutzer(ExemplarBenutzer exBe){
-		 if(this.em==null){
-			 open();
-		 }
+
+		 open();
+		 
 		 try {
 			 this.em.persist(exBe);
 		} catch (Exception e) {
@@ -181,9 +192,9 @@ public class DbVerwaltung {
 	}
 	
 	public boolean updateExemplarBenutzer(ExemplarBenutzer exBe){
-		 if(this.em==null){
-			 open();
-		 }
+
+		 open();
+
 		 try {
 			 em.getTransaction().commit();
 			 this.em.persist(exBe);
@@ -198,10 +209,8 @@ public class DbVerwaltung {
 	}
 	
 	public boolean deleteExemplarBenutzer(ExemplarBenutzer exBe){
-		 if(this.em==null){
-			 open();
-		 }
-		 
+		 open();
+
 		 try {
 			 ExemplarBenutzer exBex = em.find(ExemplarBenutzer.class,exBe.getId());
 			 em.remove(exBex);
@@ -218,9 +227,9 @@ public class DbVerwaltung {
 	}
 	
 	public List<Exemplar> selectAll_Exemplar(){
-		if(this.em==null){
-			 open();
-		 }
+
+		    open();
+		
 			Query query = this.em.createNamedQuery("Exemplar.findAll");
 	       
 	        @SuppressWarnings("unchecked")
@@ -230,9 +239,9 @@ public class DbVerwaltung {
 	}
 	
 	public  boolean insertExemplar(ExemplarBenutzer ex){
-		 if(this.em==null){
-			 open();
-		 }
+
+		open();
+		
 		 try {
 			 this.em.persist(ex);
 		} catch (Exception e) {

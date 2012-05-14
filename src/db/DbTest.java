@@ -2,6 +2,10 @@ package db;
 
 import java.util.List;
 
+import jsonij.json.JSON;
+
+import logik.JsonConverter;
+
 public class DbTest {
 
 	/**
@@ -9,17 +13,18 @@ public class DbTest {
 	 */
 	public static void main(String[] args) {
 		
-//		Medium m = new Medium();
-//	    m.setMediumId(3);
-//	    m.setBezeichnung("Test1");
+
 		
 		DbVerwaltung db = new DbVerwaltung();
 	    
 		
-	    List<Medium>resultList = db.selectAll_Medium();
-        for(Medium m:resultList){
-            System.out.println("name="+m.getBezeichnung());
-        }
+	    List<Benutzer>resultList = db.selectAll_Benutzer();
+	    List<Buch> buchListe = db.selectAll_Buecher();
+	    
+	    
+	   System.out.println(JsonConverter.convertBenutzer(resultList));
+	   System.out.println(JsonConverter.convertBuch(buchListe));
+
 	}
 
 }
