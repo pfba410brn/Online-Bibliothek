@@ -1,0 +1,180 @@
+@import "demo_page.css";
+@import "demo_table.css";
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-family: Arial;
+	margin: 20px 0 0 0;
+	background-color: #FFFFFF;
+	overflow-y: scroll;
+	width: 100%;
+	height: 100%;
+}
+
+#bgImg {
+	position: absolute;
+	top: 0;
+	left: 0;
+	border: 0;
+	z-index: 1;
+}
+
+#bodyDiv {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 2;
+	overflow: auto;
+	width: 100%;
+	height: 100%;
+}
+
+h1 {
+	
+}
+
+a {
+	text-decoration: none;
+	color: black;
+}
+
+button {
+	margin-left: 10px;
+}
+
+#alles {
+	width: 1000px;
+	height: auto;
+	min-height: 600px;
+	padding-bottom: 20px;
+	margin: 20px auto 0;
+}
+
+#banner {
+	padding: 20px;
+	width: 960px;
+	height: 100px;
+	background-image: url("../images/layout/banner.png");
+}
+
+#logo {
+	font-family: Impact;
+	font-size: 36pt;
+	width: 500px;
+	float: left;
+}
+
+#login {
+	margin-left: 650px;
+	width: 310px;
+	height: 100px;
+	text-align: right;
+}
+
+#login_btn {
+	margin-top: 12px;
+}
+
+#login_fehler {
+	color: red;
+	height: 20px;
+	width: 310px;
+}
+
+#mitte {
+	padding: 20px;
+	width: 960px;
+	min-height: 360px;
+	height: auto;
+	background-color: #ccc;
+	background-image: url("../images/layout/mitte.png");
+}
+
+#tabelle {
+	float: left;
+	width: 700px;
+	padding: 5px;
+	max-height: auto;
+	background-color: #999;
+}
+
+th {
+	color: white;
+}
+
+#footer {
+	padding: 20px;
+	height: 20px;
+	width: 960px;
+	background-image: url("../images/layout/footer.png");
+}
+
+#buttons {
+	text-align: right;
+}
+
+.benutzereingabe {
+	margin-left: 50px;
+} 
+
+/*
+.benutzereingabe td {
+	padding-right: 50px;
+	padding-bottom: 20px;
+}*/
+
+#buchbild {
+	padding: 20px;
+	width: 220px;
+	height: 200px;
+	float: left;
+	text-align: center;
+}
+
+#buchinfo {
+	padding: 20px;
+	float: left;
+	width: 560px;
+	height: 200px;
+}
+
+#buchbeschreibung {
+	padding: 10px;
+	float: left;
+	width: 840px;
+	height: 99px;
+}
+
+#warenkorb {
+	margin-left: 5px;
+	float: left;
+	width: 235px;
+	padding: 5px;
+	max-height: auto;
+	background-color: #999;
+}
+
+#eintrag {
+	
+}
+
+
+/* Registrierung */
+
+table.registrierung {
+	width:400px;
+	margin:15px;
+}
+
+table.registrierung tr {
+	text-align:left;
+	margin-bottom:2px;
+}
+
+table.registrierung tr td {
+	
+}
