@@ -1,3 +1,4 @@
+<!-- BENUTZERREGISTRIERUNG -->
 <form method="post">
 	<!-- Wie wird eine ID vergeben? -->
 	<h2>Neuen Benutzer anlegen</h2>
@@ -32,3 +33,4 @@
 		</tr>
 	</table>
 </form>
+<!-- /BENUTZERREGISTRIERUNG -->

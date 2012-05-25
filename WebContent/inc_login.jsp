@@ -1,3 +1,4 @@
+<!-- Login -->
 <div id="login">
 	<form action="check.jsp" name="schutz" onsubmit="return pruefen()">
 	 	<table class="benutzereingabe">
@@ -17,3 +18,4 @@
 	</div>
 </div>
 <div style="clear:both;"></div>
+<!-- /Login -->
