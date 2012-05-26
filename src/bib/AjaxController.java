@@ -29,7 +29,7 @@ public class AjaxController extends HttpServlet {
 
 	static String codes[][] = {
 		new String[] { "buecherListe", "/bib/fetchBuecherListe" },
-		new String[] { "kundeEintragen", "/" },
+		new String[] { "kundeEintragen", "/bib/Status" },
 		new String[] { "benutzerLoeschen", "/" },
 		new String[] { "benutzerEintragen", "/" },
 		new String[] { "benutzerAendern", "/" } };
@@ -55,7 +55,6 @@ public class AjaxController extends HttpServlet {
 		
 		PrintWriter out = rs.getWriter();
 		if (gefunden) {
-			
 			rq.getRequestDispatcher(target).forward(rq, rs);
 			out.print(rq);			
 		} 

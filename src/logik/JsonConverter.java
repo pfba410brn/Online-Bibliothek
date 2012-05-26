@@ -38,7 +38,6 @@ public class JsonConverter {
 	
 	public static String convertBuch(List<Buch> buchList){
 
-
         String string= "";
         String result="{\"aaData\":[";
 
@@ -48,10 +47,10 @@ public class JsonConverter {
                          string = "[\""+buch.getIsbn()
                                                +"\",\""+buch.getTitel()
                                                +"\",\""+buch.getAutor()
-                                               +"\",XYZ"
-                                               +"\",\"<a class='warenkorb' href=/Online-Bibliothek/bib/AjaxController?do=buchWaehlen&isbn="
+                                               +"\",\"XYZ"
+                                               +"\",\"<a class='warenkorb' href='/Online-Bibliothek/bib/AjaxController?do=buchWaehlen&isbn="
                                                +buch.getIsbn()
-                                               +"]";
+                                               +"'></a>\"]";
                         if(counter!=buchList.size()-1){
                                  result+=string+",";
                         }

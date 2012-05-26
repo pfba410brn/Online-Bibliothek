@@ -9,7 +9,7 @@ $.extend(bib, {
 	addDataTable: function() {
 		$('#buecher').dataTable({
 			"bProcessing": true,
-			"sAjaxSource": "/bib/AjaxController?do=buecherListe",
+			"sAjaxSource": "AjaxController?do=buecherListe",
 	        "oLanguage": {
 	            "sProcessing":   "Bitte warten...",
 	            "sLengthMenu":   "_MENU_ Einträge anzeigen",

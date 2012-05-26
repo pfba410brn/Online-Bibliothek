@@ -94,6 +94,14 @@ button {
 	background-image: url("../images/layout/mitte.png");
 }
 
+/* Tabelle - Liste */
+a.warenkorb {
+	display:block;
+	width:21px;
+	height:17px;
+	text-decoration:none;
+	background-image:url(../images/einkaufswagen.gif);	
+}
 #tabelle {
 	float: left;
 	width: 700px;
