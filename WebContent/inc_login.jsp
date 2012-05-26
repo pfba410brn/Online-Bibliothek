@@ -1,6 +1,7 @@
 <!-- Login -->
 <div id="login">
-	<form action="login_check.jsp" name="anmeldung" method="post">
+	<!-- Noch nicht eingeloggt -->
+	<form action="LoginCheck.java" name="anmeldung" method="post">
 	 	<table class="benutzereingabe">
 	   		<tr>
 	   			<td>Benutzeremail:</td>
@@ -10,12 +11,16 @@
             	<td>Passwort:</td>
             	<td><input type="password" name="login_passwort" size="20" maxlength="50"/></td>
             </tr>
-	   </table>
-	 </form>
-	<div id="login_fehler">Benutzername oder Passwort falsch.</div>
+	   </table> 
+	<!-- Benutzernamen in login_fehler anzeigen wenn eingeloggt -->   
+	<div id="login_fehler">Benutzername oder Passwort falsch.</div> 
 	<div id="login_btn">
-		<b><button id="anmelden">Anmelden</button> I <button id="registrieren">Registrieren</button></b>
+		<b>
+			<input type="submit" value="Absenden"><button id="anmelden">Anmelden</button> I <!-- <button id="abmelden">Abmelden</button> -->
+			<button id="registrieren">Registrieren</button>
+		</b>
 	</div>
+	</form>
 </div>
 <div style="clear:both;"></div>
 <!-- /Login -->

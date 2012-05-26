@@ -24,8 +24,7 @@
 		<div id="bodyDiv">
 			<div id="alles">
 	    	<div id="banner">
-	    	  <!-- TODO: Kann das weg? -->
-	    		<!--<div><img style="float:left;" src="img/logo2.png" alt="" /></div> <div id="logo">Onlinebibliothek Mega</div> -->
+	    	  
 	    	<jsp:include page="inc_login.jsp"></jsp:include>
 	    	</div>
 				<div id="mitte">
@@ -37,8 +36,6 @@
 				<div id="footer">
 					<jsp:include page="inc_footer.jsp"></jsp:include>
 				</div>
-				<!-- Ist der Überflüssig? -->
-				<div></div>
 			</div>
 		</div>
 	</body>
