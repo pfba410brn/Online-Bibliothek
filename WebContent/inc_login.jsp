@@ -1,6 +1,6 @@
 <!-- Login -->
 <div id="login">
-	<form action="check.jsp" name="schutz" onsubmit="return pruefen()">
+	<form action="login_check.jsp" name="anmeldung" method="post">
 	 	<table class="benutzereingabe">
 	   	<tr>
 	   		<td>Benutzername:</td>

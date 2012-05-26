@@ -149,6 +149,8 @@ th {
 	height: 99px;
 }
 
+/* Warenkorb */
+
 #warenkorb {
 	margin-left: 5px;
 	float: left;
@@ -158,10 +160,9 @@ th {
 	background-color: #999;
 }
 
-#eintrag {
-	
+#KundenNr{
+	width: 130px;
 }
-
 
 /* Registrierung */
 
