@@ -38,7 +38,7 @@ $.extend(bib, {
 		$('#close').click(function() {
 			$.unblockUI();
 		});
-		$('#anmelden').click(function() {
+		$('#anmelden').ajaxSuccess(function() {
 			//anmeldeskript abrufen
 		});
 	}
