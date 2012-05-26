@@ -20,7 +20,7 @@
 			</tr> 
 		</table>
 	</form>
-	
+<!--end if-->
 	<hr />	
 	<h3>Warenkorb</h3>  
     <hr />	
