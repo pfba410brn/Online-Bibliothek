@@ -2,12 +2,12 @@
 <div id="warenkorb">
  	
 <!-- if(Kunde nicht eingeloggt)-->
-	<form action="kunden_check.jsp">
+	<form>
     	<table>
         	<tr>
             	<td>KundenNr:</td>
-				<td><input type="text" name="ID" size="17" maxlength="30"/></td>
-				<td><input type="image" name="uebernehmen" src="../images/icons/ok_haken.png"></td>
+				<td><input id="kundenummer" type="text" name="ID" size="17" maxlength="30"/></td>
+				<td><input type="image" name="uebernehmen" src="../images/icons/ok_haken.png" id="kundeEintragen"></td>
 				<!-- <input type="button" style="background-color: transparent; background-image: url(img/icons/ok_haken.png); background-repeat: no-repeat; width: 20px; height: 19px;"> -->
 			</tr>
 		</table>	

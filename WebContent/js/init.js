@@ -31,6 +31,14 @@ $.extend(bib, {
 	},
 	
 	addEventHandler: function() {
+		$('#kundeEintragen').click(function() {
+			$.ajax({
+				  url: "AjaxController?do=kundeEintragen",
+				  type: "POST",
+				  data: "kundennummer="+$('#kundenummer').val()
+			});
+		});
+		
 		$('#registrieren').click(function() {
 			$.blockUI({ message: $('#inc_benutzer') });
 		});
