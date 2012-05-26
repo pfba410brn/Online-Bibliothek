@@ -20,7 +20,7 @@ public class DbVerwaltung {
 	private  EntityManager em;
 	private  EntityManagerFactory factory;
 	
-	protected DbVerwaltung() {
+	public DbVerwaltung() {
 		super();
 	}
 

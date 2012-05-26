@@ -24,7 +24,7 @@ public class JsonConverter {
 			map.put("nachname",benutzer.getNachname());
 			map.put("email",benutzer.getEmail());
 			map.put("telefonNr",benutzer.getTelefonnr());
-			map.put("stra√üe",benutzer.getSTRA√üE());
+			map.put("straﬂe",benutzer.getSTRAﬂE());
 			map.put("plz",benutzer.getPlz());
 			map.put("ort",benutzer.getOrt());
 		//	map.put("passwort",benutzer.getPasswort());

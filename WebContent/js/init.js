@@ -9,13 +9,23 @@ $.extend(bib, {
 	addDataTable: function() {
 		$('#buecher').dataTable({
 			"bProcessing": true,
-			"sAjaxSource": "<<ALLEBUECHER!!!>>.json",
+			"sAjaxSource": "/bib/AjaxController?do=buecherListe",
 	        "oLanguage": {
-	            "sLengthMenu": "Zeige _MENU_ Einträge pro Seite",
-	            "sZeroRecords": "Leider kein Buch vorhanden",
-	            "sInfo": "Zeigt _START_ bis _END_ von _TOTAL_ Einträgen",
-	            "sInfoEmpty": "Zeigt 0 bis 0 von 0 Einträgen",
-	            "sInfoFiltered": "(filtered from _MAX_ total records)"
+	            "sProcessing":   "Bitte warten...",
+	            "sLengthMenu":   "_MENU_ Einträge anzeigen",
+	            "sZeroRecords":  "Keine Bücher vorhanden.",
+	            "sInfo":         "_START_ bis _END_ von _TOTAL_ Einträgen",
+	            "sInfoEmpty":    "0 bis 0 von 0 Einträgen",
+	            "sInfoFiltered": "(gefiltert von _MAX_  Einträgen)",
+	            "sInfoPostFix":  "",
+	            "sSearch":       "Suchen",
+	            "sUrl":          "",
+	            "oPaginate": {
+	                "sFirst":    "Erster",
+	                "sPrevious": "Zurück",
+	                "sNext":     "Nächster",
+	                "sLast":     "Letzter"
+	            }
 	        }
 	    });
 	},

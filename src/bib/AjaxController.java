@@ -1,7 +1,9 @@
 package bib;
 
+
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,13 +11,24 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import logik.JsonConverter;
+
+import db.Buch;
+import db.DbVerwaltung;
+
+
 @WebServlet("/bib/AjaxController")
 public class AjaxController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
+	
+	static DbVerwaltung db = new DbVerwaltung();
+	static List<Buch> buchListe = db.selectAll_Buecher();
+	static String tata = JsonConverter.convertBuch(buchListe);
+
 	static String codes[][] = {
-		new String[] { "buecherListe", "/",  },
+		new String[] { "buecherListe", "/ajax_buecherListe.jsp",  tata},
 		new String[] { "benutzerListe", "/" },
 		new String[] { "benutzerLoeschen", "/" },
 		new String[] { "benutzerEintragen", "/" },
@@ -42,6 +55,7 @@ public class AjaxController extends HttpServlet {
 		
 		PrintWriter out = rs.getWriter();
 		if (gefunden) {
+			
 			rq.getRequestDispatcher(target).forward(rq, rs);
 			out.print(rq);			
 		} 
