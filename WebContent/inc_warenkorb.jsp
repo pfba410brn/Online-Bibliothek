@@ -7,7 +7,7 @@
         	<tr>
             	<td>KundenNr:</td>
 				<td><input type="text" name="ID" size="17" maxlength="30"/></td>
-				<td><input type="image" name="uebernehmen" src="img/icons/ok_haken.png"></td>
+				<td><input type="image" name="uebernehmen" src="../images/icons/ok_haken.png"></td>
 				<!-- <input type="button" style="background-color: transparent; background-image: url(img/icons/ok_haken.png); background-repeat: no-repeat; width: 20px; height: 19px;"> -->
 			</tr>
 		</table>	
@@ -16,7 +16,7 @@
         	<tr>
 				<td>KundenNr:</td>
 				<td><div id="KundenNr">312312321</div></td>
-				<td><input type="image" name="auswerfen" src="img/icons/cancel.png"></td>
+				<td><input type="image" name="auswerfen" src="../images/icons/cancel.png"></td>
 			</tr> 
 		</table>
 	</form>
@@ -33,7 +33,7 @@
 			<tr><td>bis 27.05.2013</td></tr>
 		</table>
 	</div>
-	<div style="width:45px; margin-top:20px;"><input type="image" name="absenden" src="img/icons/pfeil.png"></div>
+	<div style="width:45px; margin-top:20px;"><input type="image" name="absenden" src="../images/icons/pfeil.png"></div>
 	<div style="clear:both;"></div>
     <hr />
     
@@ -45,7 +45,7 @@
 			<tr><td>bis 02.01.2013</td></tr>
 		</table>
 	</div>
-	<div style="width:45px; margin-top:20px;"><input type="image" name="absenden" src="img/icons/pfeil.png"></div>
+	<div style="width:45px; margin-top:20px;"><input type="image" name="absenden" src="../images/icons/pfeil.png"></div>
 	<div style="clear:both;"></div>
     <hr />
        
@@ -57,7 +57,7 @@
 			<tr><td>**Abgabefrist**</td></tr>
 		</table>
 	</div>
-	<div style="width:45px; margin-top:20px;"><input type="image" name="absenden" src="img/icons/pfeil.png"></div>
+	<div style="width:45px; margin-top:20px;"><input type="image" name="absenden" src="../images/icons/pfeil.png"></div>
 	<div style="clear:both;"></div>
     <hr />
     
