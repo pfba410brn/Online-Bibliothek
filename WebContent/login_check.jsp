@@ -7,19 +7,19 @@
 <%@ page import="java.sql.*"%>
 <%
 	String user, password;
-	String benutzerName = request.getParameter("login_benutzername");
+	String benutzerEmail = request.getParameter("login_benutzeremail");
 	String pw = request.getParameter("login_passwort");
 	try {
 		Class.forName("com.mysql.jdbc.Driver");
 		Connection conn = DriverManager.getConnection(
 				"jdbc:mysql://localhost/my_db", "root", "");
 		Statement stmt = conn.createStatement();
-		String sql = "select * from benutzer where user like '" + benutzerName
+		String sql = "select * from email where user like '" + benutzerEmail
 				+ "'";
 		ResultSet res = stmt.executeQuery(sql);
 		res.first();
 		user = res.getString(1);
-		if (benutzerName.equals(user)) {
+		if (benutzerEmail.equals(user)) {
 			password = res.getString(2);
 			if (pw.equals(password)) 
 			{
@@ -30,7 +30,7 @@
 				out.println("<b>Passwort falsch</b><br>");
 			}
 		} else {
-			out.println("<b>Benutzername falsch</b><br>");
+			out.println("<b>Benutzeremail falsch</b><br>");
 		}
 	} catch (ClassNotFoundException err) {
 		out.println("DB-Driver nicht gefunden!"); // ERROR Testen
