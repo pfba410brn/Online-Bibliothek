@@ -28,8 +28,8 @@ public class AjaxController extends HttpServlet {
 	static String tata = JsonConverter.convertBuch(buchListe);
 
 	static String codes[][] = {
-		new String[] { "buecherListe", "/ajax_buecherListe.jsp",  tata},
-		new String[] { "benutzerListe", "/" },
+		new String[] { "buecherListe", "/bib/fetchBuecherListe" },
+		new String[] { "kundeEintragen", "/" },
 		new String[] { "benutzerLoeschen", "/" },
 		new String[] { "benutzerEintragen", "/" },
 		new String[] { "benutzerAendern", "/" } };

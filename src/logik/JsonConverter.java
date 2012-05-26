@@ -38,22 +38,32 @@ public class JsonConverter {
 	
 	public static String convertBuch(List<Buch> buchList){
 
-		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-		
-			for (Buch buch : buchList) {
 
-				Map<String, Object> map = new HashMap<String, Object>();
-				map.put("isbn",buch.getIsbn());
-				map.put("autor",buch.getAutor());
-				map.put("titel",buch.getTitel());
-				map.put("mediumId",buch.getMediumId().toString());
-				map.put("verlag",buch.getVerlag());
+        String string= "";
+        String result="{\"aaData\":[";
 
-				list.add(map);
-			}	
-			JSON result = JSONMarshaler.marshalObject(list);
-			String jsonString = result.getRoot().toJSON();
+                int counter = 0;
+                for (Buch buch : buchList) {
 
-		    return jsonString;
-		}	
+                         string = "[\""+buch.getIsbn()
+                                               +"\",\""+buch.getTitel()
+                                               +"\",\""+buch.getAutor()
+                                               +"\",XYZ"
+                                               +"\",\"<a class='warenkorb' href=/Online-Bibliothek/bib/AjaxController?do=buchWaehlen&isbn="
+                                               +buch.getIsbn()
+                                               +"]";
+                        if(counter!=buchList.size()-1){
+                                 result+=string+",";
+                        }
+                        else{
+                                result+=string;
+                        }
+                         counter++;
+
+                }
+                result+="]}";
+
+
+            return result;
+        }
 }
