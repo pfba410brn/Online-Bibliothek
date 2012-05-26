@@ -28,6 +28,9 @@ $.extend(bib, {
 		$('#close').click(function() {
 			$.unblockUI();
 		});
+		$('#anmelden').click(function() {
+			//anmeldeskript abrufen
+		});
 	}
 });
 $(bib.init);

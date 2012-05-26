@@ -14,7 +14,7 @@
 	 </form>
 	<div id="login_fehler">Benutzername oder Passwort falsch.</div>
 	<div id="login_btn">
-		<b><a href="login.html">Anmelden</a> I <button id="registrieren">Registrieren</button></b>
+		<b><button id="anmelden">Anmelden</button> I <button id="registrieren">Registrieren</button></b>
 	</div>
 </div>
 <div style="clear:both;"></div>
