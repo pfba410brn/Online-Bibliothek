@@ -44,7 +44,7 @@ $.extend(bib, {
 	        "oLanguage": {
 	            "sProcessing":   "Bitte warten...",
 	            "sLengthMenu":   "_MENU_ Einträge anzeigen",
-	            "sZeroRecords":  "Keine Bücher vorhanden.",
+	            "sZeroRecords":  "Keine Benutzer vorhanden.",
 	            "sInfo":         "_START_ bis _END_ von _TOTAL_ Einträgen",
 	            "sInfoEmpty":    "0 bis 0 von 0 Einträgen",
 	            "sInfoFiltered": "(gefiltert von _MAX_  Einträgen)",
@@ -57,8 +57,58 @@ $.extend(bib, {
 	                "sNext":     "Nächster",
 	                "sLast":     "Letzter"
 	            }
+	        },
+	        "fnDrawCallback": function() {
+	        	bib.addBenutzerAendernClick();
+	        	bib.addBenutzerLoeschenClick();
 	        }
 	    });
+	},
+	
+	addBenutzerAendernClick: function() {
+		$(".aendern").each(function() {
+			$(this).click(function() {
+				var bid = $(this).attr("name");
+				$.ajax({
+					url: "AjaxController?do=benutzerAendern",
+					type: "GET",
+					data: "bid=" + bid,
+					success: function(data) {
+						
+					}
+				});
+			});
+		});
+	},
+	
+	addBenutzerLoeschenClick: function () {
+		$(".loeschen").each(function() {
+			$(this).click(function() {
+				var bid = $(this).attr("name");
+				$.ajax({
+					url: "AjaxController?do=benutzerLoeschen",
+					type: "GET",
+					data: "bid=" + bid,
+					success: function(data) {
+						
+					}
+				});
+			});
+		});
+	},
+	
+	
+	addBenutzerSpeichernClick: function() {
+		$("#insert_benutzer").click(function() {
+			$("#reg_Benutzer").validate({
+				success: function(label) {
+					$.ajax({
+						url: "AjaxController?do=benutzerEintragen",
+					});
+				}
+			});
+			
+		});
 	},
 	
 	addAnmeldenClick: function() {
@@ -155,7 +205,6 @@ $.extend(bib, {
 	},
 	
 	addEventHandler: function() {
-		
 		$("#ausleihe").click(function() {
 			$.ajax({
 				  url: "AjaxController?do=ausleihe",
@@ -168,6 +217,7 @@ $.extend(bib, {
 		
 		$('#registrieren').click(function() {
 			$.blockUI({ message: $('#inc_benutzer') });
+			bib.addBenutzerSpeichernClick();
 		});
 		
 		$('#close').click(function() {

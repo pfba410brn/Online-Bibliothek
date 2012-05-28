@@ -20,8 +20,9 @@ public class JsonConverter {
 					"\",\"" +
 					benutzer.getEmail() +
 					"\",\"" +
-					"<a class='delete' href='/Online-Bibliothek/bib/AjaxController?do=benutzerLoeschen&benutzerID=" +
-					benutzer.getBenutzerId() + "'></a>\"]";
+					"<a class='aendern' name='"
+					+ benutzer.getBenutzerId() + "'></a><a class='loeschen' name='"
+					+ benutzer.getBenutzerId() + "'></a>\"]";
 			if(counter != benutzerList.size() -1)
 				result += string + ",";
 			else
