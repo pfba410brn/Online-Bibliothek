@@ -34,6 +34,7 @@ public class AjaxController extends HttpServlet {
 		new String[] { "benutzerListe", "/bib/fetchListe" },
 		new String[] { "loginCheck", "/bib/LoginCheck"},
 		new String[] { "ausloggen", "/bib/Ausloggen"},
+		new String[] { "ausleihe", "/bib/Status" },
 		new String[] { "benutzerLoeschen", "/" },
 		new String[] { "benutzerEintragen", "/" },
 		new String[] { "benutzerAendern", "/" }
