@@ -4,6 +4,7 @@ import java.util.List;
 
 import db.Benutzer;
 import db.Buch;
+import db.DbVerwaltung;
 
 public class JsonConverter {
 
@@ -32,6 +33,7 @@ public class JsonConverter {
 	}
 
 	public static String convertBuch(List<Buch> buchList) {
+		DbVerwaltung db = new DbVerwaltung();
 		String string = "";
 		String result = "{\"aaData\":[";
 		int counter = 0;
@@ -42,7 +44,7 @@ public class JsonConverter {
 					+ buch.getTitel()
 					+ "\",\""
 					+ buch.getAutor()
-					+ "\",\"XYZ"
+					+ "\",\""+db.getBuchStatus(buch)
 					+ "\",\"<a class='warenkorb' href='/Online-Bibliothek/bib/AjaxController?do=buchWaehlen&isbn="
 					+ buch.getIsbn() + "'></a>\"]";
 			if (counter != buchList.size() - 1) {
