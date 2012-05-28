@@ -45,7 +45,8 @@ public class JsonConverter {
 					+ "\",\""
 					+ buch.getAutor()
 					+ "\",\""+db.getBuchStatus(buch)
-					+ "\",\"<a class='warenkorb' href='/Online-Bibliothek/bib/AjaxController?do=buchWaehlen&isbn="
+					+ "\",\"<a class='warenkorb' name='"
+					+ buch.getIsbn() + "'></a><a class='detail' name='"
 					+ buch.getIsbn() + "'></a>\"]";
 			if (counter != buchList.size() - 1) {
 				result += string + ",";

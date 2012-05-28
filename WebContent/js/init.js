@@ -4,10 +4,10 @@ $.extend(bib, {
 	init: function() {
 		bib.addDataTable();
 		bib.addEventHandler();
-		bib.addTableHandler();
+		//bib.addTableHandler();
 	},
 	
-	addTableHandler: function () {
+	/*addTableHandler: function () {
 		var color = "";
 		$("#buecher tbody").delegate("tr", "hover", function() {
 			color = $(this).css("background-color");
@@ -29,7 +29,7 @@ $.extend(bib, {
 				  }
 			});
 		});
-	},
+	},*/
 	
 	
 	addDataTable: function() {
@@ -84,7 +84,10 @@ $.extend(bib, {
 			$.ajax({
 				  url: "AjaxController?do=kundeEintragen",
 				  type: "POST",
-				  data: "kundennummer="+$('#kundenummer').val()
+				  data: "kundennummer="+$('#kundenummer').val(),
+				  success : function() {
+					  
+				  }
 			});
 		});
 		
@@ -95,18 +98,49 @@ $.extend(bib, {
 		$('#close').click(function() {
 			$.unblockUI();
 		});
-		$('#anmelden').ajaxSuccess(function() {
-			//anmeldeskript abrufen
+		
+		
+		$('#anmelden').click(function() {
+			$.ajax({
+				url:"AjaxController?do=loginCheck",
+				type:"POST",
+				data: "login_benutzeremail="+$("#login_benutzeremail").val()+"&login_passwort="+$("#login_benutzeremail").val(),
+				success:function(data) {
+					$("#login").html(data);
+				}
+			});
 		});
-		$('.warenkorb').each(function() {
+		
+		
+		$('a.warenkorb').each(function() {
 			$(this).click(function(e){
 				e.preventDefault();
-				var isbn = $(this).attr("href").substr($(this).attr("href").lastIndexOf("="), $(this).attr("href").size()-1);
+				var isbn = $(this).attr("name");
 				alert(isbn);
 				$.ajax({
 					url: "AjaxController?do=mediumHinzufuegen",
 					type: "GET",
-					data: "isbn=" + isbn
+					data: "isbn=" + isbn,
+					sucess: function(data) {
+						$("#WarenkorbBereich").html(data);
+					}
+				});
+			});
+		});
+		
+		
+		$('a.detail').each(function() {
+			$(this).click(function(e){
+				e.preventDefault();
+				var isbn = $(this).attr("name");
+				alert(isbn);
+				$.ajax({
+					url: "AjaxController?do=mediumDetail",
+					type: "GET",
+					data: "isbn=" + isbn,
+					sucess: function(data) {
+						$.blockUI({ message: data });
+					}
 				});
 			});
 		});

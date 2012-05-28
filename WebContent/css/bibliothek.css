@@ -95,13 +95,25 @@ button {
 }
 
 /* Tabelle - Liste */
+
+table a {
+		text-decoration:none;
+}
+
 a.warenkorb {
-	display:block;
+	display:inline-block;
 	width:21px;
 	height:17px;
-	text-decoration:none;
 	background-image:url(../images/einkaufswagen.gif);	
 }
+
+a.detail {
+	display:inline-block;
+	width:26px;
+	height:17px;
+	background-image:url(../images/icons/auge.png);
+}
+
 #tabelle {
 	float: left;
 	width: 700px;
