@@ -121,6 +121,10 @@ a.detail {
 	background-color: #999;
 }
 
+#tabelle tbody{
+	font-size:14px;
+}
+
 th {
 	color: white;
 }
@@ -181,6 +185,7 @@ th {
 
 #KundenNr{
 	width: 130px;
+	color:white;
 }
 
 /* Registrierung */
