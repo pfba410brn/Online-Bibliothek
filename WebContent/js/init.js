@@ -4,6 +4,7 @@ $.extend(bib, {
 	init: function() {
 		bib.addDataTable();
 		bib.addEventHandler();
+		bib.addAnmeldenClick();
 		//bib.addTableHandler();
 	},
 	
@@ -78,6 +79,21 @@ $.extend(bib, {
 	    });
 	},
 	
+	addAnmeldenClick: function() {
+		$("#anmelden").click(function() {
+			alert("anmelden geklickt!");
+			$.ajax({
+				url:"AjaxController?do=loginCheck",
+				type:"GET",
+				data: "login_benutzeremail="+$("#login_benutzeremail").val()+"&login_passwort="+$("#login_benutzeremail").val(),
+				success:function(data) {
+					$("#login").html(data);
+					bib.addAnmeldenClick();
+				}
+			});
+		});
+	},
+	
 	addEventHandler: function() {
 		
 		$('#kundeEintragen').click(function() {
@@ -100,23 +116,10 @@ $.extend(bib, {
 		});
 		
 		
-		$("#anmelden").click(function() {
-			alert("geklickt!");
-			$.ajax({
-				url:"AjaxController?do=loginCheck",
-				type:"GET",
-				data: "login_benutzeremail="+$("#login_benutzeremail").val()+"&login_passwort="+$("#login_benutzeremail").val(),
-				success:function(data) {
-					$("#login").html(data);
-				}
-			});
-		});
-		
 		
 		
 		$(".warenkorb").each(function() {
 			$(this).click(function(e){
-				e.preventDefault();
 				var isbn = $(this).attr("name");
 				alert(isbn);
 				$.ajax({
@@ -125,6 +128,7 @@ $.extend(bib, {
 					data: "isbn=" + isbn,
 					sucess: function(data) {
 						$("#WarenkorbBereich").html(data);
+						$(bib.init);
 					}
 				});
 			});
@@ -132,7 +136,6 @@ $.extend(bib, {
 		
 		$(".detail").each(function() {
 			$(this).click(function(e){
-				e.preventDefault();
 				var isbn = $(this).attr("name");
 				alert(isbn);
 				$.ajax({
@@ -147,4 +150,7 @@ $.extend(bib, {
 		});
 	}
 });
-$(bib.init);
+$(document).ready(function (){
+	$(bib.init);
+});
+
