@@ -3,7 +3,10 @@ import java.io.*;
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
-import java.util.List;
+
+import org.eclipse.persistence.internal.oxm.schema.model.Include;
+
+import java.util.*;
 
 
 import db.Benutzer;
@@ -35,9 +38,9 @@ public class LoginCheck extends HttpServlet{
 	    	{
 	    		benutzerGruppe = b.getBenutzergruppe().toString();
 	    		korrekt = true;
-	    		out.print("korrekt");
-	    		out.print(b.getEmail() + " " + b.getPasswort());
-		    	out.print(benutzerEmail + " " + pw);
+//	    		out.print("korrekt");
+//	    		out.print(b.getEmail() + " " + b.getPasswort());
+//		    	out.print(benutzerEmail + " " + pw);
 	    	}
 	    	else
 	    	{
@@ -56,10 +59,17 @@ public class LoginCheck extends HttpServlet{
 				session.setAttribute("Benutzergruppe", benutzerGruppe);
 				session.setMaxInactiveInterval(3600); // Sekunden
 			}
+			/*
+	    	Date now = new Date();
+	    	String timestamp = now.toString();
+	    	Cookie cookie = new Cookie ("Email", benutzerEmail);
+	    	cookie.setMaxAge(365 * 24 * 60 * 60);
+	    	response.addCookie(cookie);
+	    	include('start.jsp'); */   	
 	    }
 	    else
 	    {
-	    	out.print("NICHT korrekt");
+	    	//out.print("NICHT korrekt");
 	    	//"Benutzername oder Passwort falsch."
 	    }
 	}
