@@ -32,9 +32,12 @@ public class AjaxController extends HttpServlet {
 		new String[] { "mediumDetail", "/bib/fetchSomething" },
 		new String[] { "benutzerListe", "/bib/fetchListe" },
 		new String[] { "loginCheck", "/bib/LoginCheck"},
+		new String[] { "ausloggen", "/bib/Ausloggen"},
 		new String[] { "benutzerLoeschen", "/" },
 		new String[] { "benutzerEintragen", "/" },
-		new String[] { "benutzerAendern", "/" } };
+		new String[] { "benutzerAendern", "/" },
+		new String[] { "benutzerCheck", "/bib/KundenCheck"}
+	};
 	
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
@@ -65,3 +68,4 @@ public class AjaxController extends HttpServlet {
 	}
 
 }
+
