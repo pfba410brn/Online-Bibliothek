@@ -28,7 +28,7 @@ public class AjaxController extends HttpServlet {
 
 	static String codes[][] = {
 		new String[] { "buecherListe", "/bib/fetchListe" },
-		new String[] { "kundeEintragen", "/bib/Status" },
+		new String[] { "kundenCheck", "/bib/KundenCheck" },
 		new String[] { "mediumDetail", "/bib/fetchSomething" },
 		new String[] { "benutzerListe", "/bib/fetchListe" },
 		new String[] { "loginCheck", "/bib/LoginCheck"},

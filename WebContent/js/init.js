@@ -58,7 +58,11 @@ $.extend(bib, {
 	                "sNext":     "Nächster",
 	                "sLast":     "Letzter"
 	            }
-	        }
+	        },
+			"fnFooterCallback": function() {
+				bib.addWarenkorbClick();
+				bib.addDetailClick();
+			}
 	    });
 		
 		$('#benutzer').dataTable({
@@ -95,6 +99,7 @@ $.extend(bib, {
 					$("#login").html(data);
 					bib.addAnmeldenClick();
 					bib.addAbmeldenClick();
+					
 				}
 			});
 		});
@@ -153,8 +158,8 @@ $.extend(bib, {
 	addKundeEintragen: function() {
 		$('#kundeEintragen').click(function() {
 			$.ajax({
-				  url: "AjaxController?do=kundeEintragen",
-				  type: "POST",
+				  url: "AjaxController?do=kundenCheck",
+				  type: "GET",
 				  data: "kundennummer="+$('#kundenummer').val(),
 				  success : function(data) {
 					  $("#KundenBereich").html(data);
