@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 @WebServlet("/bib/Ausloggen")
 public class Ausloggen extends HttpServlet
 {
-	protected void doPost (
+	protected void doGet (
 		      HttpServletRequest request, HttpServletResponse response
 		    ) throws ServletException, java.io.IOException 
 		{
@@ -36,7 +36,7 @@ public class Ausloggen extends HttpServlet
 		out.println("<td><input type='password' id='login_passwort' size='20' maxlength='50'/></td>");
 		out.println("</tr>");
 		out.println("</table>"); 
-		out.println("<div id='login_fehler'>Erfolgreich Ausgeloggt</div>");  
+		out.println("<div id='login_fehler'>Erfolgreich Abgemeldet</div>");  
 		out.println("<div id='login_btn'>");
 		out.println("<b>");
 		out.println("<input type='submit' id='anmelden' value='Anmelden'> I");
