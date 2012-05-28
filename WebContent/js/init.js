@@ -5,6 +5,11 @@ $.extend(bib, {
 		bib.addDataTable();
 		bib.addEventHandler();
 		bib.addAnmeldenClick();
+		bib.addAbmeldenClick();
+		bib.addWarenkorbClick();
+		bib.addDetailClick();
+		bib.addKundeEintragen();
+		
 		//bib.addTableHandler();
 	},
 	
@@ -81,11 +86,25 @@ $.extend(bib, {
 	
 	addAnmeldenClick: function() {
 		$("#anmelden").click(function() {
-			alert("anmelden geklickt!");
+			alert("tata anmelden!");
 			$.ajax({
 				url:"AjaxController?do=loginCheck",
 				type:"GET",
-				data: "login_benutzeremail="+$("#login_benutzeremail").val()+"&login_passwort="+$("#login_benutzeremail").val(),
+				success:function(data) {
+					$("#login").html(data);
+					bib.addAnmeldenClick();
+					bib.addAbmeldenClick();
+				}
+			});
+		});
+	},
+	
+	addAbmeldenClick: function() {
+		$("#abmelden").click(function() {
+			alert("abmelden geklickt!");
+			$.ajax({
+				url:"AjaxController?do=ausloggen",
+				type:"GET",
 				success:function(data) {
 					$("#login").html(data);
 					bib.addAnmeldenClick();
@@ -94,30 +113,7 @@ $.extend(bib, {
 		});
 	},
 	
-	addEventHandler: function() {
-		
-		$('#kundeEintragen').click(function() {
-			$.ajax({
-				  url: "AjaxController?do=kundeEintragen",
-				  type: "POST",
-				  data: "kundennummer="+$('#kundenummer').val(),
-				  success : function() {
-					  
-				  }
-			});
-		});
-		
-		$('#registrieren').click(function() {
-			$.blockUI({ message: $('#inc_benutzer') });
-		});
-		
-		$('#close').click(function() {
-			$.unblockUI();
-		});
-		
-		
-		
-		
+	addWarenkorbClick: function() {
 		$(".warenkorb").each(function() {
 			$(this).click(function(e){
 				var isbn = $(this).attr("name");
@@ -133,7 +129,9 @@ $.extend(bib, {
 				});
 			});
 		});
-		
+	},
+	
+	addDetailClick: function () {
 		$(".detail").each(function() {
 			$(this).click(function(e){
 				var isbn = $(this).attr("name");
@@ -148,6 +146,34 @@ $.extend(bib, {
 				});
 			});
 		});
+	},
+	
+	
+	addKundeEintragen: function() {
+		$('#kundeEintragen').click(function() {
+			$.ajax({
+				  url: "AjaxController?do=kundeEintragen",
+				  type: "POST",
+				  data: "kundennummer="+$('#kundenummer').val(),
+				  success : function() {
+					  
+				  }
+			});
+		});
+	},
+	
+	addEventHandler: function() {
+
+		$('#registrieren').click(function() {
+			$.blockUI({ message: $('#inc_benutzer') });
+		});
+		
+		$('#close').click(function() {
+			$.unblockUI();
+		});
+
+		
+
 	}
 });
 $(document).ready(function (){
