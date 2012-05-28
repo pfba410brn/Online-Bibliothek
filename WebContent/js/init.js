@@ -22,6 +22,7 @@ $.extend(bib, {
 		});
 	},
 	
+	
 	addDataTable: function() {
 		$('#buecher').dataTable({
 			"bProcessing": true,
@@ -87,6 +88,18 @@ $.extend(bib, {
 		});
 		$('#anmelden').click(function() {
 			//anmeldeskript abrufen
+		});
+		$('.warenkorb').each(function() {
+			$(this).click(function(e){
+				e.preventDefault();
+				var isbn = $(this).attr("href").substr($(this).attr("href").lastIndexOf("="), $(this).attr("href").size()-1);
+				alert(isbn);
+				$.ajax({
+					url: "AjaxController?do=mediumHinzufuegen",
+					type: "GET",
+					data: "isbn=" + isbn
+				});
+			});
 		});
 	}
 });
