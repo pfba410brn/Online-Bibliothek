@@ -8,6 +8,16 @@ $.extend(bib, {
 	},
 	
 	addTableHandler: function () {
+		
+		var color = "";
+		$("#buecher tbody").delegate("tr", "hover", function() {
+			color = $(this).css("background-color");
+			$(this).css("background-color","#999");
+		},
+		function() {
+			$(this).css("background-color",color);
+		});
+		
 		$("#buecher tbody").delegate("tr", "click", function() {
 			var firstCellText = $("td:first", this).text();
 			alert("First Cell: " + firstCellText);
@@ -21,6 +31,7 @@ $.extend(bib, {
 			});
 		});
 	},
+	
 	
 	addDataTable: function() {
 		$('#buecher').dataTable({
@@ -85,8 +96,20 @@ $.extend(bib, {
 		$('#close').click(function() {
 			$.unblockUI();
 		});
-		$('#anmelden').click(function() {
+		$('#anmelden').ajaxSuccess(function() {
 			//anmeldeskript abrufen
+		});
+		$('.warenkorb').each(function() {
+			$(this).click(function(e){
+				e.preventDefault();
+				var isbn = $(this).attr("href").substr($(this).attr("href").lastIndexOf("="), $(this).attr("href").size()-1);
+				alert(isbn);
+				$.ajax({
+					url: "AjaxController?do=mediumHinzufuegen",
+					type: "GET",
+					data: "isbn=" + isbn
+				});
+			});
 		});
 	}
 });
