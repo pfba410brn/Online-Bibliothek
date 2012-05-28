@@ -107,6 +107,7 @@ public class LoginCheck extends HttpServlet{
 			out.println("<button id='registrieren'>Registrieren</button>");
 			out.println("</b>");
 			out.println("</div>");
+			
 	    }
 	    else
 	    {

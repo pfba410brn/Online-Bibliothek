@@ -43,9 +43,7 @@
 					 %>
 			  	<div style="clear:both;"></div>	
 				</div>
-				<div id="footer">
-					<jsp:include page="inc_footer.jsp"></jsp:include>
-				</div>
+				<jsp:include page="inc_footer.jsp"></jsp:include>
 			</div>
 		</div>
 	</body>
