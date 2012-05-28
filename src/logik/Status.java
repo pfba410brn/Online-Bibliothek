@@ -15,6 +15,7 @@ import db.Benutzer;
 import db.Buch;
 import db.DbVerwaltung;
 import db.Exemplar;
+import db.ExemplarBenutzer;
 
 
 
@@ -56,7 +57,7 @@ public class Status extends HttpServlet {
 			}
 		}
 		
-		if(request.getParameter("kundennr") != null) {
+		if(request.getParameter("kundennr") != null && this.benutzer == null) {
 			/* NEUEN KUNDEN HINZUFÜGEN ????*/
 			String kundennr = request.getParameter("kundennr");
 			this.benutzer = db.select_BenutzerUeberID(Long.parseLong(kundennr));
@@ -75,6 +76,11 @@ public class Status extends HttpServlet {
 					out.print("<div style=\"width:45px; margin-top:20px;\"><input type=\"image\" name=\"absenden\" src=\"../images/icons/pfeil.png\"></div>");
 					out.print("<div style=\"clear:both;\"></div>");
 					out.print("<hr />");
+				}
+				
+				if (this.exemlarListe.size() > 0 && request.getParameter("do").equals("ausleihe"))
+				{
+					this.medienAusleihen();
 				}
 				
 			}
@@ -103,6 +109,21 @@ public class Status extends HttpServlet {
 
 	private void setBenutzer(Benutzer benutzer) {
 		this.benutzer = benutzer;
+	}
+	
+	private void medienAusleihen(){
+		// TODO: Anpassen
+		/*DbVerwaltung db = new DbVerwaltung();
+		for (Exemplar exemplar : this.exemlarListe)
+		{
+			ExemplarBenutzer ausleihVorgang = new ExemplarBenutzer();
+			ausleihVorgang.setBenutzer(this.benutzer);
+			ausleihVorgang.setDatum(new Date());
+			ausleihVorgang.setDauer((BigDecimal)14.0);
+			ausleihVorgang.setExemplar(exemplar);
+			ausleihVorgang.setId(id);
+			db.insertExemplarBenutzer(ausleihVorgang);
+		}*/
 	}
 	
 	
