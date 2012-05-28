@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="C:/Program Files (x86)/Apache Software Foundation/Tomcat 7.0/lib/jsonij-0.2.8.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files (x86)/Apache Software Foundation/Tomcat 7.0/lib/servlet-api.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files (x86)/Apache Software Foundation/Tomcat 7.0/lib/persistence-api-1.0.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="lib" path="/home/xtc/Downloads/benoetigteJars /persistence-api-1.0.jar"/>
+	<classpathentry kind="lib" path="/home/xtc/Downloads/benoetigteJars /ojdbc6.jar"/>
+	<classpathentry kind="lib" path="/home/xtc/Downloads/benoetigteJars /jsonij-0.2.8.jar"/>
+	<classpathentry kind="lib" path="/home/xtc/Downloads/benoetigteJars /eclipselink.jar"/>
+	<classpathentry kind="lib" path="/home/xtc/Programme/apache-tomcat-7.0.26/lib/servlet-api.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -21,9 +21,13 @@ public class DbTest {
 	    List<Benutzer>resultList = db.selectAll_Benutzer();
 	    List<Buch> buchListe = db.selectAll_Buecher();
 	    
+//	    for(Buch b : buchListe){
+//	    	db.getBuchStatus(b);
+//	    }
 	    
 	   System.out.println(JsonConverter.convertBenutzer(resultList));
 	   System.out.println(JsonConverter.convertBuch(buchListe));
+	   
 
 	}
 

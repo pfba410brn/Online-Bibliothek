@@ -9,6 +9,7 @@ import jsonij.json.JSONMarshaler;
 
 import db.Benutzer;
 import db.Buch;
+import db.DbVerwaltung;
 
 public class JsonConverter {
 
@@ -40,7 +41,7 @@ public class JsonConverter {
 			map.put("nachname", benutzer.getNachname());
 			map.put("email", benutzer.getEmail());
 			map.put("telefonNr", benutzer.getTelefonnr());
-			map.put("straße", benutzer.getSTRAßE());
+			map.put("straï¿½e", benutzer.getSTRAï¿½E());
 			map.put("plz", benutzer.getPlz());
 			map.put("ort", benutzer.getOrt());
 			// map.put("passwort",benutzer.getPasswort());*/
@@ -53,6 +54,7 @@ public class JsonConverter {
 	}
 
 	public static String convertBuch(List<Buch> buchList) {
+		DbVerwaltung db = new DbVerwaltung();
 		String string = "";
 		String result = "{\"aaData\":[";
 		int counter = 0;
@@ -63,7 +65,7 @@ public class JsonConverter {
 					+ buch.getTitel()
 					+ "\",\""
 					+ buch.getAutor()
-					+ "\",\"XYZ"
+					+ "\",\""+db.getBuchStatus(buch)
 					+ "\",\"<a class='warenkorb' href='/Online-Bibliothek/bib/AjaxController?do=buchWaehlen&isbn="
 					+ buch.getIsbn() + "'></a>\"]";
 			if (counter != buchList.size() - 1) {
