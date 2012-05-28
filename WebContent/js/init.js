@@ -104,7 +104,7 @@ $.extend(bib, {
 			alert("geklickt!");
 			$.ajax({
 				url:"AjaxController?do=loginCheck",
-				type:"POST",
+				type:"GET",
 				data: "login_benutzeremail="+$("#login_benutzeremail").val()+"&login_passwort="+$("#login_benutzeremail").val(),
 				success:function(data) {
 					$("#login").html(data);

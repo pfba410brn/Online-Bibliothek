@@ -15,7 +15,7 @@ import db.DbVerwaltung;
 public class LoginCheck extends HttpServlet{
 
 
-	protected void doPost (
+	protected void doGet (
 		      HttpServletRequest request, HttpServletResponse response
 		    ) throws ServletException, java.io.IOException 
 		{
