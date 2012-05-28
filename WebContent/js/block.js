@@ -92,14 +92,14 @@
 			css: {
 				padding:	0,
 				margin:		0,
-				width:		'30%',
-				top:		'40%',
-				left:		'35%',
-				textAlign:	'center',
+				width:		'auto',
+				top:		'20%',
+				left:		'30%',
+				textAlign:	'left',
 				color:		'#000',
-				border:		'3px solid #aaa',
-				backgroundColor:'#fff',
-				cursor:		'wait'
+				border:		'3px solid #000268',
+				backgroundColor:'#cccccc',
+				cursor:		'auto'
 			},
 
 			// minimal style set used when themes are used
@@ -113,7 +113,7 @@
 			overlayCSS:  {
 				backgroundColor: '#000',
 				opacity:	  	 0.6,
-				cursor:		  	 'wait'
+				cursor:		  	 'auto'
 			},
 
 			// styles applied when using $.growlUI
