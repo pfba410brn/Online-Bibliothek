@@ -39,6 +39,7 @@ h1 {
 a {
 	text-decoration: none;
 	color: black;
+	
 }
 
 button {
@@ -97,13 +98,15 @@ button {
 
 table a {
 		text-decoration:none;
+		cursor: pointer;
 }
 
 a.warenkorb {
 	display:inline-block;
 	width:21px;
 	height:17px;
-	background-image:url(../images/einkaufswagen.gif);	
+	background-image:url(../images/einkaufswagen.gif);
+	margin-right: 10px;	
 }
 
 a.detail {
