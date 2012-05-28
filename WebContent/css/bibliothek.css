@@ -39,6 +39,7 @@ h1 {
 a {
 	text-decoration: none;
 	color: black;
+	
 }
 
 button {
@@ -97,13 +98,15 @@ button {
 
 table a {
 		text-decoration:none;
+		cursor: pointer;
 }
 
 a.warenkorb {
 	display:inline-block;
 	width:21px;
 	height:17px;
-	background-image:url(../images/einkaufswagen.gif);	
+	background-image:url(../images/einkaufswagen.gif);
+	margin-right: 10px;	
 }
 
 a.detail {
@@ -119,6 +122,10 @@ a.detail {
 	padding: 5px;
 	max-height: auto;
 	background-color: #999;
+}
+
+#tabelle tbody{
+	font-size:14px;
 }
 
 th {
@@ -181,6 +188,7 @@ th {
 
 #KundenNr{
 	width: 130px;
+	color:white;
 }
 
 /* Registrierung */
