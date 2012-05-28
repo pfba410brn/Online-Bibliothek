@@ -8,6 +8,15 @@ $.extend(bib, {
 	},
 	
 	addTableHandler: function () {
+		var color = "";
+		$("#buecher tbody").delegate("tr", "hover", function() {
+			color = $(this).css("background-color");
+			$(this).css("background-color","#999");
+		},
+		function() {
+			$(this).css("background-color",color);
+		});
+		
 		$("#buecher tbody").delegate("tr", "click", function() {
 			var firstCellText = $("td:first", this).text();
 			alert("First Cell: " + firstCellText);
