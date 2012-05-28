@@ -155,8 +155,8 @@ $.extend(bib, {
 				  url: "AjaxController?do=kundeEintragen",
 				  type: "POST",
 				  data: "kundennummer="+$('#kundenummer').val(),
-				  success : function() {
-					  
+				  success : function(data) {
+					  $("#KundenBereich").html(data);
 				  }
 			});
 		});

@@ -17,12 +17,12 @@ public class Ausloggen extends HttpServlet
         HttpSession session = request.getSession(false);
         if (session != null) 
         {
-          out.println("Sitzung Nr. " + session.getId()  + " wird nun geschlossen!");
+          //out.println("Sitzung Nr. " + session.getId()  + " wird nun geschlossen!");
           session.invalidate();
         }
         else
         {
-          out.println("Sitzung ist bereits geschlossen!");
+          //out.println("Sitzung ist bereits geschlossen!");
         }
         
     	//"Benutzername oder Passwort falsch."
