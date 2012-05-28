@@ -37,18 +37,18 @@ public class LoginCheck extends HttpServlet{
 	    	{
 	    		benutzerGruppe = b.getBenutzergruppe().getGruppenId();
 	    		korrekt = true;
+	    		/* TEST
 	    		out.println("korrekt \n");
 	    		out.println(b.getEmail() + " " + b.getPasswort());
 	    		out.println("\n");
 		    	out.println(benutzerEmail + " " + pw + " " + benutzerGruppe);
+		    	*/
 	    	}
 
 	    }
 	    
 	    if(korrekt)
 	    {
-	    	
-	    	out.print("korrekt");
 	    	HttpSession session = request.getSession(true);
 			if (session.isNew()) 
 			{
@@ -107,14 +107,16 @@ public class LoginCheck extends HttpServlet{
 	    {
 	    	
 	        HttpSession session = request.getSession(false);
-	        if (session != null) {
+	        if (session != null) 
+	        {
 	          out.println("Sitzung Nr. " + session.getId()  + " wird nun geschlossen!");
 	          session.invalidate();
 	        }
 	        else
+	        {
 	          out.println("Sitzung ist bereits geschlossen!");
+	        }
 	        
-	    	out.println("NICHT korrekt");
 	    	out.println("<PRE>"); // Preformatierter Text: Typewriter Schrift 
 			out.println("Valid Id: " + request.isRequestedSessionIdValid());
 			out.println("Cookie: " + request.isRequestedSessionIdFromCookie());
