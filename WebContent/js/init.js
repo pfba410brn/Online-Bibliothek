@@ -99,6 +99,7 @@ $.extend(bib, {
 					$("#login").html(data);
 					bib.addAnmeldenClick();
 					bib.addAbmeldenClick();
+					
 				}
 			});
 		});
@@ -158,7 +159,7 @@ $.extend(bib, {
 		$('#kundeEintragen').click(function() {
 			$.ajax({
 				  url: "AjaxController?do=kundenCheck",
-				  type: "POST",
+				  type: "GET",
 				  data: "kundennummer="+$('#kundenummer').val(),
 				  success : function(data) {
 					  $("#KundenBereich").html(data);
