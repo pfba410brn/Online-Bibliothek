@@ -100,7 +100,8 @@ $.extend(bib, {
 		});
 		
 		
-		$('#anmelden').click(function() {
+		$("#anmelden").click(function() {
+			alert("geklickt!");
 			$.ajax({
 				url:"AjaxController?do=loginCheck",
 				type:"POST",
@@ -112,7 +113,8 @@ $.extend(bib, {
 		});
 		
 		
-		$('a.warenkorb').each(function() {
+		
+		$(".warenkorb").each(function() {
 			$(this).click(function(e){
 				e.preventDefault();
 				var isbn = $(this).attr("name");
@@ -128,8 +130,7 @@ $.extend(bib, {
 			});
 		});
 		
-		
-		$('a.detail').each(function() {
+		$(".detail").each(function() {
 			$(this).click(function(e){
 				e.preventDefault();
 				var isbn = $(this).attr("name");
