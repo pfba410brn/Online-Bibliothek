@@ -2,7 +2,6 @@ package db;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -289,24 +288,6 @@ public class DbVerwaltung {
         return true;
     }
     
-	public int getBuchStatus(Buch buch){
-        //open();
-		
-	   int anzahlEx;
-       int anzahlVerliehen = 0;
 
-        Set <Exemplar> set =buch.getExemplars();
-        anzahlEx = set.size();
-        for ( Iterator<Exemplar> i = set.iterator(); i.hasNext(); )
-        {
-          Exemplar e = i.next();
-          Set<ExemplarBenutzer>  eb =e.getExemplarBenutzers();
-          anzahlVerliehen= eb.size();
-        }
-
-         // close();
-
-		return anzahlEx - anzahlVerliehen;
-	}
     
 }
