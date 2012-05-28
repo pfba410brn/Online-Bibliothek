@@ -36,11 +36,11 @@ public class Ausloggen extends HttpServlet
 		out.println("<td><input type='password' id='login_passwort' size='20' maxlength='50'/></td>");
 		out.println("</tr>");
 		out.println("</table>"); 
-		out.println("<div id='login_fehler'>Erfolgreich Abgemeldet</div>");  
+		out.println("<div style='color:#32CD32' id='login_fehler'><b>Erfolgreich Abgemeldet</b></div>");  
 		out.println("<div id='login_btn'>");
 		out.println("<b>");
-		out.println("<input type='submit' id='anmelden' value='Anmelden'> I");
-		out.println("<button id='registrieren'>Registrieren</button>");
+		out.println("<a style='cursor:pointer;' id='anmelden'>Anmelden</a> I");
+		out.println("<a style='cursor:pointer;' id='registrieren'>Registrieren</a>");
 		out.println("</b>");
 		out.println("</div>");  
 	}

@@ -89,22 +89,23 @@ public class LoginCheck extends HttpServlet{
 					out.println("Attribut: " + s + "=" + session.getAttribute(s));
 				}
 			}*/
-			out.println(benutzerEmail + " " + pw + " " + benutzerGruppe);
-			out.println("<table style='visibility:hidden;' class='benutzereingabe'>");
-			out.println("<tr>");
-			out.println("<td>Benutzeremail:</td>");
-			out.println("<td><input type='text' id='login_benutzeremail' size='20' maxlength='50'/></td>");
-			out.println("</tr>");
-			out.println("<tr>");
-			out.println("<td>Passwort:</td>");
-			out.println("<td><input type='password' id='login_passwort' size='20' maxlength='50'/></td>");
-			out.println("</tr>");
-			out.println("</table>"); 
-			out.println("<div style='color:green' id='login_fehler'>Hallo " + benutzerVorname + " " + benutzerNachname + "</div>");  
-			out.println("<div id='login_btn'>");
+			if(benutzerGruppe==1)
+			{
+				out.print("<img style='float:left;' src='../images/silhouette_a.png'>");
+			}
+			else if(benutzerGruppe==2)
+			{
+				out.print("<img style='float:left;' src='../images/silhouette_m.png'>");
+			}
+			else
+			{
+				out.print("<img style='float:left;' src='../images/silhouette_k.png'>");
+			}
+			out.println("<div style='color:#32CD32; text-align:left; margin-left:15px;' id='login_fehler'><b>" + benutzerVorname + " " + benutzerNachname + "</b></div>");
+			out.println("<div style='margin-top:59px;' id='login_btn'>");
 			out.println("<b>");
-			out.println("<input type='submit' id='abmelden' value='Abmelden'> I");
-			out.println("<button id='registrieren'>Registrieren</button>");
+			out.println("<a style='cursor:pointer;' id='abmelden'>Abmelden</a> I");
+			out.println("<a style='cursor:pointer;' id='registrieren'>Registrieren</a>");
 			out.println("</b>");
 			out.println("</div>");
 			
@@ -142,7 +143,6 @@ public class LoginCheck extends HttpServlet{
 				}
 			}	
 			*/
-	        out.println(benutzerEmail + " " + pw + " " + benutzerGruppe);
 			out.println("<table class='benutzereingabe'>");
 			out.println("<tr>");
 			out.println("<td>Benutzeremail:</td>");
@@ -153,11 +153,11 @@ public class LoginCheck extends HttpServlet{
 			out.println("<td><input type='password' id='login_passwort' size='20' maxlength='50'/></td>");
 			out.println("</tr>");
 			out.println("</table>"); 
-			out.println("<div id='login_fehler'>Falsche Anmeldedaten</div>");  
+			out.println("<div id='login_fehler'><b>Falsche Anmeldedaten</b></div>");  
 			out.println("<div id='login_btn'>");
 			out.println("<b>");
-			out.println("<input type='submit' id='anmelden' value='Anmelden'> I");
-			out.println("<button id='registrieren'>Registrieren</button>");
+			out.println("<a style='cursor:pointer;' id='anmelden'>Anmelden</a> I");
+			out.println("<a style='cursor:pointer;' id='registrieren'>Registrieren</a>");
 			out.println("</b>");
 			out.println("</div>");
 			

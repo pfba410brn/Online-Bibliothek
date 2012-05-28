@@ -7,33 +7,8 @@ $.extend(bib, {
 		bib.addAnmeldenClick();
 		bib.addAbmeldenClick();
 		bib.addKundeEintragen();
-		
-		//bib.addTableHandler();
 	},
 	
-	/*addTableHandler: function () {
-		var color = "";
-		$("#buecher tbody").delegate("tr", "hover", function() {
-			color = $(this).css("background-color");
-			$(this).css("background-color","#999");
-		},
-		function() {
-			$(this).css("background-color",color);
-		});
-		
-		$("#buecher tbody").delegate("tr", "click", function() {
-			var firstCellText = $("td:first", this).text();
-			alert("First Cell: " + firstCellText);
-			$.ajax({
-				  url: "AjaxController?do=mediumDetail",
-				  type: "GET",
-				  data: "isbn="+firstCellText,
-				  success: function(data) {
-					  $.blockUI({ message: data });
-				  }
-			});
-		});
-	},*/
 	
 	
 	addDataTable: function() {
@@ -97,7 +72,6 @@ $.extend(bib, {
 					$("#login").html(data);
 					bib.addAnmeldenClick();
 					bib.addAbmeldenClick();
-					
 				}
 			});
 		});
@@ -141,7 +115,7 @@ $.extend(bib, {
 					url: "AjaxController?do=mediumDetail",
 					type: "GET",
 					data: "isbn=" + isbn,
-					sucess: function(data) {
+					success: function(data) {
 						$.blockUI({ message: data });
 					}
 				});
@@ -152,9 +126,24 @@ $.extend(bib, {
 	
 	addKundeEintragen: function() {
 		$('#kundeEintragen').click(function() {
-			alert("Kunde Eintragen geklickt!: " + $("#kundenID").val());
 			$.ajax({
 				  url: "AjaxController?do=kundenCheck",
+				  type: "GET",
+				  data: "kundennummer=" + $("#kundenID").val(),
+				  success : function(data) {
+					  $("#KundenBereich").html(data);
+					  bib.addKundeEintragen();
+					  bib.addWarenkorbAufloesen();
+				  }
+			});
+		});
+	},
+	
+	addWarenkorbAufloesen: function() {
+		$('#auswerfen').click(function() {
+			alert("Kunde Auswerfen geklickt!: " + $("#kundenID").val());
+			$.ajax({
+				  url: "AjaxController?do=kundenAuswerfen",
 				  type: "GET",
 				  data: "kundennummer=" + $("#kundenID").val(),
 				  success : function(data) {
@@ -166,14 +155,13 @@ $.extend(bib, {
 	},
 	
 	addEventHandler: function() {
+		
 		$("#ausleihe").click(function() {
 			$.ajax({
 				  url: "AjaxController?do=ausleihe",
 				  type: "GET",
-				  data: "kundennummer=" + $("#kundenID").val(),
 				  success : function(data) {
-					  $("#KundenBereich").html(data);
-					  bib.addKundeEintragen();
+					  $.blockUI({ message: data });
 				  }
 			});
 		});
