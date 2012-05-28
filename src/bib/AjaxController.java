@@ -21,15 +21,16 @@ import db.DbVerwaltung;
 public class AjaxController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-
 	
 	static DbVerwaltung db = new DbVerwaltung();
 	static List<Buch> buchListe = db.selectAll_Buecher();
 	static String tata = JsonConverter.convertBuch(buchListe);
 
 	static String codes[][] = {
-		new String[] { "buecherListe", "/ajax_buecherListe.jsp",  tata},
-		new String[] { "benutzerListe", "/" },
+		new String[] { "buecherListe", "/bib/fetchListe" },
+		new String[] { "kundeEintragen", "/bib/Status" },
+		new String[] { "mediumDetail", "/bib/fetchSomething" },
+		new String[] { "benutzerListe", "/bib/fetchListe" },
 		new String[] { "benutzerLoeschen", "/" },
 		new String[] { "benutzerEintragen", "/" },
 		new String[] { "benutzerAendern", "/" } };
@@ -55,7 +56,6 @@ public class AjaxController extends HttpServlet {
 		
 		PrintWriter out = rs.getWriter();
 		if (gefunden) {
-			
 			rq.getRequestDispatcher(target).forward(rq, rs);
 			out.print(rq);			
 		} 

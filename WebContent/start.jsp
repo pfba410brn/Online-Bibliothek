@@ -15,6 +15,7 @@
 		<!-- Modal_Layer_Inhalte -->
 		<div style="display:none">
 			<div id="inc_benutzer"><jsp:include page="inc_benutzer.jsp"></jsp:include></div>
+			
 			<div id="inc_rueckgabe"><jsp:include page="inc_rueckgabe.jsp"></jsp:include></div>
 			<div id="inc_ausleihe"><jsp:include page="inc_ausleihe.jsp"></jsp:include></div>
 		</div>
@@ -28,9 +29,18 @@
 	    	<jsp:include page="inc_login.jsp"></jsp:include>
 	    	</div>
 				<div id="mitte">
-					
-					<jsp:include page="inc_buecherListe.jsp"></jsp:include>
-					<jsp:include page="inc_warenkorb.jsp"></jsp:include>
+					<%
+						if(request.getParameter("do").equals("buecherListe")) {	
+					%>
+							<jsp:include page="inc_buecherListe.jsp"></jsp:include>
+							<jsp:include page="inc_warenkorb.jsp"></jsp:include>
+					<%
+						} else if(request.getParameter("do").equals("benutzerListe")) {
+					%>
+						<jsp:include page="inc_benutzerListe.jsp"></jsp:include>
+					<%
+						}
+					 %>
 			  	<div style="clear:both;"></div>	
 				</div>
 				<div id="footer">
