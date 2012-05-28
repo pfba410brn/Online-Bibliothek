@@ -28,14 +28,16 @@ public class AjaxController extends HttpServlet {
 
 	static String codes[][] = {
 		new String[] { "buecherListe", "/bib/fetchListe" },
-		new String[] { "kundenCheck", "/bib/KundenCheck" },
+		new String[] { "kundenCheck", "/bib/kundenCheck" },
 		new String[] { "mediumDetail", "/bib/fetchSomething" },
+		new String[] { "mediumHinzufuegen", "/bib/Status"} ,
 		new String[] { "benutzerListe", "/bib/fetchListe" },
 		new String[] { "loginCheck", "/bib/LoginCheck"},
 		new String[] { "ausloggen", "/bib/Ausloggen"},
 		new String[] { "benutzerLoeschen", "/" },
 		new String[] { "benutzerEintragen", "/" },
-		new String[] { "benutzerAendern", "/" } };
+		new String[] { "benutzerAendern", "/" }
+	};
 	
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
@@ -66,3 +68,4 @@ public class AjaxController extends HttpServlet {
 	}
 
 }
+
