@@ -18,8 +18,8 @@ public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 8875458007177265635L;
 	
 	static String codes[][] = {
-		new String[] { "start", "/start.jsp", "buecher"  },
-		new String[] { "benutzer", "/start.jsp", "benutzer" },
+		new String[] { "buecherListe", "/start.jsp", "buecher"  },
+		new String[] { "benutzerListe", "/start.jsp", "benutzer" },
 		new String[] { "registrierung", "/" },
 		new String[] { "login", "/" },
 		new String[] { "ausleihe", "/" },
