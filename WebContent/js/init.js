@@ -8,6 +8,7 @@ $.extend(bib, {
 		bib.addWarenkorbClick();
 		bib.addDetailClick();
 		bib.addKundeEintragen();
+		bib.addAbmeldenClick();
 		//bib.addTableHandler();
 	},
 	
@@ -84,11 +85,24 @@ $.extend(bib, {
 	
 	addAnmeldenClick: function() {
 		$("#anmelden").click(function() {
-			alert("anmelden geklickt!");
 			$.ajax({
 				url:"AjaxController?do=loginCheck",
 				type:"GET",
-				data: "login_benutzeremail="+$("#login_benutzeremail").val()+"&login_passwort="+$("#login_passwort").val(),
+				success:function(data) {
+					$("#login").html(data);
+					bib.addAnmeldenClick();
+					bib.addAbmeldenClick();
+				}
+			});
+		});
+	},
+	
+	addAnmeldenClick: function() {
+		$("#abmelden").click(function() {
+			alert("abmelden geklickt!");
+			$.ajax({
+				url:"AjaxController?do=ausloggen",
+				type:"GET",
 				success:function(data) {
 					$("#login").html(data);
 					bib.addAnmeldenClick();
