@@ -27,6 +27,8 @@ public class LoginCheck extends HttpServlet{
 		String benutzerEmail = request.getParameter("login_benutzeremail");
 		String pw = request.getParameter("login_passwort");
 		long benutzerGruppe = 3;
+		String benutzerVorname = "";
+		String benutzerNachname = "";
 		
 		DbVerwaltung db = new DbVerwaltung();
 	    List<Benutzer>resultList = db.selectAll_Benutzer();
@@ -36,6 +38,8 @@ public class LoginCheck extends HttpServlet{
 	    	if(b.getEmail().equals(benutzerEmail) && b.getPasswort().equals(pw))
 	    	{
 	    		benutzerGruppe = b.getBenutzergruppe().getGruppenId();
+	    		benutzerVorname = b.getVorname().toString();
+	    		benutzerNachname = b.getNachname().toString();
 	    		korrekt = true;
 	    		/* TEST
 	    		out.println("korrekt \n");
@@ -63,7 +67,7 @@ public class LoginCheck extends HttpServlet{
 	    	String timestamp = now.toString();
 	    	Cookie cookie = new Cookie ("Email", benutzerEmail);
 	    	cookie.setMaxAge(365 * 24 * 60 * 60);
-	    	response.addCookie(cookie);*/ 
+	    	response.addCookie(cookie); 
 	    	//include('start.jsp');
 	    	
 	    	out.println("<PRE>"); // Preformatierter Text: Typewriter Schrift 
@@ -84,8 +88,8 @@ public class LoginCheck extends HttpServlet{
 					String s = (String) n.nextElement();
 					out.println("Attribut: " + s + "=" + session.getAttribute(s));
 				}
-			}
-			out.println("<table class='benutzereingabe'>");
+			}*/
+			out.println("<table style='visibility:hidden;' class='benutzereingabe'>");
 			out.println("<tr>");
 			out.println("<td>Benutzeremail:</td>");
 			out.println("<td><input type='text' id='login_benutzeremail' size='20' maxlength='50'/></td>");
@@ -95,7 +99,7 @@ public class LoginCheck extends HttpServlet{
 			out.println("<td><input type='password' id='login_passwort' size='20' maxlength='50'/></td>");
 			out.println("</tr>");
 			out.println("</table>"); 
-			out.println("<div id='login_fehler'>Hallo " + benutzerEmail + "</div>");  
+			out.println("<div id='login_fehler'>Hallo " + benutzerVorname + " " + benutzerNachname + "</div>");  
 			out.println("<div id='login_btn'>");
 			out.println("<b>");
 			out.println("<input type='submit' id='abmelden' value='Abmelden'> I");
@@ -109,14 +113,14 @@ public class LoginCheck extends HttpServlet{
 	        HttpSession session = request.getSession(false);
 	        if (session != null) 
 	        {
-	          out.println("Sitzung Nr. " + session.getId()  + " wird nun geschlossen!");
+	          //out.println("Sitzung Nr. " + session.getId()  + " wird nun geschlossen!");
 	          session.invalidate();
 	        }
 	        else
 	        {
-	          out.println("Sitzung ist bereits geschlossen!");
+	          //out.println("Sitzung ist bereits geschlossen!");
 	        }
-	        
+	        /*
 	    	out.println("<PRE>"); // Preformatierter Text: Typewriter Schrift 
 			out.println("Valid Id: " + request.isRequestedSessionIdValid());
 			out.println("Cookie: " + request.isRequestedSessionIdFromCookie());
@@ -127,17 +131,15 @@ public class LoginCheck extends HttpServlet{
 				out.println("Session-Id: " + session.getId());
 				out.println("Timeout: " + session.getMaxInactiveInterval());
 				out.println("Erzeugt am: " + new Date(session.getCreationTime()));
-				out
-						.println("Letzter Zugriff: "
-								+ new Date(session.getLastAccessedTime()));
+				out.println("Letzter Zugriff: " + new Date(session.getLastAccessedTime()));
 				Enumeration n =  session.getAttributeNames();
 				while (n.hasMoreElements()) 
 				{
 					String s = (String) n.nextElement();
 					out.println("Attribut: " + s + "=" + session.getAttribute(s));
 				}
-			}	    	
-	    	//"Benutzername oder Passwort falsch."
+			}	
+			*/
 			out.println("<table class='benutzereingabe'>");
 			out.println("<tr>");
 			out.println("<td>Benutzeremail:</td>");
