@@ -89,6 +89,7 @@ public class LoginCheck extends HttpServlet{
 					out.println("Attribut: " + s + "=" + session.getAttribute(s));
 				}
 			}*/
+			out.println(benutzerEmail + " " + pw + " " + benutzerGruppe);
 			out.println("<table style='visibility:hidden;' class='benutzereingabe'>");
 			out.println("<tr>");
 			out.println("<td>Benutzeremail:</td>");
@@ -99,7 +100,7 @@ public class LoginCheck extends HttpServlet{
 			out.println("<td><input type='password' id='login_passwort' size='20' maxlength='50'/></td>");
 			out.println("</tr>");
 			out.println("</table>"); 
-			out.println("<div id='login_fehler'>Hallo " + benutzerVorname + " " + benutzerNachname + "</div>");  
+			out.println("<div style='color:green' id='login_fehler'>Hallo " + benutzerVorname + " " + benutzerNachname + "</div>");  
 			out.println("<div id='login_btn'>");
 			out.println("<b>");
 			out.println("<input type='submit' id='abmelden' value='Abmelden'> I");
@@ -140,6 +141,7 @@ public class LoginCheck extends HttpServlet{
 				}
 			}	
 			*/
+	        out.println(benutzerEmail + " " + pw + " " + benutzerGruppe);
 			out.println("<table class='benutzereingabe'>");
 			out.println("<tr>");
 			out.println("<td>Benutzeremail:</td>");
