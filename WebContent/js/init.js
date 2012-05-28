@@ -5,10 +5,11 @@ $.extend(bib, {
 		bib.addDataTable();
 		bib.addEventHandler();
 		bib.addAnmeldenClick();
+		bib.addAbmeldenClick();
 		bib.addWarenkorbClick();
 		bib.addDetailClick();
 		bib.addKundeEintragen();
-		bib.addAbmeldenClick();
+		
 		//bib.addTableHandler();
 	},
 	
@@ -85,6 +86,7 @@ $.extend(bib, {
 	
 	addAnmeldenClick: function() {
 		$("#anmelden").click(function() {
+			alert("tata anmelden!");
 			$.ajax({
 				url:"AjaxController?do=loginCheck",
 				type:"GET",
@@ -97,7 +99,7 @@ $.extend(bib, {
 		});
 	},
 	
-	addAnmeldenClick: function() {
+	addAbmeldenClick: function() {
 		$("#abmelden").click(function() {
 			alert("abmelden geklickt!");
 			$.ajax({
