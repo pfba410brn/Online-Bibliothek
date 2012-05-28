@@ -15,7 +15,7 @@
 	<div id="login_fehler"></div> 
 	<div id="login_btn">
 		<b>
-			<input type="submit" id="anmelden" value="Anmelden"> I <!-- <button id="abmelden">Abmelden</button> -->
+			<input type="submit" id="anmelden" value="Anmelden"> I
 			<button id="registrieren">Registrieren</button>
 		</b>
 	</div>
