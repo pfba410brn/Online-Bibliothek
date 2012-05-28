@@ -33,38 +33,43 @@ public class kundenCheck extends HttpServlet{
 		DbVerwaltung db = new DbVerwaltung();
 	    List<Benutzer>resultList = db.selectAll_Benutzer();
 	    
+	    Boolean gefunden = false;
+	    
 	    for(Benutzer b:resultList)
 	    {
 	    	if(b.getBenutzerId() == benutzernr)
 	    	{
-	    		out.print("<table>");
-	    		out.print("<tr>");
-				out.print("<td>KundenNr:</td>");
-				out.print("<td><div id=\"KundenNr\">" +  benutzernr + "</div></td>");
-				out.print("<td><input type=\"image\" id=\"auswerfen\" src=\"../img/icons/cancel.png\"></td>");
-				out.print("</tr>");
-				out.print("<tr>");
-				out.print("<td></td>");
-				out.print("<td></td>");
-				out.print("<td></td>");
-				out.print("</tr>");
-				out.print("</table>");
+	    		gefunden = true;
+	    		break;	
 	    	}
-	    	else
-	    	{
-	    		out.print("<table>");
-	    		out.print("<tr>");
-				out.print("<td>KundenNr:</td>");
-				out.print("<td><input type=\"text\" name=\"ID\" size=\"17\" maxlength=\"30\"/></td>");
-				out.print("<td><input type=\"image\" id=\"uebernehmen\" name=\"uebernehmen\" src=\"../images/icons/ok_haken.png\"></td>");
-				out.print("</tr>");
-				out.print("<tr>");
-				out.print("<td></td>");
-				out.print("<td>Fehler: Kunde konnte nicht gefudnden werden! <a href=\"\">Registrieren</a></td>");
-				out.print("<td><input type=\"image\" id=\"auswerfen\" src=\"../images/icons/cancel.png\"></td>");
-				out.print("</tr>");
-				out.print("</table>");
-	    	}
+	    }
+	    
+	    if(gefunden) {
+		    out.print("<table>");
+			out.print("<tr>");
+			out.print("<td>KundenNr:</td>");
+			out.print("<td><div id=\"KundenNr\">" +  benutzernr + "</div></td>");
+			out.print("<td><input type=\"image\" id=\"auswerfen\" src=\"../images/icons/cancel.png\"></td>");
+			out.print("</tr>");
+			out.print("<tr>");
+			out.print("<td></td>");
+			out.print("<td></td>");
+			out.print("<td></td>");
+			out.print("</tr>");
+			out.print("</table>");
+	    } else {
+	    	out.print("<table>");
+    		out.print("<tr>");
+			out.print("<td>KundenNr:</td>");
+			out.print("<td><input type=\"text\" id=\"kundenID\" size=\"17\" maxlength=\"30\"/></td>");
+			out.print("<td><input type=\"image\" id=\"uebernehmen\" name=\"uebernehmen\" src=\"../images/icons/ok_haken.png\"></td>");
+			out.print("</tr>");
+			out.print("<tr>");
+			out.print("<td></td>");
+			out.print("<td>Fehler: Kunde konnte nicht gefudnden werden! <a href=\"\">Registrieren</a></td>");
+			out.print("<td><input type=\"image\" id=\"auswerfen\" src=\"../images/icons/cancel.png\"></td>");
+			out.print("</tr>");
+			out.print("</table>");
 	    }
 	}
 }

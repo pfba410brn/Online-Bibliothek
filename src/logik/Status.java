@@ -2,10 +2,10 @@ package logik;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -27,15 +27,17 @@ public class Status extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private Benutzer benutzer;
-	private List<Exemplar> exemlarListe;
+	private List<Exemplar> exemlarListe = new ArrayList<Exemplar>();
    
 	
-	public void doPost(HttpServletRequest request,
+	public void doGet(HttpServletRequest request,
             HttpServletResponse response)
             			throws ServletException, IOException {
+		
 		response.setContentType("text/html");
 		DbVerwaltung db = new DbVerwaltung();
 		PrintWriter out = response.getWriter();
+		
 		if(request.getParameter("isbn") != null) {
 			
 			/* NEUES BUCH HINZUFÜGEN */
@@ -46,7 +48,7 @@ public class Status extends HttpServlet {
 			List<Exemplar> exemplarListe =  db.selectAll_Exemplar();
 			for (Exemplar exemplar : exemplarListe)
 			{
-				if (exemplar.getBuch().equals(buch))
+				if (exemplar.getBuch().getIsbn().equals(buch.getIsbn()))
 				{
 					this.exemlarListe.add(exemplar);
 					break;
@@ -57,7 +59,7 @@ public class Status extends HttpServlet {
 		if(request.getParameter("kundennr") != null) {
 			/* NEUEN KUNDEN HINZUFÜGEN ????*/
 			String kundennr = request.getParameter("kundennr");
-			this.benutzer = db.select_BenutzerUeberID(kundennr);
+			this.benutzer = db.select_BenutzerUeberID(Long.parseLong(kundennr));
 			
 			if(request.getParameter("do").equals("mediumHinzufuegen")) {
 				//out.print("<h1>Hey das geht </h1>" + buch.getIsbn() + " mit dieser ISBN!!!");
@@ -70,7 +72,7 @@ public class Status extends HttpServlet {
 					out.print("<tr><td>" +exemplar.getBuch().getIsbn() + "</td></tr>");
 					out.print("</table>");
 					out.print("</div>");
-					out.print("<div style=\"width:45px; margin-top:20px;\"><input type=\"image\" name=\"absenden\" src=\"../img/icons/pfeil.png\"></div>");
+					out.print("<div style=\"width:45px; margin-top:20px;\"><input type=\"image\" name=\"absenden\" src=\"../images/icons/pfeil.png\"></div>");
 					out.print("<div style=\"clear:both;\"></div>");
 					out.print("<hr />");
 				}

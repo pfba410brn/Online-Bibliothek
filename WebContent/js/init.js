@@ -6,8 +6,6 @@ $.extend(bib, {
 		bib.addEventHandler();
 		bib.addAnmeldenClick();
 		bib.addAbmeldenClick();
-		bib.addWarenkorbClick();
-		bib.addDetailClick();
 		bib.addKundeEintragen();
 		
 		//bib.addTableHandler();
@@ -59,9 +57,9 @@ $.extend(bib, {
 	                "sLast":     "Letzter"
 	            }
 	        },
-			"fnFooterCallback": function() {
-				bib.addWarenkorbClick();
+			"fnDrawCallback": function() {
 				bib.addDetailClick();
+				bib.addWarenkorbClick();
 			}
 	    });
 		
@@ -121,16 +119,14 @@ $.extend(bib, {
 	
 	addWarenkorbClick: function() {
 		$(".warenkorb").each(function() {
-			$(this).click(function(e){
+			$(this).click(function() {
 				var isbn = $(this).attr("name");
-				alert(isbn);
 				$.ajax({
 					url: "AjaxController?do=mediumHinzufuegen",
 					type: "GET",
-					data: "isbn=" + isbn,
-					sucess: function(data) {
+					data: "isbn=" + isbn + "&kundennr=" + $("#KundenNr").text(),
+					success: function(data) {
 						$("#WarenkorbBereich").html(data);
-						$(bib.init);
 					}
 				});
 			});
@@ -141,7 +137,6 @@ $.extend(bib, {
 		$(".detail").each(function() {
 			$(this).click(function(e){
 				var isbn = $(this).attr("name");
-				alert(isbn);
 				$.ajax({
 					url: "AjaxController?do=mediumDetail",
 					type: "GET",
@@ -157,19 +152,32 @@ $.extend(bib, {
 	
 	addKundeEintragen: function() {
 		$('#kundeEintragen').click(function() {
+			alert("Kunde Eintragen geklickt!: " + $("#kundenID").val());
 			$.ajax({
 				  url: "AjaxController?do=kundenCheck",
 				  type: "GET",
-				  data: "kundennummer="+$('#kundenummer').val(),
+				  data: "kundennummer=" + $("#kundenID").val(),
 				  success : function(data) {
 					  $("#KundenBereich").html(data);
+					  bib.addKundeEintragen();
 				  }
 			});
 		});
 	},
 	
 	addEventHandler: function() {
-
+		$("#ausleihe").click(function() {
+			$.ajax({
+				  url: "AjaxController?do=ausleihe",
+				  type: "GET",
+				  data: "kundennummer=" + $("#kundenID").val(),
+				  success : function(data) {
+					  $("#KundenBereich").html(data);
+					  bib.addKundeEintragen();
+				  }
+			});
+		});
+		
 		$('#registrieren').click(function() {
 			$.blockUI({ message: $('#inc_benutzer') });
 		});
@@ -177,12 +185,7 @@ $.extend(bib, {
 		$('#close').click(function() {
 			$.unblockUI();
 		});
-
-		
-
 	}
 });
-$(document).ready(function (){
-	$(bib.init);
-});
+$(bib.init);
 

@@ -104,7 +104,7 @@ public class DbVerwaltung {
 }
     
     
-    public Benutzer select_BenutzerUeberID(String id){
+    public Benutzer select_BenutzerUeberID(Long id){
         open();
     
         Query query = this.em.createNamedQuery("Benutzer.findByBenutzerId");
