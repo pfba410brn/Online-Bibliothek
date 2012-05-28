@@ -58,7 +58,11 @@ $.extend(bib, {
 	                "sNext":     "Nächster",
 	                "sLast":     "Letzter"
 	            }
-	        }
+	        },
+			"fnFooterCallback": function() {
+				bib.addWarenkorbClick();
+				bib.addDetailClick();
+			}
 	    });
 		
 		$('#benutzer').dataTable({
@@ -153,7 +157,7 @@ $.extend(bib, {
 	addKundeEintragen: function() {
 		$('#kundeEintragen').click(function() {
 			$.ajax({
-				  url: "AjaxController?do=kundeEintragen",
+				  url: "AjaxController?do=kundenCheck",
 				  type: "POST",
 				  data: "kundennummer="+$('#kundenummer').val(),
 				  success : function(data) {
