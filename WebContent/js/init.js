@@ -90,6 +90,7 @@ $.extend(bib, {
 			$.ajax({
 				url:"AjaxController?do=loginCheck",
 				type:"GET",
+				data: "login_benutzeremail="+$("#login_benutzeremail").val() + "&login_passwort=" + $("#login_passwort").val(),
 				success:function(data) {
 					$("#login").html(data);
 					bib.addAnmeldenClick();
