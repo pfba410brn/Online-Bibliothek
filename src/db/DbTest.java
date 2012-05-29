@@ -24,6 +24,11 @@ public class DbTest {
 //	    
 //	   System.out.println(JsonConverter.convertBenutzer(resultList));
 //	   System.out.println(JsonConverter.convertBuch(buchListe));
+
+		
+		if(db.selectVerlieheneExemplareProBenutzer(1001)!=null){
+			System.out.println("");
+		}
 		System.out.println(" "+db.select_NächsteBenutzerID());
 
 	}

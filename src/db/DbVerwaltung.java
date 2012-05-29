@@ -310,8 +310,20 @@ public class DbVerwaltung {
 		return anzahlEx - anzahlVerliehen;
 	}
 	
-	 public List<Exemplar> selectVerlieheneExemplareProBenutzer(Benutzer benutzer){
-
+	 public List<Exemplar> selectVerlieheneExemplareProBenutzer(int benutzerId){
+		 open();
+		 Benutzer benutzer=null;
+		 Query query = this.em.createNamedQuery("Benutzer.findByBenutzerId");
+		 query.setParameter("benutzerId", benutzerId);
+		 @SuppressWarnings("unchecked")
+		 List<Benutzer> beList = query.getResultList();
+		 
+		 if(beList.isEmpty()){
+			  close();
+			  return null;
+		 }
+		 benutzer = beList.get(0);
+		 close();
          Set<ExemplarBenutzer> set =benutzer.getExemplarBenutzers();
         
          if(set!=null){
