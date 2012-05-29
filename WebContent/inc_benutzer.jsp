@@ -34,7 +34,7 @@
 		<tr>
 		<td>
 			<a class="button" id="insert_benutzer">Speichern</a>
-			<a class="button" id="close">Abbrechen</a>
+			<a class="button close">Abbrechen</a>
 	</td>
 	</tr>
 	</table>

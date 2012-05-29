@@ -9,7 +9,13 @@ $.extend(bib, {
 		bib.addKundeEintragen();
 	},
 	
-	
+	addCloseClick: function() {
+		$(".close").each(function() {
+			$($this).click(function(e) {
+				$.unblockUI();
+			});
+		});
+	},
 	
 	addDataTable: function() {
 		$('#buecher').dataTable({
@@ -188,6 +194,7 @@ $.extend(bib, {
 					data: "isbn=" + isbn,
 					success: function(data) {
 						$.blockUI({ message: data });
+						bib.addCloseClick();
 					}
 				});
 			});
@@ -225,12 +232,7 @@ $.extend(bib, {
 		});
 	},
 	
-	addCloseClick: function() {
-		$('#close').click(function(e) {
-			e.preventDefault();
-			$.unblockUI();
-		});
-	},
+	
 	
 	addEventHandler: function() {
 		$("#ausleihe").click(function() {
