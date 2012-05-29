@@ -1,5 +1,5 @@
 <!-- BENUTZERREGISTRIERUNG -->
-<form id="reg_Benutzer" method="post" action="">
+<form id="reg_Benutzer" method="post" action="" style="margin:25px;">
 	<!-- Wie wird eine ID vergeben? -->
 	<h2>Neuen Benutzer anlegen</h2>
 	<table class="registrierung">
@@ -9,7 +9,7 @@
 		</tr>
 			<tr>
 			<td>Nachname*:</td>
-			<td><input type="text" name="vname" class="required" minlength="3" /></td>
+			<td><input type="text" name="nname" class="required" minlength="3" /></td>
 		</tr>
 		<tr>
 			<td>E-Mailadresse*:</td>
@@ -32,9 +32,15 @@
 			<td><input type="text" name="telefon" /></td>
 		</tr>
 		<tr>
-			<td><button id="insert_benutzer">Speichern</button></td>
-			<td><button id="close">Abbrechen</button></td>
-		</tr>
+		<td>
+			<a class="button" id="insert_benutzer">Speichern</a>
+			<a class="button" id="close">Abbrechen</a>
+	</td>
+	</tr>
 	</table>
+		
 </form>
+
+
+
 <!-- /BENUTZERREGISTRIERUNG -->

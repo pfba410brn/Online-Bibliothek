@@ -28,9 +28,14 @@ public class BenutzerManager extends HttpServlet {
 			// ÄNDERN
 			out.print("<div id='buchbild'><!-- Bild --></div>");
 		} else if(request.getParameter("do").equals("benutzerEintragen")) {
-			// HINZUFÜGEN
+			out.print("vname: "+request.getParameter("vname"));
+			out.print("<a class=\"button\" id=\"close\">Abbrechen</a>");
 			List<Benutzer> benutzerListe = db.selectAll_Benutzer();
-			out.println(JsonConverter.convertBenutzer(benutzerListe));
+			for(Benutzer b:benutzerListe) {
+				
+			}
+			
+			
 		} else if(request.getParameter("do").equals("benutzerLoeschen")) {
 			// LÖSCHEN
 		}

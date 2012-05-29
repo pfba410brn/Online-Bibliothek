@@ -64,35 +64,32 @@ public class Status extends HttpServlet {
 			/* NEUEN KUNDEN HINZUFÜGEN ????*/
 			String kundennr = request.getParameter("kundennr");
 			this.benutzer = db.select_BenutzerUeberID(Long.parseLong(kundennr));
-			
-			if(request.getParameter("do").equals("mediumHinzufuegen")) {
-				//out.print("<h1>Hey das geht </h1>" + buch.getIsbn() + " mit dieser ISBN!!!");
-				for (Exemplar exemplar : this.exemlarListe){
-				
-					out.print("<div style=\"width:190px; float:right;\">");
-					out.print("<table width=\"190px\">");
-					out.print("<tr><td><b>" + exemplar.getBuch().getTitel() + "</b></td></tr>");
-					out.print("<tr><td>" + exemplar.getBuch().getAutor() + "</td></tr>");
-					out.print("<tr><td>" +exemplar.getBuch().getIsbn() + "</td></tr>");
-					out.print("</table>");
-					out.print("</div>");
-					out.print("<div style=\"width:45px; margin-top:20px;\"><input type=\"image\" name=\"absenden\" src=\"../images/icons/pfeil.png\" id=\"isbnZurueck\"></div>");
-					out.print("<div style=\"clear:both;\"></div>");
-					out.print("<hr />");
-				}
-				
-				if (this.exemlarListe.size() > 0 && request.getParameter("do").equals("ausleihe"))
-				{
-					this.medienAusleihen();
-				}
-				
-			}
 		}
-		else
-		{
+		
+		if(request.getParameter("do").equals("mediumHinzufuegen")) {
+			//out.print("<h1>Hey das geht </h1>" + buch.getIsbn() + " mit dieser ISBN!!!");
+			for (Exemplar exemplar : this.exemlarListe){
+			
+				out.print("<div style=\"width:190px; float:right;\">");
+				out.print("<table width=\"190px\">");
+				out.print("<tr><td><b>" + exemplar.getBuch().getTitel() + "</b></td></tr>");
+				out.print("<tr><td>" + exemplar.getBuch().getAutor() + "</td></tr>");
+				out.print("<tr><td>" +exemplar.getBuch().getIsbn() + "</td></tr>");
+				out.print("</table>");
+				out.print("</div>");
+				out.print("<div style=\"width:45px; margin-top:20px;\"><input type=\"image\" name=\"absenden\" src=\"../images/icons/pfeil.png\" id=\"isbnZurueck\"></div>");
+				out.print("<div style=\"clear:both;\"></div>");
+				out.print("<hr />");
+			}
+			
+			if (this.exemlarListe.size() > 0 && request.getParameter("do").equals("ausleihe"))
+			{
+				this.medienAusleihen();
+			}
 			
 		}
 	}
+
 
 
 	private List<Exemplar> getExemlarListe() {
