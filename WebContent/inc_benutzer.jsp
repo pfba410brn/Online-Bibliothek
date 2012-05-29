@@ -4,7 +4,7 @@
 DAS MUSS BESSER WREDEN :D (Buttons addressieren Form Tag)
 -->
 	<!-- Wie wird eine ID vergeben? -->
-	<h2>Neuen Benutzer anlegen</h2>
+	<h2 style="margin-top:15px; margin-left:15px;">Neuen Benutzer anlegen</h2>
 	<table class="registrierung">
 		<tr>
 			<td>Vorname*:</td>
@@ -36,7 +36,7 @@ DAS MUSS BESSER WREDEN :D (Buttons addressieren Form Tag)
 		</tr>
 		<tr>
 		<td>
-		<div style="margin-top:10px;">
+		<div style="margin-top:20px;">
 			<button class="button" id="insert_benutzer">Speichern</button>
 			<button class="button close">Abbrechen</button>
 		</div>
