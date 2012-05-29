@@ -2,7 +2,9 @@ package logik;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -16,6 +18,7 @@ import db.Buch;
 import db.DbVerwaltung;
 import db.Exemplar;
 import db.ExemplarBenutzer;
+import db.ExemplarBenutzerPK;
 
 
 
@@ -73,7 +76,7 @@ public class Status extends HttpServlet {
 					out.print("<tr><td>" +exemplar.getBuch().getIsbn() + "</td></tr>");
 					out.print("</table>");
 					out.print("</div>");
-					out.print("<div style=\"width:45px; margin-top:20px;\"><input type=\"image\" name=\"absenden\" src=\"../images/icons/pfeil.png\"></div>");
+					out.print("<div style=\"width:45px; margin-top:20px;\"><input type=\"image\" name=\"absenden\" src=\"../images/icons/pfeil.png\" id=\"isbnZurueck\"></div>");
 					out.print("<div style=\"clear:both;\"></div>");
 					out.print("<hr />");
 				}
@@ -113,17 +116,28 @@ public class Status extends HttpServlet {
 	
 	private void medienAusleihen(){
 		// TODO: Anpassen
-		/*DbVerwaltung db = new DbVerwaltung();
+		DbVerwaltung db = new DbVerwaltung();
 		for (Exemplar exemplar : this.exemlarListe)
 		{
-			ExemplarBenutzer ausleihVorgang = new ExemplarBenutzer();
-			ausleihVorgang.setBenutzer(this.benutzer);
-			ausleihVorgang.setDatum(new Date());
-			ausleihVorgang.setDauer((BigDecimal)14.0);
-			ausleihVorgang.setExemplar(exemplar);
-			ausleihVorgang.setId(id);
-			db.insertExemplarBenutzer(ausleihVorgang);
-		}*/
+			ExemplarBenutzerPK exemplarBenutzerPK = new ExemplarBenutzerPK();
+			ExemplarBenutzer exemplarBenutzer = new ExemplarBenutzer();
+			
+			exemplarBenutzerPK .setBenutzerId(this.benutzer.getBenutzerId());
+			exemplarBenutzerPK .setInventarnr(exemplar.getInventarnr());
+			
+			exemplarBenutzer.setBenutzer(this.benutzer);
+			exemplarBenutzer.setDatum(new Date());
+			exemplarBenutzer.setDauer(new BigDecimal (14.0));
+			exemplarBenutzer.setExemplar(exemplar);
+			exemplarBenutzer.setId(exemplarBenutzerPK);
+			
+			
+			db.insertExemplarBenutzer(exemplarBenutzer);
+		}
+	}
+	
+	private void mediumZurueckgeben(){
+		
 	}
 	
 	
