@@ -98,16 +98,37 @@ $.extend(bib, {
 	},
 	
 	
-	addBenutzerSpeichernClick: function() {
-		$("#insert_benutzer").click(function() {
-			$("#reg_Benutzer").validate({
-				success: function(label) {
-					$.ajax({
-						url: "AjaxController?do=benutzerEintragen",
-					});
+	addIsbnZurueckClicl: function() {
+		$("#isbnZurueck").click(function() {
+			$.ajax({
+				url: "AjaxController?do=benutzerAendern",
+				type: "GET",
+				data: "bid=" + bid,
+				success: function(data) {
+					
 				}
 			});
+		});
+	},
+	
+	addBenutzerSpeichernClick: function() {
+		$("#insert_benutzer").click(function(e) {
+			var daten = "";
+			$("#reg_Benutzer > input").each(function() {
+				daten += $(this).attr("name")+"="+$(this).val()+"&";
+			});
+						
+			alert(daten);
 			
+			$.ajax({
+				url: "AjaxController?do=benutzerEintragen",
+				type: "GET",
+				data: 	daten,
+				success: function(data) {
+					$.unblockUI();
+					$.blockUI({ message: data });
+				}
+			});
 		});
 	},
 	
@@ -204,6 +225,13 @@ $.extend(bib, {
 		});
 	},
 	
+	addCloseClick: function() {
+		$('#close').click(function(e) {
+			e.preventDefault();
+			$.unblockUI();
+		});
+	},
+	
 	addEventHandler: function() {
 		$("#ausleihe").click(function() {
 			$.ajax({
@@ -216,12 +244,13 @@ $.extend(bib, {
 		});
 		
 		$('#registrieren').click(function() {
-			$.blockUI({ message: $('#inc_benutzer') });
-			bib.addBenutzerSpeichernClick();
-		});
-		
-		$('#close').click(function() {
-			$.unblockUI();
+			$.blockUI({ 
+				message: $('#inc_benutzer'),
+				onBlock:  function() {
+					bib.addBenutzerSpeichernClick();
+					bib.addCloseClick();
+				}
+			});
 		});
 	}
 });
