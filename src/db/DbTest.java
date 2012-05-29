@@ -18,12 +18,13 @@ public class DbTest {
 		DbVerwaltung db = new DbVerwaltung();
 	    
 		
-	    List<Benutzer>resultList = db.selectAll_Benutzer();
-	    List<Buch> buchListe = db.selectAll_Buecher();
-	    
-	    
-	   System.out.println(JsonConverter.convertBenutzer(resultList));
-	   System.out.println(JsonConverter.convertBuch(buchListe));
+//	    List<Benutzer>resultList = db.selectAll_Benutzer();
+//	    List<Buch> buchListe = db.selectAll_Buecher();
+//	    
+//	    
+//	   System.out.println(JsonConverter.convertBenutzer(resultList));
+//	   System.out.println(JsonConverter.convertBuch(buchListe));
+		System.out.println(" "+db.select_NächsteBenutzerID());
 
 	}
 

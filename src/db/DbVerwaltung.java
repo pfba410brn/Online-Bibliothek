@@ -1,5 +1,6 @@
 package db;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -308,5 +309,33 @@ public class DbVerwaltung {
 
 		return anzahlEx - anzahlVerliehen;
 	}
+	
+	 public List<Exemplar> selectVerlieheneExemplareProBenutzer(Benutzer benutzer){
+
+         Set<ExemplarBenutzer> set =benutzer.getExemplarBenutzers();
+        
+         if(set!=null){
+ 	         List<Exemplar> resultList = new ArrayList<Exemplar>();
+	         for ( Iterator<ExemplarBenutzer> i = set.iterator(); i.hasNext();)
+	         {
+	           ExemplarBenutzer e = i.next();
+	           resultList.add(e.getExemplar());
+	           
+	         }
+	         return resultList;
+         }else
+        	 return null;
+ }
     
+	    public int select_NächsteBenutzerID(){
+
+            open();
+            Query query = this.em.createQuery("SELECT MAX(b.benutzerId) FROM Benutzer b");
+            @SuppressWarnings("unchecked")
+			List<Object> resultList = query.getResultList();
+            close();
+            return Integer.parseInt(resultList.get(0).toString())+1;
+                
+    }
+	 
 }
