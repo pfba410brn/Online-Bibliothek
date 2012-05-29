@@ -1,5 +1,8 @@
 <!-- BENUTZERREGISTRIERUNG -->
-<form id="reg_Benutzer" method="post" action="" style="margin:25px;">
+<!-- 
+<form id="reg_Benutzer" method="post" action="" style="margin:25px;"> 
+DAS MUSS BESSER WREDEN :D (Buttons addressieren Form Tag)
+-->
 	<!-- Wie wird eine ID vergeben? -->
 	<h2>Neuen Benutzer anlegen</h2>
 	<table class="registrierung">
@@ -33,13 +36,15 @@
 		</tr>
 		<tr>
 		<td>
-			<a class="button" id="insert_benutzer">Speichern</a>
-			<a class="button close">Abbrechen</a>
+		<div style="margin-top:10px;">
+			<button class="button" id="insert_benutzer">Speichern</button>
+			<button class="button close">Abbrechen</button>
+		</div>
 	</td>
 	</tr>
 	</table>
 		
-</form>
+<!--</form>        NICHT VERGESSEN ;)                 -->
 
 
 

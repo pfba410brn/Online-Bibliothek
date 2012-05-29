@@ -36,8 +36,16 @@ public class FetchSomething extends HttpServlet {
 			out.print("<tr><td><b>ISBN:</b></td><td>"+ buch.getIsbn() +"</td></tr>");
 			out.print("<tr><td><b>Verlag:</b></td><td>"+ buch.getVerlag() +"</td></tr>");
 			out.print("</table></div><div style='clear: both;'></div><hr>");
-			out.print("<div id='buchbeschreibung'><h3>Buchbeschreibung:</h3><p>"+buch.getKurzbeschreibung()+"</p></div>");
-			out.print("<a class='button close'>Schlieﬂen</a>");
+			out.print("<div id='buchbeschreibung'><h3>Buchbeschreibung:</h3>");
+			if(buch.getKurzbeschreibung() == null)
+			{
+				out.print("<p>Keine Beschreibung</p></div>");
+			}
+			else
+			{
+				out.print("<p>" + buch.getKurzbeschreibung()+"</p></div>");
+			}
+			out.print("<button class='button close' id='close2'>Schlieﬂen</button>");
 			
 		} else if(request.getParameter("do").equals("benutzerListe")) {
 			List<Benutzer> benutzerListe = db.selectAll_Benutzer();
