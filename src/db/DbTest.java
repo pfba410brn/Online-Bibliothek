@@ -29,7 +29,7 @@ public class DbTest {
 		if(db.selectVerlieheneExemplareProBenutzer(1001)!=null){
 			System.out.println("");
 		}
-		System.out.println(" "+db.select_NÃ¤chsteBenutzerID());
+		System.out.println(" "+db.select_NächsteBenutzerID());
 
 	}
 
