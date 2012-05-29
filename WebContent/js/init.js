@@ -11,7 +11,7 @@ $.extend(bib, {
 	
 	addCloseClick: function() {
 		$(".close").each(function() {
-			$($this).click(function(e) {
+			$(this).click(function(e) {
 				$.unblockUI();
 			});
 		});
