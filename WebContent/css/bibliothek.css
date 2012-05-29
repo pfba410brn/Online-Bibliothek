@@ -99,21 +99,29 @@ button {
 table a {
 		text-decoration:none;
 		cursor: pointer;
+		display:inline-block;
+		height:17px;
+		margin-left: 10px;	
 }
 
 a.warenkorb {
-	display:inline-block;
 	width:21px;
-	height:17px;
 	background-image:url(../images/einkaufswagen.gif);
-	margin-right: 10px;	
 }
 
 a.detail {
-	display:inline-block;
 	width:26px;
-	height:17px;
 	background-image:url(../images/icons/auge.png);
+}
+
+a.aendern {
+	width:18px;
+	background-image:url(../images/icons/stift.png);	
+}
+
+a.loeschen {
+	width:16px;
+	background-image:url(../images/icons/muell.png);	
 }
 
 #tabelle {
@@ -170,11 +178,13 @@ th {
 
 #buchbeschreibung {
 	padding: 10px;
-	float: left;
-	width: 840px;
-	height: 99px;
+	width: 500px;
+	height: auto;
 }
-
+#close2{
+	margin-left:500px;
+	margin-bottom:10px;
+}
 /* Warenkorb */
 
 #warenkorb {
