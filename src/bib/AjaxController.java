@@ -38,7 +38,8 @@ public class AjaxController extends HttpServlet {
 		new String[] { "benutzerLoeschen", "/bib/BenutzerManager" },
 		new String[] { "benutzerEintragen", "/bib/BenutzerManager" },
 		new String[] { "benutzerAendern", "/bib/BenutzerManager" },
-		new String[] {"kundenAuswerfen", "/bib/Status"}
+		new String[] { "kundenAuswerfen", "/bib/Status"},
+		new String[] { "getRecht", "/bib/fetchSomething" }
 	};
 	
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)

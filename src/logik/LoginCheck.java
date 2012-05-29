@@ -14,7 +14,10 @@ import db.DbVerwaltung;
 @WebServlet("/bib/LoginCheck")
 public class LoginCheck extends HttpServlet{
 
+	private long benutzerGruppe;
 
+
+	
 	protected void doGet (
 		      HttpServletRequest request, HttpServletResponse response
 		    ) throws ServletException, java.io.IOException 
@@ -26,7 +29,7 @@ public class LoginCheck extends HttpServlet{
 
 		String benutzerEmail = request.getParameter("login_benutzeremail");
 		String pw = request.getParameter("login_passwort");
-		long benutzerGruppe = 3;
+		this.benutzerGruppe = 3;
 		String benutzerVorname = "";
 		String benutzerNachname = "";
 		
@@ -37,7 +40,7 @@ public class LoginCheck extends HttpServlet{
 	    {    	
 	    	if(b.getEmail().equals(benutzerEmail) && b.getPasswort().equals(pw))
 	    	{
-	    		benutzerGruppe = b.getBenutzergruppe().getGruppenId();
+	    		this.benutzerGruppe = b.getBenutzergruppe().getGruppenId();
 	    		benutzerVorname = b.getVorname().toString();
 	    		benutzerNachname = b.getNachname().toString();
 	    		korrekt = true;
@@ -57,7 +60,7 @@ public class LoginCheck extends HttpServlet{
 			if (session.isNew()) 
 			{
 				session.setAttribute("Email", benutzerEmail);
-				session.setAttribute("Benutzergruppe", benutzerGruppe);
+				session.setAttribute("Benutzergruppe", this.benutzerGruppe);
 				session.setMaxInactiveInterval(3600); // Sekunden
 			}
 			/*
@@ -89,11 +92,11 @@ public class LoginCheck extends HttpServlet{
 					out.println("Attribut: " + s + "=" + session.getAttribute(s));
 				}
 			}*/
-			if(benutzerGruppe==1)
+			if(this.benutzerGruppe==1)
 			{
 				out.print("<img style='float:left;' src='../images/silhouette_a.png'>");
 			}
-			else if(benutzerGruppe==2)
+			else if(this.benutzerGruppe==2)
 			{
 				out.print("<img style='float:left;' src='../images/silhouette_m.png'>");
 			}
@@ -163,5 +166,10 @@ public class LoginCheck extends HttpServlet{
 			
 	    }
 	}
+	
+	public String getBenutzerGruppe() {
+		return  (new Long(this.benutzerGruppe)).toString();
+	}
+	
 
 }

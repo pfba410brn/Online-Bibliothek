@@ -8,8 +8,6 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
-import org.eclipse.persistence.internal.sessions.remote.Transporter;
-
 import db.Benutzer;
 import db.Buch;
 import db.DbVerwaltung;
@@ -50,6 +48,13 @@ public class FetchSomething extends HttpServlet {
 		} else if(request.getParameter("do").equals("benutzerListe")) {
 			List<Benutzer> benutzerListe = db.selectAll_Benutzer();
 			out.println(JsonConverter.convertBenutzer(benutzerListe));
+		} else if (request.getParameter("do").equals("getRecht")) {
+			HttpSession session = request.getSession(true);
+			if (session.getAttribute("Benutzergruppe") == null) {
+				out.print("3");
+			} else {
+				out.print(session.getAttribute("Benutzergruppe"));
+			}
 		}
 	  }
 

@@ -175,7 +175,7 @@ public class DbVerwaltung {
     public boolean deleteBenutzer(Benutzer user){
 
          open();
-        
+       
          try {
              Benutzer userx = em.find(Benutzer.class, user.getBenutzerId());
              em.remove(userx);
@@ -339,7 +339,7 @@ public class DbVerwaltung {
         	 return null;
  }
     
-	    public int select_NÃ¤chsteBenutzerID(){
+	    public int select_NächsteBenutzerID(){
 
             open();
             Query query = this.em.createQuery("SELECT MAX(b.benutzerId) FROM Benutzer b");

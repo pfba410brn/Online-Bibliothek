@@ -3,10 +3,27 @@ var bib = bib || {};
 $.extend(bib, {
 	init: function() {
 		bib.addDataTable();
-		bib.addEventHandler();
+		bib.addAusleiheClick();
 		bib.addAnmeldenClick();
 		bib.addAbmeldenClick();
 		bib.addKundeEintragen();
+		bib.addRegistrierenClick();
+		bib.rechteSetzen();
+	},
+	
+	rechteSetzen: function() {
+		$.ajax({
+			url: "AjaxController?do=getRecht",
+			type: "GET",
+			success: function(data) {
+				var i;
+				var cString = "";
+				for(i=data; i=0; i--) {
+					cString += "." + i + ", ";
+				}
+				alert(data);
+			}
+		});
 	},
 	
 	addCloseClick: function() {
@@ -104,7 +121,7 @@ $.extend(bib, {
 	},
 	
 	
-	addIsbnZurueckClicl: function() {
+	addIsbnZurueckClick: function() {
 		$("#isbnZurueck").click(function() {
 			$.ajax({
 				url: "AjaxController?do=benutzerAendern",
@@ -149,11 +166,13 @@ $.extend(bib, {
 					$("#login").html(data);
 					bib.addAnmeldenClick();
 					bib.addAbmeldenClick();
+					bib.addAusleiheClick();
+					bib.rechteSetzen();
 				}
 			});
 		});
 	},
-	
+
 	addAbmeldenClick: function() {
 		$("#abmelden").click(function() {
 			alert("abmelden geklickt!");
@@ -163,6 +182,8 @@ $.extend(bib, {
 				success:function(data) {
 					$("#login").html(data);
 					bib.addAnmeldenClick();
+					bib.addAusleiheClick();
+					bib.rechteSetzen();
 				}
 			});
 		});
@@ -232,9 +253,19 @@ $.extend(bib, {
 		});
 	},
 	
+	addRegistrierenClick: function() {
+		$('#registrieren').click(function() {
+			$.blockUI({ 
+				message: $('#inc_benutzer'),
+				onBlock:  function() {
+					bib.addBenutzerSpeichernClick();
+					bib.addCloseClick();
+				}
+			});
+		});
+	},
 	
-	
-	addEventHandler: function() {
+	addAusleiheClick: function() {
 		$("#ausleihe").click(function() {
 			$.ajax({
 				  url: "AjaxController?do=ausleihe",
@@ -245,15 +276,7 @@ $.extend(bib, {
 			});
 		});
 		
-		$('#registrieren').click(function() {
-			$.blockUI({ 
-				message: $('#inc_benutzer'),
-				onBlock:  function() {
-					bib.addBenutzerSpeichernClick();
-					bib.addCloseClick();
-				}
-			});
-		});
+		
 	}
 });
 $(bib.init);
