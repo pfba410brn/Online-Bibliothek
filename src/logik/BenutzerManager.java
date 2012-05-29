@@ -24,20 +24,43 @@ public class BenutzerManager extends HttpServlet {
 		DbVerwaltung db = new DbVerwaltung();
 		PrintWriter out = response.getWriter();
 		
-		if(request.getParameter("do").equals("benutzerAendern")) {
+		if(request.getParameter("do").equals("benutzerAendern")) 
+		{
 			// ÄNDERN
 			out.print("<div id='buchbild'><!-- Bild --></div>");
-		} else if(request.getParameter("do").equals("benutzerEintragen")) {
+		} 
+		else if(request.getParameter("do").equals("benutzerEintragen")) 
+		{
 			out.print("vname: "+request.getParameter("vname"));
 			out.print("<a class=\"button\" id=\"close\">Abbrechen</a>");
 			List<Benutzer> benutzerListe = db.selectAll_Benutzer();
-			for(Benutzer b:benutzerListe) {
-				
+			// meine Aenderungen
+			String benutzerEmail = request.getParameter("geaenderte_benutzeremail");
+			
+			for(Benutzer b:benutzerListe) 
+			{	
+				if(b.getEmail().equals(benutzerEmail))
+		    	{
+					// FEHLER Mail schon vorhanden
+
+		    	}
+				else
+				{	
+					// Benutzer eintragen!
+				}
+				// ENDE
 			}
 			
 			
-		} else if(request.getParameter("do").equals("benutzerLoeschen")) {
-			// LÖSCHEN
+		} 
+		else if(request.getParameter("do").equals("benutzerLoeschen")) 
+		{
+			// LOESCHEN
+			String benutzerid = ""; // benuzter wird uebergeben
+			long bid = Long.parseLong(benutzerid);
+			Benutzer benutzer = db.select_BenutzerUeberID(bid);
+
+			db.deleteBenutzer(benutzer);
 		}
 	  }
 
