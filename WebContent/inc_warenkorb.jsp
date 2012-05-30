@@ -3,11 +3,6 @@
 <div id="warenkorb" class="2">
  
  
- <!--  1) URL entnahme ISBN Ajax Controller   -->
- <!--  3) IST DIE KUNDENNUMMER ungleich NULL  -->
- 
- 
-<!-- if(Kunde nicht eingeloggt)-->
 	<div id="KundenBereich">
     	<table>
         	<tr>
@@ -16,10 +11,6 @@
 				<td><input type="image" id="kundeEintragen" name="uebernehmen" src="../images/icons/ok_haken.png"></td>
 				<!-- <input type="button" style="background-color: transparent; background-image: url(img/icons/ok_haken.png); background-repeat: no-repeat; width: 20px; height: 19px;"> -->
 			</tr>
-		<!-- </table>	-->
-<!-- else-->
-		
-			<!-- <table>  -->
 	        	<tr>
 					<td></td>
 					<!-- <td><div id="KundenNr">312312321</div></td> -->
