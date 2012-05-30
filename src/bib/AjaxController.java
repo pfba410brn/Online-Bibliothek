@@ -28,7 +28,7 @@ public class AjaxController extends HttpServlet {
 
 	static String codes[][] = {
 		new String[] { "buecherListe", "/bib/fetchListe" },
-		new String[] { "kundenCheck", "/bib/kundenCheck" },
+		new String[] { "kundenCheck", "/bib/Status" },
 		new String[] { "mediumDetail", "/bib/fetchSomething" },
 		new String[] { "mediumHinzufuegen", "/bib/Status"} ,
 		new String[] { "benutzerListe", "/bib/fetchListe" },
@@ -41,7 +41,8 @@ public class AjaxController extends HttpServlet {
 		new String[] { "kundenAuswerfen", "/bib/Status"},
 		new String[] { "getRecht", "/bib/fetchSomething" },
 		new String[] { "isbnRueckgabe", "/bib/Status" },
-		new String[] { "isbnRueckgabe", "/bib/Status" }
+		new String[] { "isbnRueckgabe", "/bib/Status" },
+		new String[] { "warenkorbAusleihe", "/bib/Status" }
 	};
 	
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
