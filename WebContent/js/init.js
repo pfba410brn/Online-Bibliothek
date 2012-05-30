@@ -251,6 +251,13 @@ $.extend(bib, {
 					  bib.addKundeEintragen();
 				  }
 			});
+			$.ajax({
+				url: "AjaxController?do=mediumHinzufuegen",
+				type: "GET",
+				success: function(data) {
+					$("#WarenkorbBereich").html(data);
+				}
+			});
 		});
 	},
 	
@@ -271,8 +278,28 @@ $.extend(bib, {
 			$.ajax({
 				  url: "AjaxController?do=ausleihe",
 				  type: "GET",
-				  success : function(data) {
-					  $.blockUI({ message: data });
+				  success : function() {
+					  $.blockUI({ 
+				            message: "Warenkorb wurde ausgeliehen", 
+				            fadeIn: 700, 
+				            fadeOut: 700, 
+				            timeout: 2000, 
+				            showOverlay: false, 
+				            centerY: false, 
+				            css: { 
+				                width: '350px', 
+				                top: '10px', 
+				                left: '', 
+				                right: '10px', 
+				                border: 'none', 
+				                padding: '5px', 
+				                backgroundColor: '#000', 
+				                '-webkit-border-radius': '10px', 
+				                '-moz-border-radius': '10px', 
+				                opacity: .6, 
+				                color: '#fff' 
+				            } 
+				        }); 
 				  }
 			});
 		});
