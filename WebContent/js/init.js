@@ -16,12 +16,13 @@ $.extend(bib, {
 			url: "AjaxController?do=getRecht",
 			type: "GET",
 			success: function(data) {
+				$(".1,.2,.3").css("visibility","hidden");
 				var i;
 				var cString = "";
-				for(i=data; i=0; i--) {
+				for(i=1; i<=parseInt(data); i++) {
 					cString += "." + i + ", ";
 				}
-				alert(data);
+				$(cString).css("visibility","visible");
 			}
 		});
 	},
