@@ -125,6 +125,7 @@ public void doGet(HttpServletRequest request,
 		
 		for (Exemplar exemplar : this.rueckgabeListe)
 		{
+			out.print("<div>");
 			out.print("<div style=\"width:190px; float:right;\">");
 			out.print("<table width=\"190px\">");
 			out.print("<tr><td><b>" + exemplar.getBuch().getTitel() + "</b></td></tr>");	
@@ -132,15 +133,17 @@ public void doGet(HttpServletRequest request,
 			out.print("<tr><td>" +exemplar.getBuch().getIsbn() + "</td></tr>");
 			out.print("</table>");
 			out.print("</div>");
-			out.print("<div style=\"width:45px; margin-top:20px;\"><input type=\"image\" name=\"warenkorbRueckgabe\" src=\"../images/icons/rueckgabe.png\" class=\"warenkorbRueckgabe\"></div>");
+			out.print("<div style=\"width:45px; margin-top:20px;\"><input type=\"image\" name=\""+ exemplar.getBuch().getIsbn() +"\" src=\"../images/icons/rueckgabe.png\" class=\"warenkorbRueckgabe\"></div>");
 			out.print("<div style=\"clear:both;\"></div>");
 			out.print("<hr />");
+			out.print("</div");
 		}		
 	}
 	if(request.getParameter("do").equals("mediumHinzufuegen")) {
 		//out.print("<h1>Hey das geht </h1>" + buch.getIsbn() + " mit dieser ISBN!!!");
 		for (Exemplar exemplar : this.warenkorbListe){
 
+			out.print("<div>");
 			out.print("<div style=\"width:190px; float:right;\">");
 			out.print("<table width=\"190px\">");
 			out.print("<tr><td><b>" + exemplar.getBuch().getTitel() + "</b></td></tr>");	
@@ -151,6 +154,7 @@ public void doGet(HttpServletRequest request,
 			out.print("<div style=\"width:45px; margin-top:20px;\"><input type=\"image\" name=\""+exemplar.getBuch().getIsbn() +"\" src=\"../images/icons/rueckgaengig.png\" class=\"rueckgaengig\"></div>");
 			out.print("<div style=\"clear:both;\"></div>");
 			out.print("<hr />");
+			out.print("</div>");
 		}
 	}
 	
@@ -259,12 +263,16 @@ private void mediumZurueckgeben(ExemplarBenutzer exemplarBenutzer){
 	db.deleteExemplarBenutzer(exemplarBenutzer);
 }
 
-private void exemplarAusListeEntfernen(String isbn){
-	for (Exemplar exemplar : this.warenkorbListe)
+private void exemplarAusListeEntfernen(String isbn)
+{
+	Exemplar exemplar = null;
+	for (int i = 0; i < this.warenkorbListe.size(); i++)
 	{
+		exemplar = this.warenkorbListe.get(i);
 		if (exemplar.getBuch().getIsbn().equals(isbn))
-			this.warenkorbListe.remove(exemplar);
+			break;	
 	}
+	this.warenkorbListe.remove(exemplar);
 }
 
 
