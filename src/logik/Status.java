@@ -113,6 +113,7 @@ public void doGet(HttpServletRequest request,
 	}
 	if(request.getParameter("do").equals("warenkorbAusleihe")) {
 		List<ExemplarBenutzer> ausleihVorgaenge = db.selectAll_ExemplarBenutzer();
+		this.rueckgabeListe = new ArrayList<Exemplar>();
 		if (ausleihVorgaenge != null)
 			for (ExemplarBenutzer exBe : ausleihVorgaenge)
 			{
@@ -148,7 +149,7 @@ public void doGet(HttpServletRequest request,
 			out.print("<tr><td>" +exemplar.getBuch().getIsbn() + "</td></tr>");
 			out.print("</table>");
 			out.print("</div>");
-			out.print("<div style=\"width:45px; margin-top:20px;\"><input type=\"image\" name=\"absenden\" src=\"../images/icons/rueckgaengig.png\" id=\"isbnZurueck\"></div>");
+			out.print("<div style=\"width:45px; margin-top:20px;\"><input type=\"image\" name=\"absenden\" src=\"../images/icons/rueckgaengig.png\" id=\"rueckgaengig\"></div>");
 			out.print("<div style=\"clear:both;\"></div>");
 			out.print("<hr />");
 		}
@@ -168,6 +169,7 @@ public void doGet(HttpServletRequest request,
 	{
 		this.benutzer = null;
 		this.warenkorbListe = new ArrayList<Exemplar>();
+		this.rueckgabeListe = new ArrayList<Exemplar>();
 		
 		out.print("<table>");
 		out.print("<tr>");
