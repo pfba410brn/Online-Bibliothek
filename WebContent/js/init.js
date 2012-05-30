@@ -163,6 +163,7 @@ $.extend(bib, {
 	
 	addIsbnRueckgaengigClick: function() {
 		$(".rueckgaengig").each(function() {
+			var pDiv = $(this).parent();
 			$(this).click(function() {
 				var isbn = $(this).attr("name");
 				$.ajax({
@@ -174,7 +175,7 @@ $.extend(bib, {
 							url: "AjaxController?do=mediumHinzufuegen",
 							type: "GET",
 							success: function() {
-								$("#WarenkorbBereich").html();
+								pDiv.fadeOut("fast").remove();
 							}
 						});
 					}
