@@ -4,6 +4,12 @@
 <%@ page import="javax.servlet.annotation.WebServlet"%>
 <%@ page import="javax.servlet.http.*"%>
 <!-- Login -->
+<%
+	String message = (String) request.getAttribute("Email");
+	String bg = (String) request.getAttribute("Benutzergruppe");
+	out.println(message);
+	out.println(bg);
+%>
 <div id="login">
 	<!-- Noch nicht eingeloggt -->
 	 	<table class="benutzereingabe">

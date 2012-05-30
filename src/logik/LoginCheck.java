@@ -168,6 +168,8 @@ public class LoginCheck extends HttpServlet{
 			out.println("</div>");
 			
 	    }
+	    RequestDispatcher reqDispatcher = getServletConfig().getServletContext().getRequestDispatcher("inc_Login.jsp");
+	    reqDispatcher.forward(request,response);
 	}
 	
 	public String getBenutzerGruppe() {
