@@ -152,18 +152,18 @@ public void doGet(HttpServletRequest request,
 			out.print("<div style=\"clear:both;\"></div>");
 			out.print("<hr />");
 		}
-
-		if (this.warenkorbListe.size() > 0 && request.getParameter("do").equals("ausleihe"))
-		{
-			long mitarbeiterID = 0;
-			Benutzer mitarbeiter = null;
-			HttpSession session = request.getSession(true);
-			mitarbeiterID = (Long) session.getAttribute("Benutzerid");
-			mitarbeiter = db.select_BenutzerUeberID(mitarbeiterID);
-			this.medienAusleihen(mitarbeiter);
-		}
-
 	}
+	
+	if (this.warenkorbListe.size() >= 0 && request.getParameter("do").equals("ausleihe"))
+	{
+		long mitarbeiterID = 0;
+		Benutzer mitarbeiter = null;
+		//HttpSession session = request.getSession(true);
+		//mitarbeiterID = (Long) session.getAttribute("Benutzerid");
+		mitarbeiter = db.select_BenutzerUeberID(new Long("3009"));
+		out.print(this.medienAusleihen(mitarbeiter));
+	}
+	
 	if (request.getParameter("do").equals("kundenAuswerfen"))
 	{
 		this.benutzer = null;
@@ -220,8 +220,9 @@ private void setBenutzer(Benutzer benutzer) {
 	this.benutzer = benutzer;
 }
 
-private void medienAusleihen(Benutzer verliehenVon){
+private String medienAusleihen(Benutzer verliehenVon){
 	// TODO: Anpassen
+	String tata = "Start: ";
 	DbVerwaltung db = new DbVerwaltung();
 	
 	for (Exemplar exemplar : this.warenkorbListe)
@@ -229,8 +230,10 @@ private void medienAusleihen(Benutzer verliehenVon){
 		ExemplarBenutzerPK exemplarBenutzerPK = new ExemplarBenutzerPK();
 		ExemplarBenutzer exemplarBenutzer = new ExemplarBenutzer();
 
-		exemplarBenutzerPK .setBenutzerId(this.benutzer.getBenutzerId());
-		exemplarBenutzerPK .setInventarnr(exemplar.getInventarnr());
+		exemplarBenutzerPK.setBenutzerId(this.benutzer.getBenutzerId());
+		exemplarBenutzerPK.setInventarnr(exemplar.getInventarnr());
+		
+		tata += this.benutzer.getBenutzerId() + " - " + exemplar.getInventarnr() + "<br/>";
 		
 		exemplarBenutzer.setBenutzer(this.benutzer);
 		exemplarBenutzer.setDatum(new Date());
@@ -238,10 +241,17 @@ private void medienAusleihen(Benutzer verliehenVon){
 		exemplarBenutzer.setExemplar(exemplar);
 		exemplarBenutzer.setId(exemplarBenutzerPK);
 		exemplarBenutzer.setVerliehenVon(verliehenVon.getBenutzerId() + "");
+		
 		System.out.println("Vor insert");
-		db.insertExemplarBenutzer(exemplarBenutzer);
-		System.out.println("Geinserted");
+		if(db.insertExemplarBenutzer(exemplarBenutzer)) {
+			tata += " TRUE";
+		} else {
+			tata += " FALSE";
+		}
+		
+		
 	}
+	return tata;
 }
 
 private void mediumZurueckgeben(ExemplarBenutzer exemplarBenutzer){

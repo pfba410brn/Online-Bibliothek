@@ -164,6 +164,7 @@ $.extend(bib, {
 	addIsbnRueckgaengigClick: function() {
 		$(".rueckgaengig").each(function() {
 			$(this).click(function() {
+				var isbn = $(this).attr("name");
 				$.ajax({
 					url: "AjaxController?do=isbnRueckgaengig",
 					type: "GET",
