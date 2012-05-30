@@ -148,7 +148,7 @@ public void doGet(HttpServletRequest request,
 			out.print("<tr><td>" +exemplar.getBuch().getIsbn() + "</td></tr>");
 			out.print("</table>");
 			out.print("</div>");
-			out.print("<div style=\"width:45px; margin-top:20px;\"><input type=\"image\" name=\""+exemplar.getBuch().getIsbn() +"\" src=\"../images/icons/rueckgaengig.png\" id=\"rueckgaengig\"></div>");
+			out.print("<div style=\"width:45px; margin-top:20px;\"><input type=\"image\" name=\""+exemplar.getBuch().getIsbn() +"\" src=\"../images/icons/rueckgaengig.png\" class=\"rueckgaengig\"></div>");
 			out.print("<div style=\"clear:both;\"></div>");
 			out.print("<hr />");
 		}
