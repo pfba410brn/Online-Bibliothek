@@ -15,6 +15,7 @@ import db.DbVerwaltung;
 public class LoginCheck extends HttpServlet{
 
 	private long benutzerGruppe;
+	private long benutzerId;
 
 
 	
@@ -43,6 +44,7 @@ public class LoginCheck extends HttpServlet{
 	    		this.benutzerGruppe = b.getBenutzergruppe().getGruppenId();
 	    		benutzerVorname = b.getVorname().toString();
 	    		benutzerNachname = b.getNachname().toString();
+	    		benutzerId = b.getBenutzerId();
 	    		korrekt = true;
 	    		/* TEST
 	    		out.println("korrekt \n");
@@ -61,6 +63,7 @@ public class LoginCheck extends HttpServlet{
 			{
 				session.setAttribute("Email", benutzerEmail);
 				session.setAttribute("Benutzergruppe", this.benutzerGruppe);
+				session.setAttribute("Benutzerid", this.benutzerId);
 				session.setMaxInactiveInterval(3600); // Sekunden
 			}
 			/*
