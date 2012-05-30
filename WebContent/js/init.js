@@ -199,10 +199,9 @@ $.extend(bib, {
 	addBenutzerSpeichernClick: function() {
 		$("#insert_benutzer").click(function(e) {
 			var daten = "";
-			$("#reg_Benutzer input").each(function() {
+			$(".registrierung input, .registrierung select").each(function() {
 				daten += $(this).attr("name")+"="+$(this).val()+"&";
 			});
-			alert(daten);
 			$.ajax({
 				url: "AjaxController?do=benutzerEintragen",
 				type: "GET",
@@ -292,18 +291,18 @@ $.extend(bib, {
 					  $("#KundenBereich").html(data);
 					  bib.addKundeEintragen();
 					  bib.addWarenkorbAufloesen();
-					  $.ajax({
+					  	$.ajax({
 						  url: "AjaxController?do=warenkorbAusleihe",
-						  type: "GET",
-						  data: "kundennummer=" + $("#kundenID").val(),
-						  success : function(data) {
+						  	type: "GET",
+						  	data: "kundennummer=" + $("#kundenID").val(),
+						  	success : function(data) {
 							  $("#RueckgabeBereich").html(data);
 							  bib.addIsbnRueckgabeClick();
-						  }
-					});
+					  }
+				  	});
 				  }
 			});
-			
+			bib.addRegistrierenClick();
 			
 		});
 	},
@@ -317,6 +316,7 @@ $.extend(bib, {
 				  success : function(data) {
 					  $("#KundenBereich").html(data);
 					  bib.addKundeEintragen();
+					  $("#WarenkorbBereich, #RueckgabeBereich").html("");
 				  }
 			});
 			
