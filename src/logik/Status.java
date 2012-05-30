@@ -66,6 +66,48 @@ public void doGet(HttpServletRequest request,
 		String kundennr = request.getParameter("kundennr");
 		this.benutzer = db.select_BenutzerUeberID(Long.parseLong(kundennr));
 	}
+	if(request.getParameter("do").equals("kundenCheck")) {
+		long benutzernr = Long.valueOf(request.getParameter("kundennummer")).longValue();
+		
+	    List<Benutzer>resultList = db.selectAll_Benutzer();
+	    
+	    Boolean gefunden = false;
+	    
+	    for(Benutzer b:resultList)
+	    {
+	    	if(b.getBenutzerId() == benutzernr)
+	    	{
+	    		gefunden = true;
+	    		break;	
+	    	}
+	    }
+	    
+	    if(gefunden) {
+		    out.print("<table>");
+			out.print("<tr>");
+			out.print("<td>KundenNr:</td>");
+			out.print("<td><div id=\"KundenNr\">" +  benutzernr + "</div></td>");
+			out.print("<td><input type=\"image\" id=\"auswerfen\" src=\"../images/icons/cancel.png\"></td>");
+			out.print("</tr>");
+			out.print("<tr>");
+			out.print("<td></td>");
+			out.print("<td></td>");
+			out.print("<td></td>");
+			out.print("</tr>");
+			out.print("</table>");
+	    } else {
+	    	out.print("<table>");
+    		out.print("<tr>");
+			out.print("<td>KundenNr:</td>");
+			out.print("<td><input type=\"text\" id=\"kundenID\" size=\"17\" maxlength=\"30\"/></td>");
+			out.print("<td><input type=\"image\" id=\"kundeEintragen\" name=\"uebernehmen\" src=\"../images/icons/ok_haken.png\"></td>");
+			out.print("</tr>");
+			out.print("<tr>");
+			out.print("<td colspan=\"3\">Fehler: Kunde konnte nicht gefunden werden! <a id=\"registrieren\">Registrieren</a></td>");
+			out.print("</tr>");
+			out.print("</table>");
+	    }
+	}
 
 	if(request.getParameter("do").equals("mediumHinzufuegen")) {
 		//out.print("<h1>Hey das geht </h1>" + buch.getIsbn() + " mit dieser ISBN!!!");
