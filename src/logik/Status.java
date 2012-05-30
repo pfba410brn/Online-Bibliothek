@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import db.Benutzer;
 import db.Buch;
@@ -84,7 +85,12 @@ public void doGet(HttpServletRequest request,
 
 		if (this.exemlarListe.size() > 0 && request.getParameter("do").equals("ausleihe"))
 		{
-			this.medienAusleihen();
+			long mitarbeiterID = 0;
+			Benutzer mitarbeiter = null;
+			HttpSession session = request.getSession(true);
+			mitarbeiterID = (Long) session.getAttribute("Benutzerid");
+			mitarbeiter = db.select_BenutzerUeberID(mitarbeiterID);
+			this.medienAusleihen(mitarbeiter);
 		}
 
 	}
@@ -129,9 +135,10 @@ private void setBenutzer(Benutzer benutzer) {
 	this.benutzer = benutzer;
 }
 
-private void medienAusleihen(){
+private void medienAusleihen(Benutzer verliehenVon){
 	// TODO: Anpassen
 	DbVerwaltung db = new DbVerwaltung();
+	
 	for (Exemplar exemplar : this.exemlarListe)
 	{
 		ExemplarBenutzerPK exemplarBenutzerPK = new ExemplarBenutzerPK();
@@ -145,7 +152,7 @@ private void medienAusleihen(){
 		exemplarBenutzer.setDauer(new BigDecimal (14.0));
 		exemplarBenutzer.setExemplar(exemplar);
 		exemplarBenutzer.setId(exemplarBenutzerPK);
-		
+		exemplarBenutzer.setVerliehenVon(verliehenVon.getBenutzerId() + "");
 		
 		db.insertExemplarBenutzer(exemplarBenutzer);
 	}
