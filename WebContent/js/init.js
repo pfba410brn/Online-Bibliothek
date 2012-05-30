@@ -123,7 +123,7 @@ $.extend(bib, {
 	
 	
 	addIsbnRueckgaengigClick: function() {
-		$("#isbnRueckgaengig").click(function() {
+		$("#rueckgaengig").click(function() {
 			$.ajax({
 				url: "AjaxController?do=isbnRueckgaengig",
 				type: "GET",
@@ -136,7 +136,7 @@ $.extend(bib, {
 	},
 	
 	addIsbnRueckgabeClick: function() {
-		$("#isbnRueckgabe").click(function() {
+		$("#rueckgabe").click(function() {
 			$.ajax({
 				url: "AjaxController?do=isbnRueckgabe",
 				type: "GET",
