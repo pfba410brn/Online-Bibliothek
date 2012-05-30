@@ -32,7 +32,13 @@ public class Status extends HttpServlet {
 private static final long serialVersionUID = 1L;
 
 private Benutzer benutzer;
-private List<Exemplar> exemlarListe = new ArrayList<Exemplar>();
+private List<Exemplar> warenkorbListe;
+private List<Exemplar> rueckgabeListe;
+
+public Status(){
+	warenkorbListe = new ArrayList<Exemplar>();
+	rueckgabeListe = new ArrayList<Exemplar>();
+}
    
 
 public void doGet(HttpServletRequest request,
@@ -55,7 +61,7 @@ public void doGet(HttpServletRequest request,
 		{
 			if (exemplar.getBuch().getIsbn().equals(buch.getIsbn()))
 			{
-				this.exemlarListe.add(exemplar);
+				this.warenkorbListe.add(exemplar);
 				break;
 			}
 		}
@@ -108,10 +114,33 @@ public void doGet(HttpServletRequest request,
 			out.print("</table>");
 	    }
 	}
-
+	if(request.getParameter("do").equals("warenkorbAusleihe")) {
+		List<ExemplarBenutzer> ausleihVorgaenge = db.selectAll_ExemplarBenutzer();
+		for (ExemplarBenutzer exBe : ausleihVorgaenge)
+		{
+			if (exBe.getBenutzer().getBenutzerId() == this.benutzer.getBenutzerId())
+			{
+				this.rueckgabeListe.add(exBe.getExemplar());
+			}
+		}
+		
+		for (Exemplar exemplar : this.rueckgabeListe)
+		{
+			out.print("<div style=\"width:190px; float:right;\">");
+			out.print("<table width=\"190px\">");
+			out.print("<tr><td><b>" + exemplar.getBuch().getTitel() + "</b></td></tr>");	
+			out.print("<tr><td>" + exemplar.getBuch().getAutor() + "</td></tr>");
+			out.print("<tr><td>" +exemplar.getBuch().getIsbn() + "</td></tr>");
+			out.print("</table>");
+			out.print("</div>");
+			out.print("<div style=\"width:45px; margin-top:20px;\"><input type=\"image\" name=\"warenkorbRueckgabe\" src=\"../images/icons/rueckgabe.png\" id=\"warenkorbRueckgabe\"></div>");
+			out.print("<div style=\"clear:both;\"></div>");
+			out.print("<hr />");
+		}		
+	}
 	if(request.getParameter("do").equals("mediumHinzufuegen")) {
 		//out.print("<h1>Hey das geht </h1>" + buch.getIsbn() + " mit dieser ISBN!!!");
-		for (Exemplar exemplar : this.exemlarListe){
+		for (Exemplar exemplar : this.warenkorbListe){
 
 			out.print("<div style=\"width:190px; float:right;\">");
 			out.print("<table width=\"190px\">");
@@ -120,12 +149,12 @@ public void doGet(HttpServletRequest request,
 			out.print("<tr><td>" +exemplar.getBuch().getIsbn() + "</td></tr>");
 			out.print("</table>");
 			out.print("</div>");
-			out.print("<div style=\"width:45px; margin-top:20px;\"><input type=\"image\" name=\"absenden\" src=\"../images/icons/pfeil.png\" id=\"isbnZurueck\"></div>");
+			out.print("<div style=\"width:45px; margin-top:20px;\"><input type=\"image\" name=\"absenden\" src=\"../images/icons/rueckgaengig.png\" id=\"isbnZurueck\"></div>");
 			out.print("<div style=\"clear:both;\"></div>");
 			out.print("<hr />");
 		}
 
-		if (this.exemlarListe.size() > 0 && request.getParameter("do").equals("ausleihe"))
+		if (this.warenkorbListe.size() > 0 && request.getParameter("do").equals("ausleihe"))
 		{
 			long mitarbeiterID = 0;
 			Benutzer mitarbeiter = null;
@@ -139,7 +168,7 @@ public void doGet(HttpServletRequest request,
 	if (request.getParameter("do").equals("kundenAuswerfen"))
 	{
 		this.benutzer = null;
-		this.exemlarListe = new ArrayList<Exemplar>();
+		this.warenkorbListe = new ArrayList<Exemplar>();
 		
 		out.print("<table>");
 		out.print("<tr>");
@@ -181,17 +210,6 @@ public void doGet(HttpServletRequest request,
 }
 
 
-
-private List<Exemplar> getExemlarListe() {
-	return exemlarListe;
-}
-
-
-private void setExemlarListe(List<Exemplar> exemlarListe) {
-	this.exemlarListe = exemlarListe;
-}
-
-
 private Benutzer getBenutzer() {
 	return benutzer;
 }
@@ -205,7 +223,7 @@ private void medienAusleihen(Benutzer verliehenVon){
 	// TODO: Anpassen
 	DbVerwaltung db = new DbVerwaltung();
 	
-	for (Exemplar exemplar : this.exemlarListe)
+	for (Exemplar exemplar : this.warenkorbListe)
 	{
 		ExemplarBenutzerPK exemplarBenutzerPK = new ExemplarBenutzerPK();
 		ExemplarBenutzer exemplarBenutzer = new ExemplarBenutzer();
@@ -231,10 +249,10 @@ private void mediumZurueckgeben(ExemplarBenutzer exemplarBenutzer){
 }
 
 private void exemplarAusListeEntfernen(String isbn){
-	for (Exemplar exemplar : this.exemlarListe)
+	for (Exemplar exemplar : this.warenkorbListe)
 	{
 		if (exemplar.getBuch().getIsbn().equals(isbn))
-			this.exemlarListe.remove(exemplar);
+			this.warenkorbListe.remove(exemplar);
 	}
 }
 

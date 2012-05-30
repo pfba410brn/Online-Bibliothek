@@ -26,6 +26,9 @@
     <hr />	
 		
     <div id="WarenkorbBereich"></div> 
+    <hr />	
+	<h3>Ausgeliehen</h3>  
+    <hr />
     <div id="RueckgabeBereich"></div>
     <div style="clear:both;"></div>
     <hr />	     
