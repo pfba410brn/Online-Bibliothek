@@ -255,7 +255,7 @@ $.extend(bib, {
 					data: "isbn=" + isbn + "&kundennr=" + $("#KundenNr").text(),
 					success: function(data) {
 						$("#WarenkorbBereich").html(data);
-						bib.addIsbnRueckgaengigClick();
+						
 					}
 				});
 			});
@@ -296,8 +296,6 @@ $.extend(bib, {
 						  data: "kundennummer=" + $("#kundenID").val(),
 						  success : function(data) {
 							  $("#RueckgabeBereich").html(data);
-							  bib.addKundeEintragen();
-							  bib.addWarenkorbAufloesen();
 						  }
 					});
 				  }
