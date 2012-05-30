@@ -9,6 +9,16 @@ $.extend(bib, {
 		bib.addKundeEintragen();
 		bib.addRegistrierenClick();
 		bib.rechteSetzen();
+		bib.addAusleihManagerClick();
+		bib.addBenutzerManagerClick();
+	},
+	
+	addAusleihManagerClick: function() {
+		
+	},
+	
+	addBenutzerManagerClick: function() {
+		
 	},
 	
 	rechteSetzen: function() {
@@ -120,7 +130,6 @@ $.extend(bib, {
 			});
 		});
 	},
-	
 	
 	addIsbnRueckgaengigClick: function() {
 		$("#rueckgaengig").click(function() {
@@ -308,17 +317,14 @@ $.extend(bib, {
 				                '-moz-border-radius': '10px', 
 				                opacity: .6, 
 				                color: '#fff' 
-				            } ,
+				            },
 				            onBlock: function() {
 				            	$("#auswerfen").trigger("click");
 				            }
 				       }); 
-					  
 				  }
 			});
 		});
-		
-		
 	}
 });
 $(bib.init);
