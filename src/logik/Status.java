@@ -132,7 +132,7 @@ public void doGet(HttpServletRequest request,
 			out.print("<tr><td>" +exemplar.getBuch().getIsbn() + "</td></tr>");
 			out.print("</table>");
 			out.print("</div>");
-			out.print("<div style=\"width:45px; margin-top:20px;\"><input type=\"image\" name=\"warenkorbRueckgabe\" src=\"../images/icons/rueckgabe.png\" id=\"warenkorbRueckgabe\"></div>");
+			out.print("<div style=\"width:45px; margin-top:20px;\"><input type=\"image\" name=\"warenkorbRueckgabe\" src=\"../images/icons/rueckgabe.png\" class=\"warenkorbRueckgabe\"></div>");
 			out.print("<div style=\"clear:both;\"></div>");
 			out.print("<hr />");
 		}		
