@@ -101,7 +101,7 @@ public void doGet(HttpServletRequest request,
 		out.print("</tr>");
 		out.print("<tr>");
 		out.print("<td></td>");
-		out.print("<td>Fehler: Kunde konnte nicht gefudnden werden! <a href=\"\">Registrieren</a></td>");
+		out.print("<td>Fehler: Kunde konnte nicht gefudnden werden! <a id=\"registrieren\">Registrieren</a></td>");
 		out.print("<td><input type=\"image\" id=\"auswerfen\" src=\"../images/icons/cancel.png\"></td>");
 		out.print("</tr>");
 		out.print("</table>");
