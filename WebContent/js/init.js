@@ -21,7 +21,7 @@ $.extend(bib, {
 	
 	addBenutzerManagerClick: function() {
 		$("#benutzerManager").click(function(e) {
-			window.location.href="/Online-Bibliothek/Bibliothek/bib/Controller?do=benutzerListe";
+			window.location.href="/Online-Bibliothek/bib/Controller?do=benutzerListe";
 		});
 		
 	},
@@ -113,7 +113,7 @@ $.extend(bib, {
 					type: "GET",
 					data: "bid=" + bid,
 					success: function(data) {
-						
+						 $.blockUI({message: data });
 					}
 				});
 			});
@@ -129,7 +129,32 @@ $.extend(bib, {
 					type: "GET",
 					data: "bid=" + bid,
 					success: function(data) {
-						
+							$(".growlUI h1").text("Löschen erfolgreich");
+						  $(".growlUI h2").text("Benutzer erfolgreich gelöscht.");
+						  $.blockUI({ 
+					            message: $(".growlUI"), 
+					            fadeIn: 700, 
+					            fadeOut: 700, 
+					            timeout: 2000, 
+					            showOverlay: false, 
+					            centerY: false, 
+					            css: { 
+					                width: '350px', 
+					                top: '10px', 
+					                left: '', 
+					                right: '10px', 
+					                border: 'none', 
+					                padding: '5px', 
+					                backgroundColor: '#000', 
+					                '-webkit-border-radius': '10px', 
+					                '-moz-border-radius': '10px', 
+					                opacity: .6, 
+					                color: '#fff' 
+					            },
+					            onBlock: function() {
+					            	window.location.href="/Online-Bibliothek/bib/Controller?do=benutzerListe";
+					            }
+					       }); 
 					}
 				});
 			});
@@ -137,27 +162,36 @@ $.extend(bib, {
 	},
 	
 	addIsbnRueckgaengigClick: function() {
-		$("#rueckgaengig").click(function() {
-			$.ajax({
-				url: "AjaxController?do=isbnRueckgaengig",
-				type: "GET",
-				data: "isbn=" + isbn,
-				success: function(data) {
-					
-				}
+		$(".rueckgaengig").each(function() {
+			
+			$(this).click(function() {
+				var pDiv = $(this).parent("div").parent("div");
+				var isbn = $(this).attr("name");
+				$.ajax({
+					url: "AjaxController?do=isbnRueckgaengig",
+					type: "GET",
+					data: "isbn=" + isbn,
+					success: function(data) {
+						pDiv.remove();
+					}
+				});
 			});
 		});
 	},
 	
 	addIsbnRueckgabeClick: function() {
-		$("#rueckgabe").click(function() {
-			$.ajax({
-				url: "AjaxController?do=isbnRueckgabe",
-				type: "GET",
-				data: "isbn=" + isbn,
-				success: function(data) {
-					
-				}
+		$(".warenkorbRueckgabe").each(function () {
+			$(this).click(function() {
+				var pDiv = $(this).parent("div").parent("div");
+				var isbn = $(this).attr("name");
+				$.ajax({
+					url: "AjaxController?do=isbnRueckgabe",
+					type: "GET",
+					data: "isbn=" + isbn,
+					success: function(data) {
+						pDiv.remove();
+					}
+				});
 			});
 		});
 	},
@@ -223,6 +257,7 @@ $.extend(bib, {
 					data: "isbn=" + isbn + "&kundennr=" + $("#KundenNr").text(),
 					success: function(data) {
 						$("#WarenkorbBereich").html(data);
+						bib.addIsbnRueckgaengigClick();
 					}
 				});
 			});
@@ -257,19 +292,19 @@ $.extend(bib, {
 					  $("#KundenBereich").html(data);
 					  bib.addKundeEintragen();
 					  bib.addWarenkorbAufloesen();
+					  $.ajax({
+						  url: "AjaxController?do=warenkorbAusleihe",
+						  type: "GET",
+						  data: "kundennummer=" + $("#kundenID").val(),
+						  success : function(data) {
+							  $("#RueckgabeBereich").html(data);
+							  bib.addIsbnRueckgabeClick();
+						  }
+					});
 				  }
 			});
 			
-			$.ajax({
-				  url: "AjaxController?do=warenkorbAusleihe",
-				  type: "GET",
-				  data: "kundennummer=" + $("#kundenID").val(),
-				  success : function(data) {
-					  $("#RueckgabeBereich").html(data);
-					  bib.addKundeEintragen();
-					  bib.addWarenkorbAufloesen();
-				  }
-			});
+			
 		});
 	},
 	
