@@ -216,3 +216,10 @@ table.registrierung tr {
 table.registrierung tr td {
 	
 }
+
+
+div.growlUI { background: url(../images/icons/ok_haken.png) no-repeat 10px 10px }
+div.ggrowlUI h1 {font-size:100%;}
+div.growlUI h1, div.growlUI h2 {
+	color: white; padding: 5px 5px 5px 75px; text-align: left; font-size:90%;
+}

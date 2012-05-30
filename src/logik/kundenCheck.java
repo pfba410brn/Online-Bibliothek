@@ -62,12 +62,10 @@ public class kundenCheck extends HttpServlet{
     		out.print("<tr>");
 			out.print("<td>KundenNr:</td>");
 			out.print("<td><input type=\"text\" id=\"kundenID\" size=\"17\" maxlength=\"30\"/></td>");
-			out.print("<td><input type=\"image\" id=\"uebernehmen\" name=\"uebernehmen\" src=\"../images/icons/ok_haken.png\"></td>");
+			out.print("<td><input type=\"image\" id=\"kundeEintragen\" name=\"uebernehmen\" src=\"../images/icons/ok_haken.png\"></td>");
 			out.print("</tr>");
 			out.print("<tr>");
-			out.print("<td></td>");
-			out.print("<td>Fehler: Kunde konnte nicht gefudnden werden! <a href=\"\">Registrieren</a></td>");
-			out.print("<td><input type=\"image\" id=\"auswerfen\" src=\"../images/icons/cancel.png\"></td>");
+			out.print("<td colspan=\"3\">Fehler: Kunde konnte nicht gefunden werden! <a id=\"registrieren\">Registrieren</a></td>");
 			out.print("</tr>");
 			out.print("</table>");
 	    }

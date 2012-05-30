@@ -16,12 +16,13 @@ $.extend(bib, {
 			url: "AjaxController?do=getRecht",
 			type: "GET",
 			success: function(data) {
+				$(".1,.2,.3").css("visibility","hidden");
 				var i;
 				var cString = "";
-				for(i=data; i=0; i--) {
+				for(i=1; i<=parseInt(data); i++) {
 					cString += "." + i + ", ";
 				}
-				alert(data);
+				$(cString).css("visibility","visible");
 			}
 		});
 	},
@@ -121,12 +122,25 @@ $.extend(bib, {
 	},
 	
 	
-	addIsbnZurueckClick: function() {
-		$("#isbnZurueck").click(function() {
+	addIsbnRueckgaengigClick: function() {
+		$("#rueckgaengig").click(function() {
 			$.ajax({
-				url: "AjaxController?do=benutzerAendern",
+				url: "AjaxController?do=isbnRueckgaengig",
 				type: "GET",
-				data: "bid=" + bid,
+				data: "isbn=" + isbn,
+				success: function(data) {
+					
+				}
+			});
+		});
+	},
+	
+	addIsbnRueckgabeClick: function() {
+		$("#rueckgabe").click(function() {
+			$.ajax({
+				url: "AjaxController?do=isbnRueckgabe",
+				type: "GET",
+				data: "isbn=" + isbn,
 				success: function(data) {
 					
 				}
@@ -137,12 +151,10 @@ $.extend(bib, {
 	addBenutzerSpeichernClick: function() {
 		$("#insert_benutzer").click(function(e) {
 			var daten = "";
-			$("#reg_Benutzer > input").each(function() {
+			$("#reg_Benutzer input").each(function() {
 				daten += $(this).attr("name")+"="+$(this).val()+"&";
 			});
-						
 			alert(daten);
-			
 			$.ajax({
 				url: "AjaxController?do=benutzerEintragen",
 				type: "GET",
@@ -157,7 +169,6 @@ $.extend(bib, {
 	
 	addAnmeldenClick: function() {
 		$("#anmelden").click(function() {
-			alert("tata anmelden!");
 			$.ajax({
 				url:"AjaxController?do=loginCheck",
 				type:"GET",
@@ -175,7 +186,6 @@ $.extend(bib, {
 
 	addAbmeldenClick: function() {
 		$("#abmelden").click(function() {
-			alert("abmelden geklickt!");
 			$.ajax({
 				url:"AjaxController?do=ausloggen",
 				type:"GET",
@@ -240,7 +250,6 @@ $.extend(bib, {
 	
 	addWarenkorbAufloesen: function() {
 		$('#auswerfen').click(function() {
-			alert("Kunde Auswerfen geklickt!: " + $("#kundenID").val());
 			$.ajax({
 				  url: "AjaxController?do=kundenAuswerfen",
 				  type: "GET",
@@ -249,6 +258,13 @@ $.extend(bib, {
 					  $("#KundenBereich").html(data);
 					  bib.addKundeEintragen();
 				  }
+			});
+			$.ajax({
+				url: "AjaxController?do=mediumHinzufuegen",
+				type: "GET",
+				success: function(data) {
+					$("#WarenkorbBereich").html(data);
+				}
 			});
 		});
 	},
@@ -270,8 +286,34 @@ $.extend(bib, {
 			$.ajax({
 				  url: "AjaxController?do=ausleihe",
 				  type: "GET",
-				  success : function(data) {
-					  $.blockUI({ message: data });
+				  success : function() {
+					  $(".growlUI h1").text("Ausleihe erfolgreich");
+					  $(".growlUI h2").text("Bücher wurden ausgeliehen.");
+					  $.blockUI({ 
+				            message: $(".growlUI"), 
+				            fadeIn: 700, 
+				            fadeOut: 700, 
+				            timeout: 2000, 
+				            showOverlay: false, 
+				            centerY: false, 
+				            css: { 
+				                width: '350px', 
+				                top: '10px', 
+				                left: '', 
+				                right: '10px', 
+				                border: 'none', 
+				                padding: '5px', 
+				                backgroundColor: '#000', 
+				                '-webkit-border-radius': '10px', 
+				                '-moz-border-radius': '10px', 
+				                opacity: .6, 
+				                color: '#fff' 
+				            } ,
+				            onBlock: function() {
+				            	$("#auswerfen").trigger("click");
+				            }
+				       }); 
+					  
 				  }
 			});
 		});
