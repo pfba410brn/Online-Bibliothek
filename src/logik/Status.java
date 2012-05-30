@@ -63,11 +63,11 @@ public void doGet(HttpServletRequest request,
 		}
 	}
 
-	if(request.getParameter("kundennr") != null && this.benutzer == null) {
-		/* NEUEN KUNDEN HINZUFÜGEN ????*/
+	/*if(request.getParameter("kundennr") != null && this.benutzer == null) {
+		 NEUEN KUNDEN HINZUFÜGEN ????
 		String kundennr = request.getParameter("kundennr");
 		this.benutzer = db.select_BenutzerUeberID(Long.parseLong(kundennr));
-	}
+	}*/
 	if(request.getParameter("do").equals("kundenCheck")) {
 		long benutzernr = Long.valueOf(request.getParameter("kundennummer")).longValue();
 		
@@ -80,6 +80,7 @@ public void doGet(HttpServletRequest request,
 	    	if(b.getBenutzerId() == benutzernr)
 	    	{
 	    		gefunden = true;
+	    		this.benutzer = b;
 	    		break;	
 	    	}
 	    }

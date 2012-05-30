@@ -113,7 +113,7 @@ $.extend(bib, {
 					type: "GET",
 					data: "bid=" + bid,
 					success: function(data) {
-						
+						 $.blockUI({message: data });
 					}
 				});
 			});
