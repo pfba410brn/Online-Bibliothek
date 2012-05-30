@@ -45,23 +45,7 @@ public void doGet(HttpServletRequest request,
 	DbVerwaltung db = new DbVerwaltung();
 	PrintWriter out = response.getWriter();
 	
-	if(request.getParameter("isbn") != null) {
-
-		/* NEUES BUCH HINZUFÜGEN */
-		String isbn = request.getParameter("isbn");
-		//out.println(isbn);
-
-		Buch buch = db.select_BuchUeberISBN(isbn);
-		List<Exemplar> exemplarListe = db.selectAll_Exemplar();
-		for (Exemplar exemplar : exemplarListe)
-		{
-			if (exemplar.getBuch().getIsbn().equals(buch.getIsbn()))
-			{
-				this.warenkorbListe.add(exemplar);
-				break;
-			}
-		}
-	}
+	
 
 	/*if(request.getParameter("kundennr") != null && this.benutzer == null) {
 		 NEUEN KUNDEN HINZUFÜGEN ????
@@ -70,6 +54,9 @@ public void doGet(HttpServletRequest request,
 	}*/
 	if(request.getParameter("do").equals("kundenCheck")) {
 		long benutzernr = Long.valueOf(request.getParameter("kundennummer")).longValue();
+		
+		this.warenkorbListe = new ArrayList<Exemplar>();
+		this.rueckgabeListe = new ArrayList<Exemplar>();
 		
 	    List<Benutzer>resultList = db.selectAll_Benutzer();
 	    
@@ -141,6 +128,26 @@ public void doGet(HttpServletRequest request,
 	}
 	if(request.getParameter("do").equals("mediumHinzufuegen")) {
 		//out.print("<h1>Hey das geht </h1>" + buch.getIsbn() + " mit dieser ISBN!!!");
+		
+		if(request.getParameter("isbn") != null) {
+
+			/* NEUES BUCH HINZUFÜGEN */
+			String isbn = request.getParameter("isbn");
+			//out.println(isbn);
+
+			Buch buch = db.select_BuchUeberISBN(isbn);
+			List<Exemplar> exemplarListe = db.selectAll_Exemplar();
+			for (Exemplar exemplar : exemplarListe)
+			{
+				if (exemplar.getBuch().getIsbn().equals(buch.getIsbn()))
+				{
+					this.warenkorbListe.add(exemplar);
+					break;
+				}
+			}
+		}
+		
+		
 		for (Exemplar exemplar : this.warenkorbListe){
 
 			out.print("<div>");
@@ -266,6 +273,7 @@ private void mediumZurueckgeben(ExemplarBenutzer exemplarBenutzer){
 private void exemplarAusListeEntfernen(String isbn)
 {
 	Exemplar exemplar = null;
+	System.out.println("Anzahl elemente" + this.warenkorbListe.size());
 	for (int i = 0; i < this.warenkorbListe.size(); i++)
 	{
 		exemplar = this.warenkorbListe.get(i);
@@ -273,6 +281,7 @@ private void exemplarAusListeEntfernen(String isbn)
 			break;	
 	}
 	this.warenkorbListe.remove(exemplar);
+	System.out.println("Anzahl elemente" + this.warenkorbListe.size());
 }
 
 
