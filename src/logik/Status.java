@@ -32,14 +32,10 @@ public class Status extends HttpServlet {
 private static final long serialVersionUID = 1L;
 
 private Benutzer benutzer;
-private List<Exemplar> warenkorbListe;
-private List<Exemplar> rueckgabeListe;
+private List<Exemplar> warenkorbListe = new ArrayList<Exemplar>();;
+private List<Exemplar> rueckgabeListe = new ArrayList<Exemplar>();;
 
-public Status(){
-	warenkorbListe = new ArrayList<Exemplar>();
-	rueckgabeListe = new ArrayList<Exemplar>();
-}
-   
+  
 
 public void doGet(HttpServletRequest request,
             HttpServletResponse response)
@@ -116,13 +112,15 @@ public void doGet(HttpServletRequest request,
 	}
 	if(request.getParameter("do").equals("warenkorbAusleihe")) {
 		List<ExemplarBenutzer> ausleihVorgaenge = db.selectAll_ExemplarBenutzer();
-		for (ExemplarBenutzer exBe : ausleihVorgaenge)
-		{
-			if (exBe.getBenutzer().getBenutzerId() == this.benutzer.getBenutzerId())
+		if (ausleihVorgaenge != null)
+			for (ExemplarBenutzer exBe : ausleihVorgaenge)
 			{
-				this.rueckgabeListe.add(exBe.getExemplar());
+				System.out.print(" - " + this.benutzer.getBenutzerId());
+				if (exBe.getBenutzer().getBenutzerId() == this.benutzer.getBenutzerId())
+				{
+					this.rueckgabeListe.add(exBe.getExemplar());
+				}
 			}
-		}
 		
 		for (Exemplar exemplar : this.rueckgabeListe)
 		{
@@ -189,6 +187,7 @@ public void doGet(HttpServletRequest request,
 		this.exemplarAusListeEntfernen(isbn);
 		
 	}
+	/* Zurückgeben der noch ausgeliehenen Medien*/
 	if (request.getParameter("do").equals("isbnRueckgabe"))
 	{
 		String isbn = request.getParameter("isbn");
