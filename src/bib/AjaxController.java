@@ -41,7 +41,8 @@ public class AjaxController extends HttpServlet {
 		new String[] { "kundenAuswerfen", "/bib/Status"},
 		new String[] { "getRecht", "/bib/fetchSomething" },
 		new String[] { "isbnRueckgabe", "/bib/Status" },
-		new String[] { "isbnRueckgabe", "/bib/Status" }
+		new String[] { "isbnRueckgabe", "/bib/Status" },
+		new String[] { "warenkorbAusleihe", "/bib/Status" }
 	};
 	
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)

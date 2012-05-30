@@ -14,10 +14,15 @@ $.extend(bib, {
 	},
 	
 	addAusleihManagerClick: function() {
-		
+		$("#ausleihManager").click(function(e) {
+			window.location.href="/Online-Bibliothek/bib/Controller?do=buecherListe";
+		});
 	},
 	
 	addBenutzerManagerClick: function() {
+		$("#benutzerManager").click(function(e) {
+			window.location.href="/Online-Bibliothek/Bibliothek/bib/Controller?do=benutzerListe";
+		});
 		
 	},
 	
@@ -254,6 +259,17 @@ $.extend(bib, {
 					  bib.addWarenkorbAufloesen();
 				  }
 			});
+			
+			$.ajax({
+				  url: "AjaxController?do=warenkorbAusleihe",
+				  type: "GET",
+				  data: "kundennummer=" + $("#kundenID").val(),
+				  success : function(data) {
+					  $("#RueckgabeBereich").html(data);
+					  bib.addKundeEintragen();
+					  bib.addWarenkorbAufloesen();
+				  }
+			});
 		});
 	},
 	
@@ -268,6 +284,7 @@ $.extend(bib, {
 					  bib.addKundeEintragen();
 				  }
 			});
+			
 			$.ajax({
 				url: "AjaxController?do=mediumHinzufuegen",
 				type: "GET",
