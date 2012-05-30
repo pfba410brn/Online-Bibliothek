@@ -7,6 +7,7 @@ import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
@@ -21,6 +22,7 @@ public class DbVerwaltung {
     
     public  EntityManager em;
     public  EntityManagerFactory factory;
+	public EntityTransaction trans;
     
     public DbVerwaltung() {
         super();
@@ -36,7 +38,8 @@ public class DbVerwaltung {
             this.factory = Persistence.createEntityManagerFactory("jpa");
             this.em = factory.createEntityManager();
             
-            this.em.getTransaction().begin();
+            trans = this.em.getTransaction();
+            trans.begin();
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -125,25 +128,15 @@ public class DbVerwaltung {
     public boolean insertBenutzer(Benutzer user){
         
             open();
-
-            String queryString = "SELECT b FROM Benutzer WHERE b.benutzerId < SELECT MAX(b.benutzerId) FROM b)";
-             System.out.println(queryString);
+            String queryString = "SELECT MAX(b.benutzerId) from Benutzer b";
             Query query = this.em.createQuery(queryString);
             
             @SuppressWarnings("unchecked")
-            List <Benutzer> resultList = query.getResultList();
-            Iterator<Benutzer> pIterator=resultList.iterator();
-            
-            while(pIterator.hasNext()){
-                
-                Benutzer be=(Benutzer)pIterator.next();
-                System.out.println(be.getBenutzerId());
-                user.setBenutzerId(be.getBenutzerId()+1);
-            }
-
-        
+            List resultList = query.getResultList();
+            user.setBenutzerId(new Long(Integer.parseInt(resultList.get(0).toString())+1));
          try {
              this.em.persist(user);
+             this.trans.commit();
         } catch (Exception e) {
             e.printStackTrace();
             this.em.close();
@@ -158,9 +151,8 @@ public class DbVerwaltung {
               open();
                  
          try {
-             //Benutzer userx = em.find(Benutzer.class, user.getBenutzerId());
              em.merge(user);
-             em.getTransaction().commit();
+             this.trans.commit();
              this.em.persist(user);
         } catch (Exception e) {
             e.printStackTrace();
@@ -179,7 +171,8 @@ public class DbVerwaltung {
          try {
              Benutzer userx = em.find(Benutzer.class, user.getBenutzerId());
              em.remove(userx);
-             em.getTransaction().commit();
+             this.trans.commit();
+             
              this.em.persist(user);
         } catch (Exception e) {
             e.printStackTrace();
@@ -220,6 +213,8 @@ public class DbVerwaltung {
         
          try {
              this.em.persist(exBe);
+             this.trans.commit();
+             
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -233,8 +228,8 @@ public class DbVerwaltung {
          open();
 
          try {
-             em.getTransaction().commit();
              this.em.persist(exBe);
+             this.trans.commit();
         } catch (Exception e) {
             e.printStackTrace();
             this.em.close();
@@ -251,7 +246,7 @@ public class DbVerwaltung {
          try {
              ExemplarBenutzer exBex = em.find(ExemplarBenutzer.class,exBe.getId());
              em.remove(exBex);
-             em.getTransaction().commit();
+             this.trans.commit();
              this.em.persist(exBe);
         } catch (Exception e) {
             e.printStackTrace();
@@ -275,12 +270,13 @@ public class DbVerwaltung {
             return resultList;
     }
     
-    public  boolean insertExemplar(ExemplarBenutzer ex){
+    public boolean insertExemplar(ExemplarBenutzer ex){
 
         open();
         
          try {
              this.em.persist(ex);
+             this.trans.commit();
         } catch (Exception e) {
             e.printStackTrace();
             this.em.close();
@@ -291,7 +287,6 @@ public class DbVerwaltung {
     }
     
 	public int getBuchStatus(Buch buch){
-        //open();
 		
 	   int anzahlEx;
        int anzahlVerliehen = 0;
@@ -304,8 +299,6 @@ public class DbVerwaltung {
           Set<ExemplarBenutzer>  eb =e.getExemplarBenutzers();
           anzahlVerliehen= eb.size();
         }
-
-         // close();
 
 		return anzahlEx - anzahlVerliehen;
 	}
@@ -339,15 +332,5 @@ public class DbVerwaltung {
         	 return null;
  }
     
-	    public int select_NächsteBenutzerID(){
-
-            open();
-            Query query = this.em.createQuery("SELECT MAX(b.benutzerId) FROM Benutzer b");
-            @SuppressWarnings("unchecked")
-			List<Object> resultList = query.getResultList();
-            close();
-            return Integer.parseInt(resultList.get(0).toString())+1;
-                
-    }
 	 
 }
