@@ -163,21 +163,16 @@ $.extend(bib, {
 	
 	addIsbnRueckgaengigClick: function() {
 		$(".rueckgaengig").each(function() {
-			var pDiv = $(this).parent();
+			
 			$(this).click(function() {
+				var pDiv = $(this).parent("div").parent("div");
 				var isbn = $(this).attr("name");
 				$.ajax({
 					url: "AjaxController?do=isbnRueckgaengig",
 					type: "GET",
 					data: "isbn=" + isbn,
 					success: function(data) {
-						$.ajax({
-							url: "AjaxController?do=mediumHinzufuegen",
-							type: "GET",
-							success: function() {
-								pDiv.fadeOut("fast").remove();
-							}
-						});
+						pDiv.remove();
 					}
 				});
 			});
@@ -185,14 +180,17 @@ $.extend(bib, {
 	},
 	
 	addIsbnRueckgabeClick: function() {
-		$("#rueckgabe").click(function() {
-			$.ajax({
-				url: "AjaxController?do=isbnRueckgabe",
-				type: "GET",
-				data: "isbn=" + isbn,
-				success: function(data) {
-					
-				}
+		$(".WarenkorbRueckgabe").each(function () {
+			$(this).click(function() {
+				var pDiv = $(this).parent("div").parent("div");
+				$.ajax({
+					url: "AjaxController?do=isbnRueckgabe",
+					type: "GET",
+					data: "isbn=" + isbn,
+					success: function(data) {
+						pDiv.remove();
+					}
+				});
 			});
 		});
 	},
