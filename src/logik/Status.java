@@ -123,7 +123,7 @@ public void doGet(HttpServletRequest request,
 			out.print("<div style=\"width:45px; margin-top:20px;\"><input type=\"image\" name=\""+ exemplar.getBuch().getIsbn() +"\" src=\"../images/icons/rueckgabe.png\" class=\"warenkorbRueckgabe\"></div>");
 			out.print("<div style=\"clear:both;\"></div>");
 			out.print("<hr />");
-			out.print("</div");
+			out.print("</div>");
 		}		
 	}
 	if(request.getParameter("do").equals("mediumHinzufuegen")) {
