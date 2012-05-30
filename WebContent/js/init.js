@@ -183,6 +183,7 @@ $.extend(bib, {
 		$(".warenkorbRueckgabe").each(function () {
 			$(this).click(function() {
 				var pDiv = $(this).parent("div").parent("div");
+				var isbn = $(this).attr("name");
 				$.ajax({
 					url: "AjaxController?do=isbnRueckgabe",
 					type: "GET",
