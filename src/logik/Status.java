@@ -112,6 +112,30 @@ public void doGet(HttpServletRequest request,
 		out.print("</tr>");
 		out.print("</table>");		
 	}
+	if (request.getParameter("do").equals("isbnRueckgaengig"))
+	{
+		String isbn = request.getParameter("isbn");
+		this.exemplarAusListeEntfernen(isbn);
+		
+	}
+	if (request.getParameter("do").equals("isbnRueckgabe"))
+	{
+		String isbn = request.getParameter("isbn");
+		ExemplarBenutzer exemplarBenutzer = null;
+		this.exemplarAusListeEntfernen(isbn);
+		
+		List<ExemplarBenutzer> exemplarBenutzerList = db.selectAll_ExemplarBenutzer();
+		for (ExemplarBenutzer exBe : exemplarBenutzerList)
+		{
+			if (exBe.getExemplar().getBuch().getIsbn().equals(isbn) && exBe.getBenutzer().getBenutzerId() == this.benutzer.getBenutzerId())
+					{
+						exemplarBenutzer = exBe;
+						break;
+					}
+		}
+		
+		this.mediumZurueckgeben(exemplarBenutzer);
+	}
 }
 
 
@@ -153,13 +177,23 @@ private void medienAusleihen(Benutzer verliehenVon){
 		exemplarBenutzer.setExemplar(exemplar);
 		exemplarBenutzer.setId(exemplarBenutzerPK);
 		exemplarBenutzer.setVerliehenVon(verliehenVon.getBenutzerId() + "");
-		
+		System.out.println("Vor insert");
 		db.insertExemplarBenutzer(exemplarBenutzer);
+		System.out.println("Geinserted");
 	}
 }
 
-private void mediumZurueckgeben(){
+private void mediumZurueckgeben(ExemplarBenutzer exemplarBenutzer){
+	DbVerwaltung db = new DbVerwaltung();
+	db.deleteExemplarBenutzer(exemplarBenutzer);
+}
 
+private void exemplarAusListeEntfernen(String isbn){
+	for (Exemplar exemplar : this.exemlarListe)
+	{
+		if (exemplar.getBuch().getIsbn().equals(isbn))
+			this.exemlarListe.remove(exemplar);
+	}
 }
 
 
