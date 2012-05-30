@@ -26,6 +26,7 @@
     <hr />	
 		
     <div id="WarenkorbBereich"></div> 
+    <div id="RueckgabeBereich"></div>
     <div style="clear:both;"></div>
     <hr />	     
  </div>

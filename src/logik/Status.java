@@ -66,6 +66,48 @@ public void doGet(HttpServletRequest request,
 		String kundennr = request.getParameter("kundennr");
 		this.benutzer = db.select_BenutzerUeberID(Long.parseLong(kundennr));
 	}
+	if(request.getParameter("do").equals("kundenCheck")) {
+		long benutzernr = Long.valueOf(request.getParameter("kundennummer")).longValue();
+		
+	    List<Benutzer>resultList = db.selectAll_Benutzer();
+	    
+	    Boolean gefunden = false;
+	    
+	    for(Benutzer b:resultList)
+	    {
+	    	if(b.getBenutzerId() == benutzernr)
+	    	{
+	    		gefunden = true;
+	    		break;	
+	    	}
+	    }
+	    
+	    if(gefunden) {
+		    out.print("<table>");
+			out.print("<tr>");
+			out.print("<td>KundenNr:</td>");
+			out.print("<td><div id=\"KundenNr\">" +  benutzernr + "</div></td>");
+			out.print("<td><input type=\"image\" id=\"auswerfen\" src=\"../images/icons/cancel.png\"></td>");
+			out.print("</tr>");
+			out.print("<tr>");
+			out.print("<td></td>");
+			out.print("<td></td>");
+			out.print("<td></td>");
+			out.print("</tr>");
+			out.print("</table>");
+	    } else {
+	    	out.print("<table>");
+    		out.print("<tr>");
+			out.print("<td>KundenNr:</td>");
+			out.print("<td><input type=\"text\" id=\"kundenID\" size=\"17\" maxlength=\"30\"/></td>");
+			out.print("<td><input type=\"image\" id=\"kundeEintragen\" name=\"uebernehmen\" src=\"../images/icons/ok_haken.png\"></td>");
+			out.print("</tr>");
+			out.print("<tr>");
+			out.print("<td colspan=\"3\">Fehler: Kunde konnte nicht gefunden werden! <a id=\"registrieren\">Registrieren</a></td>");
+			out.print("</tr>");
+			out.print("</table>");
+	    }
+	}
 
 	if(request.getParameter("do").equals("mediumHinzufuegen")) {
 		//out.print("<h1>Hey das geht </h1>" + buch.getIsbn() + " mit dieser ISBN!!!");
@@ -112,6 +154,30 @@ public void doGet(HttpServletRequest request,
 		out.print("</tr>");
 		out.print("</table>");		
 	}
+	if (request.getParameter("do").equals("isbnRueckgaengig"))
+	{
+		String isbn = request.getParameter("isbn");
+		this.exemplarAusListeEntfernen(isbn);
+		
+	}
+	if (request.getParameter("do").equals("isbnRueckgabe"))
+	{
+		String isbn = request.getParameter("isbn");
+		ExemplarBenutzer exemplarBenutzer = null;
+		this.exemplarAusListeEntfernen(isbn);
+		
+		List<ExemplarBenutzer> exemplarBenutzerList = db.selectAll_ExemplarBenutzer();
+		for (ExemplarBenutzer exBe : exemplarBenutzerList)
+		{
+			if (exBe.getExemplar().getBuch().getIsbn().equals(isbn) && exBe.getBenutzer().getBenutzerId() == this.benutzer.getBenutzerId())
+					{
+						exemplarBenutzer = exBe;
+						break;
+					}
+		}
+		
+		this.mediumZurueckgeben(exemplarBenutzer);
+	}
 }
 
 
@@ -153,13 +219,23 @@ private void medienAusleihen(Benutzer verliehenVon){
 		exemplarBenutzer.setExemplar(exemplar);
 		exemplarBenutzer.setId(exemplarBenutzerPK);
 		exemplarBenutzer.setVerliehenVon(verliehenVon.getBenutzerId() + "");
-		
+		System.out.println("Vor insert");
 		db.insertExemplarBenutzer(exemplarBenutzer);
+		System.out.println("Geinserted");
 	}
 }
 
-private void mediumZurueckgeben(){
+private void mediumZurueckgeben(ExemplarBenutzer exemplarBenutzer){
+	DbVerwaltung db = new DbVerwaltung();
+	db.deleteExemplarBenutzer(exemplarBenutzer);
+}
 
+private void exemplarAusListeEntfernen(String isbn){
+	for (Exemplar exemplar : this.exemlarListe)
+	{
+		if (exemplar.getBuch().getIsbn().equals(isbn))
+			this.exemlarListe.remove(exemplar);
+	}
 }
 
 
