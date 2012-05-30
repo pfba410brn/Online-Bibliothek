@@ -1,3 +1,8 @@
+<%@ page import="java.util.*"%>
+<%@ page import="java.io.*"%>
+<%@ page import="javax.servlet.*"%>
+<%@ page import="javax.servlet.annotation.WebServlet"%>
+<%@ page import="javax.servlet.http.*"%>
 <!-- Login -->
 <div id="login">
 	<!-- Noch nicht eingeloggt -->
