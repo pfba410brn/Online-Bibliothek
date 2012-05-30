@@ -122,12 +122,25 @@ $.extend(bib, {
 	},
 	
 	
-	addIsbnZurueckClick: function() {
-		$("#isbnZurueck").click(function() {
+	addIsbnRueckgaengigClick: function() {
+		$("#isbnRueckgaengig").click(function() {
 			$.ajax({
-				url: "AjaxController?do=benutzerAendern",
+				url: "AjaxController?do=isbnRueckgaengig",
 				type: "GET",
-				data: "bid=" + bid,
+				data: "isbn=" + isbn,
+				success: function(data) {
+					
+				}
+			});
+		});
+	},
+	
+	addIsbnRueckgabeClick: function() {
+		$("#isbnRueckgabe").click(function() {
+			$.ajax({
+				url: "AjaxController?do=isbnRueckgabe",
+				type: "GET",
+				data: "isbn=" + isbn,
 				success: function(data) {
 					
 				}
@@ -138,10 +151,10 @@ $.extend(bib, {
 	addBenutzerSpeichernClick: function() {
 		$("#insert_benutzer").click(function(e) {
 			var daten = "";
-			$("#reg_Benutzer > input").each(function() {
+			$("#reg_Benutzer input").each(function() {
 				daten += $(this).attr("name")+"="+$(this).val()+"&";
 			});
-						
+			alert(daten);
 			$.ajax({
 				url: "AjaxController?do=benutzerEintragen",
 				type: "GET",
