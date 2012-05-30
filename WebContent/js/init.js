@@ -180,7 +180,7 @@ $.extend(bib, {
 	},
 	
 	addIsbnRueckgabeClick: function() {
-		$(".WarenkorbRueckgabe").each(function () {
+		$(".warenkorbRueckgabe").each(function () {
 			$(this).click(function() {
 				var pDiv = $(this).parent("div").parent("div");
 				$.ajax({
@@ -297,6 +297,7 @@ $.extend(bib, {
 						  data: "kundennummer=" + $("#kundenID").val(),
 						  success : function(data) {
 							  $("#RueckgabeBereich").html(data);
+							  bib.addIsbnRueckgabeClick();
 						  }
 					});
 				  }
