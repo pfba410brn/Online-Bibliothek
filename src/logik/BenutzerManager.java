@@ -56,10 +56,9 @@ public class BenutzerManager extends HttpServlet {
 		else if(request.getParameter("do").equals("benutzerLoeschen")) 
 		{
 			// LOESCHEN
-			String benutzerid = ""; // benuzter wird uebergeben
+			String benutzerid = request.getParameter("bid");
 			long bid = Long.parseLong(benutzerid);
 			Benutzer benutzer = db.select_BenutzerUeberID(bid);
-
 			db.deleteBenutzer(benutzer);
 		}
 	  }
