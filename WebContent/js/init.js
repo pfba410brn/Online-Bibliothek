@@ -162,21 +162,22 @@ $.extend(bib, {
 	},
 	
 	addIsbnRueckgaengigClick: function() {
-		$("#rueckgaengig").click(function() {
-			alert("tata");
-			$.ajax({
-				url: "AjaxController?do=isbnRueckgaengig",
-				type: "GET",
-				data: "isbn=" + isbn,
-				success: function(data) {
-					$.ajax({
-						url: "AjaxController?do=mediumHinzufuegen",
-						type: "GET",
-						success: function() {
-							$("#WarenkorbBereich").html();
-						}
-					});
-				}
+		$(".rueckgaengig").each(function() {
+			$(this).click(function() {
+				$.ajax({
+					url: "AjaxController?do=isbnRueckgaengig",
+					type: "GET",
+					data: "isbn=" + isbn,
+					success: function(data) {
+						$.ajax({
+							url: "AjaxController?do=mediumHinzufuegen",
+							type: "GET",
+							success: function() {
+								$("#WarenkorbBereich").html();
+							}
+						});
+					}
+				});
 			});
 		});
 	},
@@ -255,7 +256,7 @@ $.extend(bib, {
 					data: "isbn=" + isbn + "&kundennr=" + $("#KundenNr").text(),
 					success: function(data) {
 						$("#WarenkorbBereich").html(data);
-						
+						bib.addIsbnRueckgaengigClick();
 					}
 				});
 			});
