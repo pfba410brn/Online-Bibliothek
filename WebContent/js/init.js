@@ -142,8 +142,6 @@ $.extend(bib, {
 				daten += $(this).attr("name")+"="+$(this).val()+"&";
 			});
 						
-			alert(daten);
-			
 			$.ajax({
 				url: "AjaxController?do=benutzerEintragen",
 				type: "GET",
@@ -158,7 +156,6 @@ $.extend(bib, {
 	
 	addAnmeldenClick: function() {
 		$("#anmelden").click(function() {
-			alert("tata anmelden!");
 			$.ajax({
 				url:"AjaxController?do=loginCheck",
 				type:"GET",
@@ -176,7 +173,6 @@ $.extend(bib, {
 
 	addAbmeldenClick: function() {
 		$("#abmelden").click(function() {
-			alert("abmelden geklickt!");
 			$.ajax({
 				url:"AjaxController?do=ausloggen",
 				type:"GET",
@@ -241,7 +237,6 @@ $.extend(bib, {
 	
 	addWarenkorbAufloesen: function() {
 		$('#auswerfen').click(function() {
-			alert("Kunde Auswerfen geklickt!: " + $("#kundenID").val());
 			$.ajax({
 				  url: "AjaxController?do=kundenAuswerfen",
 				  type: "GET",
@@ -279,8 +274,10 @@ $.extend(bib, {
 				  url: "AjaxController?do=ausleihe",
 				  type: "GET",
 				  success : function() {
+					  $(".growlUI h1").text("Ausleihe erfolgreich");
+					  $(".growlUI h2").text("Bücher wurden ausgeliehen.");
 					  $.blockUI({ 
-				            message: "Warenkorb wurde ausgeliehen", 
+				            message: $(".growlUI"), 
 				            fadeIn: 700, 
 				            fadeOut: 700, 
 				            timeout: 2000, 
@@ -298,8 +295,12 @@ $.extend(bib, {
 				                '-moz-border-radius': '10px', 
 				                opacity: .6, 
 				                color: '#fff' 
-				            } 
-				        }); 
+				            } ,
+				            onBlock: function() {
+				            	$("#auswerfen").trigger("click");
+				            }
+				       }); 
+					  
 				  }
 			});
 		});

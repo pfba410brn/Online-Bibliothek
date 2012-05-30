@@ -19,6 +19,10 @@
 			
 			<div id="inc_rueckgabe"><jsp:include page="inc_rueckgabe.jsp"></jsp:include></div>
 			<div id="inc_ausleihe"><jsp:include page="inc_ausleihe.jsp"></jsp:include></div>
+			<div class="growlUI" style="display:none">
+            <h1></h1>
+            <h2></h2>
+        </div>
 		</div>
 		<!-- /Modal_Layer_Inhalte -->
 	
