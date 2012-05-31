@@ -2,13 +2,13 @@ var bib = bib || {};
 
 $.extend(bib, {
 	init: function() {
+		bib.rechteSetzen();
 		bib.addDataTable();
 		bib.addAusleiheClick();
 		bib.addAnmeldenClick();
 		bib.addAbmeldenClick();
 		bib.addKundeEintragen();
 		bib.addRegistrierenClick();
-		bib.rechteSetzen();
 		bib.addAusleihManagerClick();
 		bib.addBenutzerManagerClick();
 	},
@@ -208,7 +208,8 @@ $.extend(bib, {
 				data: 	daten,
 				success: function(data) {
 					$.unblockUI();
-					if(data.equals("true")) {
+					if(data == "true") {
+						
 						$(".growlUI h1").text("Speichern erfolgreich");
 						$(".growlUI h2").text("Benutzer wurde eingetragen.");
 						$.blockUI({ 
@@ -229,14 +230,14 @@ $.extend(bib, {
 					            '-webkit-border-radius': '10px', 
 					            '-moz-border-radius': '10px', 
 					            opacity: .6, 
-					            color: '#fff' 
+					            color: '#fff',
 					         }
 						});
 					} else {
 						$.blockUI({ 
 							message: data,
 							onBlock: function() {
-								bib.addRegistrierenClick();
+								bib.addaddBenutzerSpeichernClick;
 								bib.addCloseClick();
 							}
 						});
@@ -248,6 +249,10 @@ $.extend(bib, {
 		});
 	},
 	
+	addRegistrierenClicks: function() {
+		
+	},
+	
 	addAnmeldenClick: function() {
 		$("#anmelden").click(function() {
 			$.ajax({
@@ -255,11 +260,7 @@ $.extend(bib, {
 				type:"GET",
 				data: "login_benutzeremail="+$("#login_benutzeremail").val() + "&login_passwort=" + $("#login_passwort").val(),
 				success:function(data) {
-					$("#login").html(data);
-					bib.addAnmeldenClick();
-					bib.addAbmeldenClick();
-					bib.addAusleiheClick();
-					bib.rechteSetzen();
+					window.location.href = "/Online-Bibliothek/bib/Controller?do=buecherListe";
 				}
 			});
 		});
