@@ -40,8 +40,8 @@ public class Benutzer implements Serializable {
 
 	private String plz;
 
-	@Column(name="\"STRAÃŸE\"")
-	private String STRAÃŸE;
+	@Column(name="\"STRAßE\"")
+	private String STRAßE;
 
 	private String telefonnr;
 
@@ -107,12 +107,12 @@ public class Benutzer implements Serializable {
 		this.plz = plz;
 	}
 
-	public String getSTRAÃŸE() {
-		return this.STRAÃŸE;
+	public String getSTRAßE() {
+		return this.STRAßE;
 	}
 
-	public void setSTRAÃŸE(String STRAÃŸE) {
-		this.STRAÃŸE = STRAÃŸE;
+	public void setSTRAÃŸE(String STRAßE) {
+		this.STRAßE = STRAßE;
 	}
 
 	public String getTelefonnr() {
