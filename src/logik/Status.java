@@ -111,7 +111,7 @@ public void doGet(HttpServletRequest request,
 				out.print("<td><input type=\"image\" id=\"kundeEintragen\" name=\"uebernehmen\" src=\"../images/icons/ok_haken.png\"></td>");
 				out.print("</tr>");
 				out.print("<tr>");
-				out.print("<td colspan=\"3\">Fehler: Kunde konnte nicht gefunden werden! <a id=\"registrieren\">Registrieren</a></td>");
+				out.print("<td colspan=\"3\">Fehler: Kunde konnte nicht gefunden werden!</td>");
 				out.print("</tr>");
 				out.print("</table>");
 		    }
@@ -125,7 +125,7 @@ public void doGet(HttpServletRequest request,
 			out.print("<td><input type=\"image\" id=\"kundeEintragen\" name=\"uebernehmen\" src=\"../images/icons/ok_haken.png\"></td>");
 			out.print("</tr>");
 			out.print("<tr>");
-			out.print("<td colspan=\"3\">Bitte geben Sie eine gültige Kundennummer ein! <a id=\"registrieren\">Registrieren</a></td>");
+			out.print("<td colspan=\"3\">Bitte geben Sie eine gültige Kundennummer ein!</td>");
 			out.print("</tr>");
 			out.print("</table>");
 			
