@@ -1,3 +1,13 @@
+<!-- LOGIN
+ 
+	 @Autor: 	Sebastian Schnietz
+	 @Version:	1.1
+	 
+	 Die inc_login ueberprueft und sichert die Eingaben des Benutzers in den Anmeldebereich.
+	 Nach Betaetigung des Anmelde-Buttons werden die Eingaben Email und Passwort ueberprueft,
+	 anschliessend werden die Daten des Benutzers aus der Datenbank ausgelesen und in eine Session gespeichert.
+	 
+  -->
 <%@page import="db.Benutzer"%>
 <%@page import="db.DbVerwaltung"%>
 <%@ page import="java.util.*"%>
@@ -5,24 +15,19 @@
 <%@ page import="javax.servlet.*"%>
 <%@ page import="javax.servlet.annotation.WebServlet"%>
 <%@ page import="javax.servlet.http.*"%>
-<!-- Login 
-	HttpSession session_neu = request.getSession(false);
-	if(session_neu != null) {
-		String a =  session_neu.getId();
-		out.println("session_id: " +  a);
-		Enumeration n = session_neu.getAttributeNames();
-		while(n.hasMoreElements()){
-			String s = (String) n.nextElement();
-			out.println(s + " = " + session_neu.getAttribute(s));
-		}
-	}
-  -->
+
   <%
   	HttpSession session_neu = request.getSession(true);
 	boolean korrekt = false;
 	int eingabe = 0;
 	String benutzerEmail="";
 	String pw ="";
+	long benutzerGruppe = 3;
+	long benutzerId = 0;
+	String benutzerVorname = "";
+	String benutzerNachname = "";
+	DbVerwaltung db = new DbVerwaltung();
+  	List<Benutzer>resultList = db.selectAll_Benutzer();
 	
 	if(session_neu.getAttribute("Email") == null)
 	{
@@ -41,14 +46,7 @@
 	{
 		pw = (String) session_neu.getAttribute("Email");
 	}
-	
-	long benutzerGruppe = 3;
-	long benutzerId = 0;
-	String benutzerVorname = "";
-	String benutzerNachname = "";
-	
-	DbVerwaltung db = new DbVerwaltung();
-  	List<Benutzer>resultList = db.selectAll_Benutzer();
+		
   	for(Benutzer b:resultList)
     {    	
     	if(b.getEmail().equals(benutzerEmail) && b.getPasswort().equals(pw))
@@ -61,8 +59,7 @@
     	}
     }
   	if(korrekt)
-  	{
-  		
+  	{	
   		session_neu.setAttribute("Pw", pw);
 		session_neu.setAttribute("Email", benutzerEmail);
 		session_neu.setAttribute("Benutzergruppe", benutzerGruppe);

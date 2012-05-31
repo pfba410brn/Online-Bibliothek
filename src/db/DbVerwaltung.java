@@ -383,8 +383,20 @@ public class DbVerwaltung {
 		
 	   int anzahlEx;
        int anzahlVerliehen = 0;
+       
+       open();
+       
+       Query query = this.em.createNamedQuery("Buch.findByIsbn");
+       query.setParameter("isbn",buch.getIsbn());
+      
+       @SuppressWarnings("unchecked")
+       List <Buch >resultList = query.getResultList();
+       
+       
+       
+       close();
 
-        Set <Exemplar> set =buch.getExemplars();
+        Set <Exemplar> set =resultList.get(0).getExemplars();
         anzahlEx = set.size();
         for ( Iterator<Exemplar> i = set.iterator(); i.hasNext(); )
         {
