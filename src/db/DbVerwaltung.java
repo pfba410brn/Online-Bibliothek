@@ -402,9 +402,9 @@ public class DbVerwaltung {
         {
           Exemplar e = i.next();
           Set<ExemplarBenutzer>  eb =e.getExemplarBenutzers();
-          anzahlVerliehen= eb.size();
+          anzahlVerliehen+= eb.size();
         }
-
+        System.out.println("Anzahl:" +anzahlEx +"Verliehen: "+anzahlVerliehen);
 		return anzahlEx - anzahlVerliehen;
 	}
 	
