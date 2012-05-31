@@ -260,7 +260,7 @@ $.extend(bib, {
 				type:"GET",
 				data: "login_benutzeremail="+$("#login_benutzeremail").val() + "&login_passwort=" + $("#login_passwort").val(),
 				success:function(data) {
-					window.location.href = "/Online-Bibliothek/bib/Controller?do=buecherListe";
+					//window.location.href = "/Online-Bibliothek/bib/Controller?do=buecherListe";
 				}
 			});
 		});
@@ -292,6 +292,10 @@ $.extend(bib, {
 					success: function(data) {
 						$("#WarenkorbBereich").html(data);
 						bib.addIsbnRueckgaengigClick();
+						//alert($(this).parent());
+						//var status = $(this).parent().parent("td:eq(3)").text();
+						//status -= 1;
+						//$(this).parent().parent("td:eq(3)").text(status);
 					}
 				});
 			});
