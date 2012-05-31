@@ -135,7 +135,7 @@ String[] validateBenutzer(HttpServletRequest request) {
 	print[0] += "</tr><tr>";
 	if(!request.getParameter("rechte").equals("0")) {
 		
-		Benutzergruppe bg = this.db.select_BenutzergruppeUeberId(new Long(request.getParameter("rechte")));
+		Benutzergruppe bg = this.db.selectBenutzerGruppeUeberID(new Long(request.getParameter("rechte")));
 		this.aktuellerBenutzer.setBenutzergruppe(bg);		
 		
 		print[0] += "<td>Berechtigung*:</td><td><select name='rechte'><option value='0'>Bitte wählen</option><option value='3'";
