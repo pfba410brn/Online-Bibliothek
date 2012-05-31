@@ -3,10 +3,11 @@ package db;
 import java.io.Serializable;
 import javax.persistence.*;
 
-
 /**
- * The persistent class for the MEDIUM database table.
- * 
+ * Die JPA Persistenz Klasse fuer die Tabelle MEDIUM.
+ * letzte Aenderung: 30.05.2012
+ * @author Christian.Kauf
+ * @version 0.01
  */
 @Entity
 @NamedQueries({

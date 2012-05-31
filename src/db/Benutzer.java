@@ -6,8 +6,10 @@ import java.util.Set;
 
 
 /**
- * The persistent class for the BENUTZER database table.
- * 
+ * Die JPA Persistenz Klasse fuer die Tabelle BENUTZER.
+ * letzte Aenderung: 30.05.2012
+ * @author Christian.Kauf
+ * @version 0.01
  */
 @Entity
 @NamedQueries({
@@ -38,8 +40,8 @@ public class Benutzer implements Serializable {
 
 	private String plz;
 
-	@Column(name="\"STRAßE\"")
-	private String STRAßE;
+	@Column(name="\"STRAÃŸE\"")
+	private String STRAÃŸE;
 
 	private String telefonnr;
 
@@ -105,12 +107,12 @@ public class Benutzer implements Serializable {
 		this.plz = plz;
 	}
 
-	public String getSTRAßE() {
-		return this.STRAßE;
+	public String getSTRAÃŸE() {
+		return this.STRAÃŸE;
 	}
 
-	public void setSTRAßE(String STRAßE) {
-		this.STRAßE = STRAßE;
+	public void setSTRAÃŸE(String STRAÃŸE) {
+		this.STRAÃŸE = STRAÃŸE;
 	}
 
 	public String getTelefonnr() {

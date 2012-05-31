@@ -4,10 +4,11 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Set;
 
-
 /**
- * The persistent class for the EXEMPLAR database table.
- * 
+ * Die JPA Persistenz Klasse fuer die Tabelle EXEMPLAR.
+ * letzte Aenderung: 30.05.2012
+ * @author Christian.Kauf
+ * @version 0.01
  */
 @Entity
 @NamedQueries({

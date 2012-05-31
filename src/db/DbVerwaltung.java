@@ -14,10 +14,11 @@ import javax.persistence.Query;
 /**
  * Die Klasse verwaltet alle schreibenden und lesenden Zugriffe auf die Bibliotheks-Datenbank
  * über die mit JPA erstellten Entity-Klassen
- * letzte Änderung: 09.05.2012
+ * letzte Aenderung: 30.05.2012
  * @author Christian.Kauf
- * @version 0.01
+ * @version 0.02
  */
+
 public class DbVerwaltung {
     
     public  EntityManager em;
@@ -30,7 +31,7 @@ public class DbVerwaltung {
 
     /**
      * Die Methode erstellt eine Verbindung zur Datenbank
-     * @return boolean
+     * @return boolean true=Verbindung zur Db aufgebaut false=Verbindung fehlgeschlagen
      */
     private boolean open(){
         try {
@@ -48,7 +49,7 @@ public class DbVerwaltung {
     }
     /**
      * Die Methode schließt die Verbindung zur Datenbank
-     * @return boolean
+     * @return boolean true=Verbindung beendet  false=Fehler beim schließen der Verbindung
      */
     
     private boolean close(){
@@ -64,6 +65,10 @@ public class DbVerwaltung {
         return true;
     }
     
+    /**
+     * Auslesen aller Benutzer aus der DB
+     * @return List<Benutzer> Liste aller Benutzer
+     */
     public List<Benutzer> selectAll_Benutzer(){
     
             open();
@@ -77,6 +82,10 @@ public class DbVerwaltung {
                 
     }
 
+    /**
+     * Auslesen aller Buecher aus der DB
+     * @return List<Buch> Liste von Buchobjekten
+     */
     public List<Buch> selectAll_Buecher(){
         
             open();
@@ -90,6 +99,11 @@ public class DbVerwaltung {
                 
     }
     
+    /**
+     * Suche nach Buch mit einer bestimmten ISBN
+     * @param isbn ISBN des gesuchten Buchs
+     * @return Buch Gesuchtes Buchobjekt
+     */
     public Buch select_BuchUeberISBN(String isbn){
         open();
     
@@ -108,6 +122,11 @@ public class DbVerwaltung {
 }
     
     
+    /**
+     * Suche nach Buch mit einer bestimmten ID
+     * @param id ID des gesuchten Buchs
+     * @return Buch Gesuchtes Buchobjekt
+     */
     public Benutzer select_BenutzerUeberID(Long id){
         open();
     
@@ -125,6 +144,11 @@ public class DbVerwaltung {
             
 }    
 
+    /**
+     * Speichern eines Benutzerobjekts in die Datenbank
+     * @param user User Objekt das gespeichert wird
+     * @return boolean true=Erfolgreich gespeichert  false=Fehler beim Speichern in die Db
+     */
     public boolean insertBenutzer(Benutzer user){
         
             open();
@@ -147,6 +171,11 @@ public class DbVerwaltung {
         
     }
     
+    /**
+     * Benutzer Objekt in der Db updaten
+     * @param user User Objekt das geupdatet wird
+     * @return boolean  true=update erfolgreich  false=update fehler
+     */
     public boolean updateBenutzer(Benutzer user){
               open();
                  
@@ -164,6 +193,11 @@ public class DbVerwaltung {
         
     }
 
+    /**
+     * Benutzer aus der Datenbank loeschen
+     * @param user User objekt das geloescht wird
+     * @return boolean true=Loeschen erfolgreich  false= Loeschen fehlgeschlagen
+     */
     public boolean deleteBenutzer(Benutzer user){
 
          open();
@@ -184,6 +218,10 @@ public class DbVerwaltung {
         
     }
     
+    /**
+     * Auslesen aller Medien aus der DB
+     * @return List<Medium> Liste der Medienobjekte
+     */
     public List<Medium> selectAll_Medium(){
             open();
         
@@ -195,22 +233,32 @@ public class DbVerwaltung {
             return resultList;
     }
     
-    public Benutzergruppe selectBenutzerGruppeUeberID(Long id){
-        open();
+	/**
+	 * Suche einer Benutzergruppe ueber ID 
+	 * @param id Id der gesuchten Benutzergruppe
+	 * @return Benutzergruppe gesuchte Benutzergruppe
+	 */
+	public Benutzergruppe selectBenutzerGruppeUeberID(Long id) {
+		open();
+
+		Query query = this.em
+				.createNamedQuery("Benutzergruppe.findByGruppenId");
+		query.setParameter("gruppenId", id);
+
+		@SuppressWarnings("unchecked")
+		List<Benutzergruppe> resultList = query.getResultList();
+		close();
+		if (resultList.isEmpty()) {
+			return null;
+		} else {
+			return resultList.get(0);
+		}
+	}
     
-        Query query = this.em.createNamedQuery("Benutzergruppe.findByGruppenId");
-        query.setParameter("gruppenId",id);
-       
-        @SuppressWarnings("unchecked")
-        List<Benutzergruppe>resultList = query.getResultList();
-        close();
-        if(resultList.isEmpty()){
-        	return null;
-        }else{
-        return resultList.get(0);
-        }
-    }
-    
+    /**
+     * Auslesen der Beziehungstabelle ExemplarBenutzer
+     * @return List<ExemplarBenutzer> Liste mit allen ExemplarBenutzerobjekten
+     */
     public List<ExemplarBenutzer> selectAll_ExemplarBenutzer(){
     
            open();
@@ -223,6 +271,11 @@ public class DbVerwaltung {
             return resultList;
     }
     
+    /**
+     * Speichern eines ExemplarBenutzers in die Db
+     * @param exBe ExemplarBenutzer Objekt das gespeichert werden soll
+     * @return boolean true=Speichern erfolgreich false=Speichern fehlgeschlagen
+     */
     public  boolean insertExemplarBenutzer(ExemplarBenutzer exBe){
 
          open();
@@ -239,6 +292,11 @@ public class DbVerwaltung {
         return true;
     }
     
+    /**
+     * ExemplarBenutzer Objekt in der Db updaten
+     * @param exBe ExemplarBenutzer Objekt das geupdatet wird
+     * @return boolean  true=update erfolgreich  false=update fehler
+     */
     public boolean updateExemplarBenutzer(ExemplarBenutzer exBe){
 
          open();
@@ -256,6 +314,11 @@ public class DbVerwaltung {
         
     }
     
+    /**
+     * Loeschen eines ExemplarBenutzer Objekts
+     * @param exBe ExemplarBenutzer Objekt das geloescht wird
+     * @return boolean true=Loeschen erfolgreich false=Loeschen fehlgeschlagen
+     */
     public boolean deleteExemplarBenutzer(ExemplarBenutzer exBe){
          open();
 
@@ -274,6 +337,10 @@ public class DbVerwaltung {
         
     }
     
+    /**
+     * Auslesen der Tabelle Exemplar
+     * @return List<Exemplar> Liste von Exemplarobjekten
+     */
     public List<Exemplar> selectAll_Exemplar(){
 
             open();
@@ -286,6 +353,11 @@ public class DbVerwaltung {
             return resultList;
     }
     
+    /**
+     * Speichern eines Exemplarobjekts in die Db
+     * @param ex Exemplar Objekt das gespeichert werden soll
+     * @return boolean true=Speichern erfolgreich false=Speichern fehlgeschlagen
+     */
     public boolean insertExemplar(ExemplarBenutzer ex){
 
         open();
@@ -302,6 +374,11 @@ public class DbVerwaltung {
         return true;
     }
     
+	/**
+	 * Ermittelt die Verfügbarkeit von Exemplaren eines bestimmten Buches
+	 * @param buch
+	 * @return int Anzahl verfuegbarer Buecher
+	 */
 	public int getBuchStatus(Buch buch){
 		
 	   int anzahlEx;
@@ -319,7 +396,12 @@ public class DbVerwaltung {
 		return anzahlEx - anzahlVerliehen;
 	}
 	
-	 public List<Exemplar> selectVerlieheneExemplareProBenutzer(int benutzerId){
+	 /**
+	 * Laedt alle verliehenen Exemplare pro Benutzer aus der Db
+	 * @param benutzerId ID des Benutzers
+	 * @return List<Exemplar> Liste mit den gesuchten Exemplaren
+	 */
+	public List<Exemplar> selectVerlieheneExemplareProBenutzer(int benutzerId){
 		 open();
 		 Benutzer benutzer=null;
 		 Query query = this.em.createNamedQuery("Benutzer.findByBenutzerId");

@@ -4,8 +4,10 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 /**
- * The primary key class for the EXEMPLAR_BENUTZER database table.
- * 
+ * Die JPA Schlüssel Klasse fuer die Tabelle EXEMPLAR_BENUTZER.
+ * letzte Aenderung: 30.05.2012
+ * @author Christian.Kauf
+ * @version 0.01
  */
 @Embeddable
 public class ExemplarBenutzerPK implements Serializable {

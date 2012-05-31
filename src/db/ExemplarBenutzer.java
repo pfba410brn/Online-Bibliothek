@@ -6,10 +6,11 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
-
 /**
- * The persistent class for the EXEMPLAR_BENUTZER database table.
- * 
+ * Die JPA Persistenz Klasse fuer die Tabelle EXEMPLAR_BENUTZER.
+ * letzte Aenderung: 30.05.2012
+ * @author Christian.Kauf
+ * @version 0.01
  */
 @Entity
 @NamedQueries({
