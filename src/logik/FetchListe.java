@@ -33,8 +33,6 @@ public class FetchListe extends HttpServlet {
 			out.println(JsonConverter.convertBenutzer(benutzerListe));
 		}
 	  }
-
-
 }
 
 
