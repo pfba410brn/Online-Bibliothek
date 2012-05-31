@@ -34,13 +34,13 @@ public class LoginCheck extends HttpServlet{
 		String benutzerVorname = "";
 		String benutzerNachname = "";
 		
-		DbVerwaltung db = new DbVerwaltung();
-	    List<Benutzer>resultList = db.selectAll_Benutzer();
-	    
-	    for(Benutzer b:resultList)
-	    {    	
-	    	if(b.getEmail().equals(benutzerEmail) && b.getPasswort().equals(pw))
-	    	{
+			DbVerwaltung db = new DbVerwaltung();
+		    List<Benutzer>resultList = db.selectAll_Benutzer();
+		    
+		    for(Benutzer b:resultList)
+		    {    	
+		    	if(b.getEmail().equals(benutzerEmail) && b.getPasswort().equals(pw))
+		    	{
 	    		this.benutzerGruppe = b.getBenutzergruppe().getGruppenId();
 	    		benutzerVorname = b.getVorname().toString();
 	    		benutzerNachname = b.getNachname().toString();
@@ -59,13 +59,14 @@ public class LoginCheck extends HttpServlet{
 	    if(korrekt)
 	    {
 	    	HttpSession session = request.getSession(true);
-			if (session.isNew()) 
-			{
 				session.setAttribute("Email", benutzerEmail);
 				session.setAttribute("Benutzergruppe", this.benutzerGruppe);
 				session.setAttribute("Benutzerid", this.benutzerId);
+				session.setAttribute("Vorname", benutzerVorname);
+				session.setAttribute("Nachname", benutzerNachname);
+				
 				session.setMaxInactiveInterval(3600); // Sekunden
-			}
+				response.setIntHeader("Refresh", 0);
 			/*
 	    	out.print("korrekt");
 	    	out.print("\n");
@@ -80,9 +81,15 @@ public class LoginCheck extends HttpServlet{
 			out.println("Valid Id: " + request.isRequestedSessionIdValid());
 			out.println("Cookie: " + request.isRequestedSessionIdFromCookie());
 			out.println("URL-Rewrite: " + request.isRequestedSessionIdFromURL());
+			*/
 			if (session != null) 
 			{
-				out.println("Session-Id: " + session.getId());
+				System.out.print(session.getId());
+			}
+				
+				
+				
+		/*		out.println("Session-Id: " + session.getId());
 				out.println("Timeout: " + session.getMaxInactiveInterval());
 				out.println("Erzeugt am: " + new Date(session.getCreationTime()));
 				out
@@ -94,13 +101,18 @@ public class LoginCheck extends HttpServlet{
 					String s = (String) n.nextElement();
 					out.println("Attribut: " + s + "=" + session.getAttribute(s));
 				}
-			}*/
+			}
+	    */
 			if(this.benutzerGruppe==1)
 			{
 				out.print("<img style='float:left;' src='../images/silhouette_a.png'>");
 			}
 			else if(this.benutzerGruppe==2)
 			{
+				String message = (String) request.getAttribute("Email");
+				String bg = (String) request.getAttribute("Benutzergruppe");
+				out.println(message);
+				out.println(bg);
 				out.print("<img style='float:left;' src='../images/silhouette_m.png'>");
 			}
 			else
@@ -113,7 +125,7 @@ public class LoginCheck extends HttpServlet{
 			out.println("<a style='cursor:pointer;' id='abmelden'>Abmelden</a> I");
 			out.println("<a style='cursor:pointer;' id='registrieren'>Registrieren</a>");
 			out.println("</b>");
-			out.println("</div>");
+			out.println("</div>"); 
 			
 	    }
 	    else
@@ -168,8 +180,7 @@ public class LoginCheck extends HttpServlet{
 			out.println("</div>");
 			
 	    }
-	    RequestDispatcher reqDispatcher = getServletConfig().getServletContext().getRequestDispatcher("inc_Login.jsp");
-	    reqDispatcher.forward(request,response);
+	    
 	}
 	
 	public String getBenutzerGruppe() {

@@ -22,7 +22,13 @@ import db.ExemplarBenutzer;
 import db.ExemplarBenutzerPK;
 
 
-
+/**
+ * Die Klasse Status bündelt die Business-Logik für den Ausleih- und Rückgabevorgang.
+ * 
+ * @version 1.6
+ * @author sina.rest
+ *
+ */
 @WebServlet("/bib/Status")
 public class Status extends HttpServlet {
 
@@ -35,8 +41,15 @@ private Benutzer benutzer;
 private List<Exemplar> warenkorbListe = new ArrayList<Exemplar>();;
 private List<Exemplar> rueckgabeListe = new ArrayList<Exemplar>();;
 
-  
 
+/**
+ * Die Methode doGet wird über den AjaxController aufgerufen und bekommt dabei Requestparameter 
+ * angehangen, die in dieser Methode je nach Verwendungszweck abgearbeitet werden.
+ * 
+ * @param request Der Requestparameter übergibt den Request
+ * @param response Der Responseparameter übergibt den Response
+ * @retrun void
+ */
 public void doGet(HttpServletRequest request,
             HttpServletResponse response)
              throws ServletException, IOException {
@@ -45,47 +58,66 @@ public void doGet(HttpServletRequest request,
 	DbVerwaltung db = new DbVerwaltung();
 	PrintWriter out = response.getWriter();
 	
-	
-
-	/*if(request.getParameter("kundennr") != null && this.benutzer == null) {
-		 NEUEN KUNDEN HINZUFÜGEN ????
-		String kundennr = request.getParameter("kundennr");
-		this.benutzer = db.select_BenutzerUeberID(Long.parseLong(kundennr));
-	}*/
+	/*
+	 * Aufruf beim Parameter "kundenCheck"
+	 * --> Nach der Eingabe und Bestätigung der Nummer des ausleihenden Kunden im Kundenbereich des
+	 * Warenkorbs
+	 * */
 	if(request.getParameter("do").equals("kundenCheck")) {
-		long benutzernr = Long.valueOf(request.getParameter("kundennummer")).longValue();
 		
-		this.warenkorbListe = new ArrayList<Exemplar>();
-		this.rueckgabeListe = new ArrayList<Exemplar>();
+		String kundennrString = request.getParameter("kundennummer");
 		
-	    List<Benutzer>resultList = db.selectAll_Benutzer();
+		String regex = "^\\d+$";
+		
+		if (!kundennrString.equals("") && kundennrString.matches(regex)){
+			long benutzernr = Long.valueOf(kundennrString).longValue();
+			Boolean gefunden = false;
+			this.warenkorbListe = new ArrayList<Exemplar>();
+			this.rueckgabeListe = new ArrayList<Exemplar>();
+			
+			/* Prüfung, ob der Kunde in der Datenbank vorhanden ist */
+		    List<Benutzer>resultList = db.selectAll_Benutzer();
+		    for(Benutzer b:resultList)
+		    {
+		    	if(b.getBenutzerId() == benutzernr)
+		    	{
+		    		gefunden = true;
+		    		this.benutzer = b;
+		    		break;	
+		    	}
+		    }
 	    
-	    Boolean gefunden = false;
-	    
-	    for(Benutzer b:resultList)
-	    {
-	    	if(b.getBenutzerId() == benutzernr)
-	    	{
-	    		gefunden = true;
-	    		this.benutzer = b;
-	    		break;	
-	    	}
-	    }
-	    
-	    if(gefunden) {
-		    out.print("<table>");
-			out.print("<tr>");
-			out.print("<td>KundenNr:</td>");
-			out.print("<td><div id=\"KundenNr\">" +  benutzernr + "</div></td>");
-			out.print("<td><input type=\"image\" id=\"auswerfen\" src=\"../images/icons/cancel.png\"></td>");
-			out.print("</tr>");
-			out.print("<tr>");
-			out.print("<td></td>");
-			out.print("<td></td>");
-			out.print("<td></td>");
-			out.print("</tr>");
-			out.print("</table>");
-	    } else {
+		    /* Rückgabe, wenn der Kunde in der Datenbank vorhanden ist */
+		    if(gefunden) {
+			    out.print("<table>");
+				out.print("<tr>");
+				out.print("<td>KundenNr:</td>");
+				out.print("<td><div id=\"KundenNr\">" +  benutzernr + "</div></td>");
+				out.print("<td><input type=\"image\" id=\"auswerfen\" src=\"../images/icons/cancel.png\"></td>");
+				out.print("</tr>");
+				out.print("<tr>");
+				out.print("<td></td>");
+				out.print("<td></td>");
+				out.print("<td></td>");
+				out.print("</tr>");
+				out.print("</table>");
+		    } 
+		    /* Rückgabe, wenn der Kunde nicht in der Datenbank vorhanden ist */
+		    else {
+		    	out.print("<table>");
+	    		out.print("<tr>");
+				out.print("<td>KundenNr:</td>");
+				out.print("<td><input type=\"text\" id=\"kundenID\" size=\"17\" maxlength=\"30\"/></td>");
+				out.print("<td><input type=\"image\" id=\"kundeEintragen\" name=\"uebernehmen\" src=\"../images/icons/ok_haken.png\"></td>");
+				out.print("</tr>");
+				out.print("<tr>");
+				out.print("<td colspan=\"3\">Fehler: Kunde konnte nicht gefunden werden! <a id=\"registrieren\">Registrieren</a></td>");
+				out.print("</tr>");
+				out.print("</table>");
+		    }
+		}
+		else
+		{
 	    	out.print("<table>");
     		out.print("<tr>");
 			out.print("<td>KundenNr:</td>");
@@ -93,23 +125,30 @@ public void doGet(HttpServletRequest request,
 			out.print("<td><input type=\"image\" id=\"kundeEintragen\" name=\"uebernehmen\" src=\"../images/icons/ok_haken.png\"></td>");
 			out.print("</tr>");
 			out.print("<tr>");
-			out.print("<td colspan=\"3\">Fehler: Kunde konnte nicht gefunden werden! <a id=\"registrieren\">Registrieren</a></td>");
+			out.print("<td colspan=\"3\">Bitte geben Sie eine gültige Kundennummer ein! <a id=\"registrieren\">Registrieren</a></td>");
 			out.print("</tr>");
 			out.print("</table>");
-	    }
+			
+		}
 	}
+	/*  Aufruf beim Parameter "warenkorbAusleihe"
+	 * --> Alle noch ausgeliehenen Medien des ausgewählten Benutzers werden aufgelistet
+	 */
 	if(request.getParameter("do").equals("warenkorbAusleihe")) {
 		List<ExemplarBenutzer> ausleihVorgaenge = db.selectAll_ExemplarBenutzer();
 		this.rueckgabeListe = new ArrayList<Exemplar>();
-		if (ausleihVorgaenge != null)
+		if (ausleihVorgaenge != null && this.benutzer != null)
+			/* Selektion aller Ausleihvorgänge für den ausgewählten Benutzer */
 			for (ExemplarBenutzer exBe : ausleihVorgaenge)
 			{
 				if (exBe.getBenutzer().getBenutzerId() == this.benutzer.getBenutzerId())
 				{
+					/* Alle Bücher, die der Benutezr noch ausgeliehen hat, werden der Liste "rueckgabeListe"
+					 * hinzugefügt!*/
 					this.rueckgabeListe.add(exBe.getExemplar());
 				}
 			}
-		
+		/* Alle Medien-Exemplare, die in der Liste rueckgabeListe sind, werden als div-container zurück gegeben*/
 		for (Exemplar exemplar : this.rueckgabeListe)
 		{
 			out.print("<div>");
@@ -126,14 +165,12 @@ public void doGet(HttpServletRequest request,
 			out.print("</div>");
 		}		
 	}
+	/*  Aufruf beim Parameter "mediumHinzufuegen"
+	 * --> Ein Medium wird ausgewählt und über das Warenkorb-Sysmbol in den Warenkorb befördert
+	 */
 	if(request.getParameter("do").equals("mediumHinzufuegen")) {
-		//out.print("<h1>Hey das geht </h1>" + buch.getIsbn() + " mit dieser ISBN!!!");
-		
 		if(request.getParameter("isbn") != null) {
-
-			/* NEUES BUCH HINZUFÜGEN */
 			String isbn = request.getParameter("isbn");
-			//out.println(isbn);
 
 			Buch buch = db.select_BuchUeberISBN(isbn);
 			List<Exemplar> exemplarListe = db.selectAll_Exemplar();
@@ -141,15 +178,21 @@ public void doGet(HttpServletRequest request,
 			{
 				if (exemplar.getBuch().getIsbn().equals(buch.getIsbn()))
 				{
-					this.warenkorbListe.add(exemplar);
-					break;
+					if (!this.istExemplarVerliehen(exemplar) && !this.istExemplarSchonImWarenkorb(exemplar))
+					{
+						/* Ein Exemplar des Buchs (welches nicht ausgeliehen ist oder schon im Warenkorb vorhanden ist)
+						 * mit der übergebenen ISBN wird dem Warenkorb beigefügt*/
+						this.warenkorbListe.add(exemplar);
+						break;
+					}
 				}
 			}
 		}
-		
-		
-		for (Exemplar exemplar : this.warenkorbListe){
 
+		for (Exemplar exemplar : this.warenkorbListe){
+			/*
+			 * Für jedes Medium im Warenkorb wird ein Div-Container erzeugt 
+			 */
 			out.print("<div>");
 			out.print("<div style=\"width:190px; float:right;\">");
 			out.print("<table width=\"190px\">");
@@ -164,23 +207,30 @@ public void doGet(HttpServletRequest request,
 			out.print("</div>");
 		}
 	}
-	
+	/*  Aufruf beim Parameter "ausleihe"
+	 * --> Der Ausleihvorgang wird angestoßen
+	 */
 	if (this.warenkorbListe.size() >= 0 && request.getParameter("do").equals("ausleihe"))
 	{
 		long mitarbeiterID = 0;
 		Benutzer mitarbeiter = null;
-		//HttpSession session = request.getSession(true);
-		//mitarbeiterID = (Long) session.getAttribute("Benutzerid");
-		mitarbeiter = db.select_BenutzerUeberID(new Long("3009"));
+		// TODO: Replace
+		HttpSession session = request.getSession(true);
+		mitarbeiterID = (Long) session.getAttribute("Benutzerid");
+		mitarbeiter = db.select_BenutzerUeberID(mitarbeiterID);
 		out.print(this.medienAusleihen(mitarbeiter));
 	}
-	
+	/*  Aufruf beim Parameter "kundenAuswerfen"
+	 * --> Die bereits eingegebene Kundennummer wird wieder ausgeworfen
+	 */
 	if (request.getParameter("do").equals("kundenAuswerfen"))
 	{
 		this.benutzer = null;
 		this.warenkorbListe = new ArrayList<Exemplar>();
 		this.rueckgabeListe = new ArrayList<Exemplar>();
-		
+		/*
+		 * Rückgabe der Kundentablelle für den Kundenbereich in der warenkorb_inc.jsp
+		 */
 		out.print("<table>");
 		out.print("<tr>");
 		out.print("<td>KundenNr:</td>");
@@ -194,13 +244,17 @@ public void doGet(HttpServletRequest request,
 		out.print("</tr>");
 		out.print("</table>");		
 	}
+	/*  Aufruf beim Parameter "isbnRueckgaengig"
+	 * --> Ein Medium, das bereits in den Warenkorb gelegt wurde, wird wieder aus dieser Liste entfernt
+	 */
 	if (request.getParameter("do").equals("isbnRueckgaengig"))
 	{
 		String isbn = request.getParameter("isbn");
 		this.exemplarAusListeEntfernen(isbn);
-		
 	}
-	/* Zurückgeben der noch ausgeliehenen Medien*/
+	/*  Aufruf beim Parameter "isbnRueckgabe"
+	 * --> Ein ausgeliehenes Medium wird von dem Kunden zurückgegeben
+	 */
 	if (request.getParameter("do").equals("isbnRueckgabe"))
 	{
 		String isbn = request.getParameter("isbn");
@@ -231,6 +285,14 @@ private void setBenutzer(Benutzer benutzer) {
 	this.benutzer = benutzer;
 }
 
+/**
+ * Die Methode medienAusleihe realisiert den Ausleihvorgang. Alle im Warenkorb befindlichen Medien werden
+ * für den angegebenen Kunden ausgeliehen, damit wird in der Datenbanktabelle "ExemplarBenutzer" eine neue 
+ * Tupel angelegt.
+ * 
+ * @param verliehenVon Der Parameter enthält ein Benutzerobjekt, welches den Mitarbeiter repräsentiert, der das Buch an den Kunden verliehen hat
+ * @retrun String Rückgabestring, der beeinhaltet, ob das Speichern erfolgreich war
+ */
 private String medienAusleihen(Benutzer verliehenVon){
 	// TODO: Anpassen
 	String tata = "Start: ";
@@ -259,17 +321,26 @@ private String medienAusleihen(Benutzer verliehenVon){
 		} else {
 			tata += " FALSE";
 		}
-		
-		
 	}
 	return tata;
 }
-
+/**
+ * Die Methode mediumZurueckgeben repäsentiert die Medienrcükgabe.
+ * 
+ * @param exemplarBenutzer Zurückzugebendes ExemplarBenutzer-Objekt 
+ * @retrun void
+ */
 private void mediumZurueckgeben(ExemplarBenutzer exemplarBenutzer){
 	DbVerwaltung db = new DbVerwaltung();
 	db.deleteExemplarBenutzer(exemplarBenutzer);
 }
-
+/**
+ * Die Methode exemplarAusListeEntfernen entfernt ein Objekt der Klasse Exemplar mit der 
+ * übergebenen ISBN aus der Warenkorb-Liste
+ * 
+ * @param isbn ISBN Nummer des zu entfernenden Exemplar-Objektes
+ * @retrun void
+ */
 private void exemplarAusListeEntfernen(String isbn)
 {
 	Exemplar exemplar = null;
@@ -282,6 +353,49 @@ private void exemplarAusListeEntfernen(String isbn)
 	}
 	this.warenkorbListe.remove(exemplar);
 	System.out.println("Anzahl elemente" + this.warenkorbListe.size());
+}
+
+/**
+ * Die Methode istExemplarVerliehen gibt zurück, ob das übergebene Exemplar bereits verliehen wurde
+ * 
+ * @param exemplar Das zu überprüfende Exemplar
+ * @retrun boolean Gibt an, ob das Exemplar schon verliehen wurde oder nicht
+ */
+private boolean istExemplarVerliehen(Exemplar exemplar){
+	DbVerwaltung db = new DbVerwaltung();
+	boolean exemplarVerliehen = false;
+	List<ExemplarBenutzer> exemplarBenutzer = db.selectAll_ExemplarBenutzer();
+	for (ExemplarBenutzer exBe : exemplarBenutzer)
+	{
+		if (exBe.getExemplar().getInventarnr().equals(exemplar.getInventarnr()))
+		{
+			exemplarVerliehen = true;
+			break;
+		}
+		
+	}
+	
+	return exemplarVerliehen;
+}
+
+/**
+ * Die Methode istExemplarSchoImWarenkorb gibt an, ob sich das übergebene Exemplar bereits im Warenkorb befindet
+ *  
+ * @param exempalr Das zu prüfende Exemplar
+ * @retrun boolean Gibt an, ob das Exemplar schon im Warenkorb ist oder nicht
+ */
+private boolean istExemplarSchonImWarenkorb(Exemplar exemplar){
+	DbVerwaltung db = new DbVerwaltung();
+	boolean exemplarImWarenkorb = false;
+	for (Exemplar ex : this.warenkorbListe)
+	{
+		if (ex.getInventarnr().equals(exemplar.getInventarnr()))
+		{
+			exemplarImWarenkorb = true;
+			break;
+		}
+	}
+	return exemplarImWarenkorb;
 }
 
 

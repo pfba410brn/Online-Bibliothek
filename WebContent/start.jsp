@@ -31,7 +31,7 @@
 			<div id="alles">
 	    	<div id="banner">
 	    	  
-	    	<jsp:include page="inc_login.jsp"></jsp:include>
+	    	<span id="log"><jsp:include page="inc_login.jsp" flush="true"></jsp:include></span>
 	    	</div>
 				<div id="mitte">
 					<%
@@ -44,8 +44,10 @@
 					%>
 						<jsp:include page="inc_benutzerListe.jsp"></jsp:include>
 					<%
-						}
+						} else if(request.getParameter("do").equals("exemplarListe")) {
 					 %>
+					 	<jsp:include page="inc_exemplarListe.jsp"></jsp:include>
+					 <% } %> 
 			  	<div style="clear:both;"></div>	
 				</div>
 				<jsp:include page="inc_footer.jsp"></jsp:include>
