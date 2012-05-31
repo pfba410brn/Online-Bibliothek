@@ -325,7 +325,7 @@ private String medienAusleihen(Benutzer verliehenVon){
 	return tata;
 }
 /**
- * Die Methode mediumZurueckgeben repäsentiert die Medienrcükgabe.
+ * Die Methode mediumZurueckgeben repräsentiert die Medienrückgabe.
  * 
  * @param exemplarBenutzer Zurückzugebendes ExemplarBenutzer-Objekt 
  * @retrun void
