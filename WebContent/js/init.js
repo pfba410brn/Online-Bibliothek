@@ -1,14 +1,14 @@
 var bib = bib || {};
-
-var benutzerTabelle;
 var buecherTabelle;
-var exemplarTabelle;
+var bt;
 
 $.extend(bib, {
 	init: function() {
 		
 		bib.rechteSetzen();
-		bib.addDataTable();
+		bib.addBuecherTable();
+		bib.addBenutzerTable();
+		bib.addExemplarTable();
 		bib.addAusleiheClick();
 		bib.addAnmeldenClick();
 		bib.addAbmeldenClick();
@@ -16,7 +16,7 @@ $.extend(bib, {
 		bib.addRegistrierenClick();
 		bib.addAusleihManagerClick();
 		bib.addBenutzerManagerClick();
-	},
+		},
 	
 	addAusleihManagerClick: function() {
 		$("#ausleihManager").click(function(e) {
@@ -60,33 +60,43 @@ $.extend(bib, {
 		});
 	},
 	
-	addDataTable: function() {
-		buecherTabelle = $('#buecher').dataTable({
-			"bProcessing": true,
-			"sAjaxSource": "AjaxController?do=buecherListe",
-	        "oLanguage": {
-	            "sProcessing":   "Bitte warten...",
-	            "sLengthMenu":   "_MENU_ Einträge anzeigen",
-	            "sZeroRecords":  "Keine Bücher vorhanden.",
-	            "sInfo":         "_START_ bis _END_ von _TOTAL_ Einträgen",
-	            "sInfoEmpty":    "0 bis 0 von 0 Einträgen",
-	            "sInfoFiltered": "(gefiltert von _MAX_  Einträgen)",
-	            "sInfoPostFix":  "",
-	            "sSearch":       "Suchen",
-	            "sUrl":          "",
-	            "oPaginate": {
-	                "sFirst":    "Erster",
-	                "sPrevious": "Zurück",
-	                "sNext":     "Nächster",
-	                "sLast":     "Letzter"
-	            }
-	        },
-			"fnDrawCallback": function() {
-				bib.addDetailClick();
-				bib.addWarenkorbClick();
-			}
-	    });
+	addBuecherTable: function() {
+		if (typeof oTable == 'undefined') {
+			oTable = $('#buecher').dataTable({
+				"bProcessing": true,
+				"bServerSide": true,
+				"iDisplayLength": 150,
+				"bLengthChange": false,
+				"sAjaxSource": "AjaxController?do=buecherListe",
+		        "oLanguage": {
+		            "sProcessing":   "Bitte warten...",
+		            "sLengthMenu":   "_MENU_ Einträge anzeigen",
+		            "sZeroRecords":  "Keine Bücher vorhanden.",
+		            "sInfo":         "_START_ bis _END_ von _TOTAL_ Einträgen",
+		            "sInfoEmpty":    "0 bis 0 von 0 Einträgen",
+		            "sInfoFiltered": "(gefiltert von _MAX_  Einträgen)",
+		            "sInfoPostFix":  "",
+		            "sSearch":       "Suchen",
+		            "sUrl":          "",
+		            "oPaginate": {
+		                "sFirst":    "Erster",
+		                "sPrevious": "Zurück",
+		                "sNext":     "Nächster",
+		                "sLast":     "Letzter"
+		            }
+		        },
+		        "fnDrawCallback": function(){
+		        	bib.addDetailClick();
+					bib.addWarenkorbClick();
+		        },
+		    });
+		} else {
+			oTable.fnClearTable( 0 );
+			oTable.fnDraw();
+		}
+	},	
 		
+	addExemplarTable: function() {
 		exemplarTabelle = $('#exemplar').dataTable({
 			"bProcessing": true,
 			"sAjaxSource": "AjaxController?do=exemplarListe",
@@ -108,7 +118,9 @@ $.extend(bib, {
 	            }
 	        },
 	    });
-		
+	},
+	
+	addBenutzerTable: function() {
 		benutzerTabelle = $('#benutzer').dataTable({
 			"bProcessing": true,
 			"sAjaxSource": "AjaxController?do=benutzerListe",
@@ -194,7 +206,7 @@ $.extend(bib, {
 	
 	addIsbnRueckgaengigClick: function() {
 		$(".rueckgaengig").each(function() {
-			
+			$(this).unbind('click');
 			$(this).click(function() {
 				var pDiv = $(this).parent("div").parent("div");
 				var isbn = $(this).attr("name");
@@ -204,6 +216,12 @@ $.extend(bib, {
 					data: "isbn=" + isbn,
 					success: function(data) {
 						pDiv.remove();
+						bib.addWarenkorbClick();
+						bib.addDetailClick();
+						bib.buecherTabelle.fnDraw().ready(function() {
+							  
+							  
+					  });
 					}
 				});
 			});
@@ -239,6 +257,7 @@ $.extend(bib, {
 				data: 	daten,
 				success: function(data) {
 					$.unblockUI();
+					alert(data);
 					if(data == "true") {
 						
 						$(".growlUI h1").text("Speichern erfolgreich");
@@ -268,7 +287,7 @@ $.extend(bib, {
 						$.blockUI({ 
 							message: data,
 							onBlock: function() {
-								bib.addaddBenutzerSpeichernClick;
+								bib.addBenutzerSpeichern2Click();
 								bib.addCloseClick();
 							}
 						});
@@ -278,9 +297,7 @@ $.extend(bib, {
 		});
 	},
 	
-	addRegistrierenClicks: function() {
-		
-	},
+	
 	
 	addAnmeldenClick: function() {
 		$("#anmelden").click(function() {
@@ -315,8 +332,10 @@ $.extend(bib, {
 	},
 	
 	addWarenkorbClick: function() {
+		$(".warenkorb").unbind("click");
 		$(".warenkorb").each(function() {
 			$(this).click(function() {
+				if($("#KundenNr").text() != "") {
 				var isbn = $(this).attr("name");
 				var link = $(this);
 				var status = Number(link.parent().parent().children().eq(3).text());
@@ -360,11 +379,15 @@ $.extend(bib, {
 					}
 				});
 				}
+				} else {
+					alert("Bitte zunächst einen Kunden eintragen!");
+				}
 			});
 		});
 	},
 	
 	addDetailClick: function () {
+		$(".detail").unbind("click");
 		$(".detail").each(function() {
 			$(this).click(function(e){
 				var isbn = $(this).attr("name");
@@ -477,7 +500,7 @@ $.extend(bib, {
 				            },
 				            onBlock: function() {
 				            	$("#auswerfen").trigger("click");
-				            }
+				            }	
 				       }); 
 				  }
 			});

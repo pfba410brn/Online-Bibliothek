@@ -3,14 +3,13 @@
 	<table cellpadding="0" cellspacing="0" border="0" class="display" id="exemplar">
 		<thead>
 			<tr>
-				<th width="10%">BenutzerID</th>
+				<th width="10%">Kunde</th>
 				<th width="20%">Vorname Name</th>
 				<th width="10%">Inv.Nr.</th>
 				<th width="20%">Buchtitel</th>
 				<th width="15%">Zustand</th>
-				<th width="5%">MA</th>
-				<th width="10%">Datum</th>
-				<th width="10%">Dauer</th>
+				<th width="10%">MA</th>
+				<th width="15%">Zurück am</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -18,16 +17,13 @@
 		</tbody>
 		<tfoot>
 			<tr>
-			<tr>
-				<th width="10%">BenutzerID</th>
+				<th width="10%">Kunde</th>
 				<th width="20%">Vorname Name</th>
 				<th width="10%">Inv.Nr.</th>
 				<th width="20%">Buchtitel</th>
 				<th width="15%">Zustand</th>
-				<th width="5%">MA</th>
-				<th width="10%">Datum</th>
-				<th width="10%">Dauer</th>
-			</tr>
+				<th width="10%">MA</th>
+				<th width="15%">Zurück am</th>
 			</tr>
 		</tfoot>
 	</table>
