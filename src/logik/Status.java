@@ -64,40 +64,60 @@ public void doGet(HttpServletRequest request,
 	 * Warenkorbs
 	 * */
 	if(request.getParameter("do").equals("kundenCheck")) {
-		long benutzernr = Long.valueOf(request.getParameter("kundennummer")).longValue();
-		Boolean gefunden = false;
-		this.warenkorbListe = new ArrayList<Exemplar>();
-		this.rueckgabeListe = new ArrayList<Exemplar>();
 		
-		/* Prüfung, ob der Kunde in der Datenbank vorhanden ist */
-	    List<Benutzer>resultList = db.selectAll_Benutzer();
-	    for(Benutzer b:resultList)
-	    {
-	    	if(b.getBenutzerId() == benutzernr)
-	    	{
-	    		gefunden = true;
-	    		this.benutzer = b;
-	    		break;	
-	    	}
-	    }
+		String kundennrString = request.getParameter("kundennummer");
+		
+		String regex = "^\\d+$";
+		
+		if (!kundennrString.equals("") && kundennrString.matches(regex)){
+			long benutzernr = Long.valueOf(kundennrString).longValue();
+			Boolean gefunden = false;
+			this.warenkorbListe = new ArrayList<Exemplar>();
+			this.rueckgabeListe = new ArrayList<Exemplar>();
+			
+			/* Prüfung, ob der Kunde in der Datenbank vorhanden ist */
+		    List<Benutzer>resultList = db.selectAll_Benutzer();
+		    for(Benutzer b:resultList)
+		    {
+		    	if(b.getBenutzerId() == benutzernr)
+		    	{
+		    		gefunden = true;
+		    		this.benutzer = b;
+		    		break;	
+		    	}
+		    }
 	    
-	    /* Rückgabe, wenn der Kunde in der Datenbank vorhanden ist */
-	    if(gefunden) {
-		    out.print("<table>");
-			out.print("<tr>");
-			out.print("<td>KundenNr:</td>");
-			out.print("<td><div id=\"KundenNr\">" +  benutzernr + "</div></td>");
-			out.print("<td><input type=\"image\" id=\"auswerfen\" src=\"../images/icons/cancel.png\"></td>");
-			out.print("</tr>");
-			out.print("<tr>");
-			out.print("<td></td>");
-			out.print("<td></td>");
-			out.print("<td></td>");
-			out.print("</tr>");
-			out.print("</table>");
-	    } 
-	    /* Rückgabe, wenn der Kunde nicht in der Datenbank vorhanden ist */
-	    else {
+		    /* Rückgabe, wenn der Kunde in der Datenbank vorhanden ist */
+		    if(gefunden) {
+			    out.print("<table>");
+				out.print("<tr>");
+				out.print("<td>KundenNr:</td>");
+				out.print("<td><div id=\"KundenNr\">" +  benutzernr + "</div></td>");
+				out.print("<td><input type=\"image\" id=\"auswerfen\" src=\"../images/icons/cancel.png\"></td>");
+				out.print("</tr>");
+				out.print("<tr>");
+				out.print("<td></td>");
+				out.print("<td></td>");
+				out.print("<td></td>");
+				out.print("</tr>");
+				out.print("</table>");
+		    } 
+		    /* Rückgabe, wenn der Kunde nicht in der Datenbank vorhanden ist */
+		    else {
+		    	out.print("<table>");
+	    		out.print("<tr>");
+				out.print("<td>KundenNr:</td>");
+				out.print("<td><input type=\"text\" id=\"kundenID\" size=\"17\" maxlength=\"30\"/></td>");
+				out.print("<td><input type=\"image\" id=\"kundeEintragen\" name=\"uebernehmen\" src=\"../images/icons/ok_haken.png\"></td>");
+				out.print("</tr>");
+				out.print("<tr>");
+				out.print("<td colspan=\"3\">Fehler: Kunde konnte nicht gefunden werden! <a id=\"registrieren\">Registrieren</a></td>");
+				out.print("</tr>");
+				out.print("</table>");
+		    }
+		}
+		else
+		{
 	    	out.print("<table>");
     		out.print("<tr>");
 			out.print("<td>KundenNr:</td>");
@@ -105,10 +125,11 @@ public void doGet(HttpServletRequest request,
 			out.print("<td><input type=\"image\" id=\"kundeEintragen\" name=\"uebernehmen\" src=\"../images/icons/ok_haken.png\"></td>");
 			out.print("</tr>");
 			out.print("<tr>");
-			out.print("<td colspan=\"3\">Fehler: Kunde konnte nicht gefunden werden! <a id=\"registrieren\">Registrieren</a></td>");
+			out.print("<td colspan=\"3\">Bitte geben Sie eine gültige Kundennummer ein! <a id=\"registrieren\">Registrieren</a></td>");
 			out.print("</tr>");
 			out.print("</table>");
-	    }
+			
+		}
 	}
 	/*  Aufruf beim Parameter "warenkorbAusleihe"
 	 * --> Alle noch ausgeliehenen Medien des ausgewählten Benutzers werden aufgelistet
@@ -116,7 +137,7 @@ public void doGet(HttpServletRequest request,
 	if(request.getParameter("do").equals("warenkorbAusleihe")) {
 		List<ExemplarBenutzer> ausleihVorgaenge = db.selectAll_ExemplarBenutzer();
 		this.rueckgabeListe = new ArrayList<Exemplar>();
-		if (ausleihVorgaenge != null)
+		if (ausleihVorgaenge != null && this.benutzer != null)
 			/* Selektion aller Ausleihvorgänge für den ausgewählten Benutzer */
 			for (ExemplarBenutzer exBe : ausleihVorgaenge)
 			{
@@ -194,9 +215,9 @@ public void doGet(HttpServletRequest request,
 		long mitarbeiterID = 0;
 		Benutzer mitarbeiter = null;
 		// TODO: Replace
-		//HttpSession session = request.getSession(true);
-		//mitarbeiterID = (Long) session.getAttribute("Benutzerid");
-		mitarbeiter = db.select_BenutzerUeberID(new Long("3009"));
+		HttpSession session = request.getSession(true);
+		mitarbeiterID = (Long) session.getAttribute("Benutzerid");
+		mitarbeiter = db.select_BenutzerUeberID(mitarbeiterID);
 		out.print(this.medienAusleihen(mitarbeiter));
 	}
 	/*  Aufruf beim Parameter "kundenAuswerfen"

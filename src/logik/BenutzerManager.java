@@ -25,7 +25,7 @@ public class BenutzerManager extends HttpServlet {
 		
 		if(request.getParameter("do").equals("benutzerAendern")) 
 		{
-			// ÄNDERN
+			// ï¿½NDERN
 			out.print("<div id='buchbild'><!-- Bild --></div>");
 			
 		} 
@@ -98,9 +98,9 @@ String[] validateBenutzer(HttpServletRequest request) {
 	}
 	
 	print[0] += "</tr><tr>";
-	print[0] += "<td>Straße*:</td>";
+	print[0] += "<td>Straï¿½e*:</td>";
 	if(!request.getParameter("strasse").equals("")) {
-		aktuellerBenutzer.setSTRAßE(request.getParameter("strasse"));
+		aktuellerBenutzer.setSTRAÃŸE(request.getParameter("strasse"));
 		print[0] += "<td><input type=\"text\" name=\"strasse\" value="+request.getParameter("strasse")+" /></td>";
 	} else {
 		print[1] += "Bitte Strasse eingeben<br/>";
@@ -138,7 +138,7 @@ String[] validateBenutzer(HttpServletRequest request) {
 		Benutzergruppe bg = this.db.selectBenutzerGruppeUeberID(new Long(request.getParameter("rechte")));
 		this.aktuellerBenutzer.setBenutzergruppe(bg);		
 		
-		print[0] += "<td>Berechtigung*:</td><td><select name='rechte'><option value='0'>Bitte wählen</option><option value='3'";
+		print[0] += "<td>Berechtigung*:</td><td><select name='rechte'><option value='0'>Bitte wï¿½hlen</option><option value='3'";
 		if(request.getParameter("rechte").equals("3")){
 			print[0] += check;
 		}
@@ -152,8 +152,8 @@ String[] validateBenutzer(HttpServletRequest request) {
 		}
 		print[0] += ">Mitarbeiter</option></select></td>";
 	} else {
-		print[0] += "<td>Berechtigung*:</td><td><select name='rechte'><option value='0'>Bitte wählen</option><option value='3'>Kunde</option><option value='1'>Administrator</option><option value='2'>Mitarbeiter</option></select></td>";
-		print[1] += "Bitte Berechtigung auswählen<br/>";
+		print[0] += "<td>Berechtigung*:</td><td><select name='rechte'><option value='0'>Bitte wï¿½hlen</option><option value='3'>Kunde</option><option value='1'>Administrator</option><option value='2'>Mitarbeiter</option></select></td>";
+		print[1] += "Bitte Berechtigung auswï¿½hlen<br/>";
 	}
 	
 	

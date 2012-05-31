@@ -5,10 +5,17 @@ import java.util.List;
 import jsonij.json.JSON;
 
 import logik.JsonConverter;
+/**
+ * Datenbank Test Klasse fuer diverse Tests.
+ * letzte Aenderung: 30.05.2012
+ * @author Christian.Kauf
+ * @version 0.01
+ */
 
 public class DbTest {
 
 	/**
+	 * Standard Main Methode
 	 * @param args
 	 */
 	public static void main(String[] args) {

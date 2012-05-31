@@ -4,11 +4,11 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Set;
-
-
 /**
- * The persistent class for the BUCH database table.
- * 
+ * Die JPA Persistenz Klasse fuer die Tabelle BUCH.
+ * letzte Aenderung: 30.05.2012
+ * @author Christian.Kauf
+ * @version 0.01
  */
 @Entity
 @NamedQueries({
