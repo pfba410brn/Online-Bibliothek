@@ -6,8 +6,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -70,9 +68,6 @@ public void doGet(HttpServletRequest request,
 		String kundennrString = request.getParameter("kundennummer");
 		
 		String regex = "^\\d+$";
-        //Pattern pattern = Pattern.compile(regex);
-        //Matcher matcher = pattern.matcher(kundennrString);
-        //System.out.println(matcher.find());
 		
 		if (!kundennrString.equals("") && kundennrString.matches(regex)){
 			long benutzernr = Long.valueOf(kundennrString).longValue();
@@ -142,7 +137,7 @@ public void doGet(HttpServletRequest request,
 	if(request.getParameter("do").equals("warenkorbAusleihe")) {
 		List<ExemplarBenutzer> ausleihVorgaenge = db.selectAll_ExemplarBenutzer();
 		this.rueckgabeListe = new ArrayList<Exemplar>();
-		if (ausleihVorgaenge != null)
+		if (ausleihVorgaenge != null && this.benutzer != null)
 			/* Selektion aller Ausleihvorgänge für den ausgewählten Benutzer */
 			for (ExemplarBenutzer exBe : ausleihVorgaenge)
 			{
