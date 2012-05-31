@@ -31,7 +31,7 @@
 			<div id="alles">
 	    	<div id="banner">
 	    	  
-	    	<jsp:include page="inc_login.jsp" flush="true"></jsp:include>
+	    	<span id="log"><jsp:include page="inc_login.jsp" flush="true"></jsp:include></span>
 	    	</div>
 				<div id="mitte">
 					<%
