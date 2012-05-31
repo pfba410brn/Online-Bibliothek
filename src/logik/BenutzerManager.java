@@ -25,7 +25,7 @@ public class BenutzerManager extends HttpServlet {
 		
 		if(request.getParameter("do").equals("benutzerAendern")) 
 		{
-			// ï¿½NDERN
+			// ÄNDERN
 			out.print("<div id='buchbild'><!-- Bild --></div>");
 			
 		} 
