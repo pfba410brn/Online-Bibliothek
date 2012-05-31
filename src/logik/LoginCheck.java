@@ -66,8 +66,7 @@ public class LoginCheck extends HttpServlet{
 				session.setAttribute("Nachname", benutzerNachname);
 				
 				session.setMaxInactiveInterval(3600); // Sekunden
-				RequestDispatcher reqDispatcher = getServletConfig().getServletContext().getRequestDispatcher("/inc_Login.jsp");
-			    reqDispatcher.forward(request,response);
+				response.setIntHeader("Refresh", 0);
 			/*
 	    	out.print("korrekt");
 	    	out.print("\n");

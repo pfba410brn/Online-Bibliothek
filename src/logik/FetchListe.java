@@ -11,6 +11,7 @@ import javax.servlet.http.*;
 import db.Benutzer;
 import db.Buch;
 import db.DbVerwaltung;
+import db.ExemplarBenutzer;
 
 import logik.JsonConverter;
 
@@ -31,8 +32,11 @@ public class FetchListe extends HttpServlet {
 		} else if(request.getParameter("do").equals("benutzerListe")) {
 			List<Benutzer> benutzerListe = db.selectAll_Benutzer();
 			out.println(JsonConverter.convertBenutzer(benutzerListe));
+		}  else if(request.getParameter("do").equals("exemplarListe")) {
+			List<ExemplarBenutzer> exemplarBenutzerListe = db.selectAll_ExemplarBenutzer();
+			out.print(JsonConverter.convertExemplarBenutzer(exemplarBenutzerListe));
 		}
-	  }
+	}
 }
 
 
