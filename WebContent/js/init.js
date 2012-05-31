@@ -41,13 +41,13 @@ $.extend(bib, {
 			url: "AjaxController?do=getRecht",
 			type: "GET",
 			success: function(data) {
-				$(".1,.2,.3").css("visibility","hidden");
+				$(".1,.2,.3").css("visibility","visible");
 				var i;
 				var cString = "";
-				for(i=1; i<=parseInt(data); i++) {
+				for(i=1; i<=parseInt(data)-1; i++) {
 					cString += "." + i + ", ";
 				}
-				$(cString).css("visibility","visible");
+				$(cString).css("visibility","hidden");
 			}
 		});
 	},
