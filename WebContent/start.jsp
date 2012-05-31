@@ -1,3 +1,11 @@
+ <!-- START.JSP 
+ @Autor: 	Sebastian Schniety
+ @Version:	1.2
+ 
+ Die start.jsp umfasst die komplette Grundstruktur der Online-Bibliothek.
+ Von ihr aus werden alle Skripte und JSPs aufgerufen. 
+ 
+ -->
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <html>
@@ -16,8 +24,6 @@
 		<!-- Modal_Layer_Inhalte -->
 		<div style="display:none">
 			<div id="inc_benutzer"><jsp:include page="inc_benutzer.jsp"></jsp:include></div>
-			
-			<div id="inc_rueckgabe"><jsp:include page="inc_rueckgabe.jsp"></jsp:include></div>
 			<div id="inc_ausleihe"><jsp:include page="inc_ausleihe.jsp"></jsp:include></div>
 			<div class="growlUI" style="display:none">
             <h1></h1>
@@ -55,3 +61,4 @@
 		</div>
 	</body>
 </html>
+  <!-- START.JSP -->
