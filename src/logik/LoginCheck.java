@@ -64,7 +64,10 @@ public class LoginCheck extends HttpServlet{
 				session.setAttribute("Email", benutzerEmail);
 				session.setAttribute("Benutzergruppe", this.benutzerGruppe);
 				session.setAttribute("Benutzerid", this.benutzerId);
+				request.setAttribute("Email", benutzerEmail); 
 				session.setMaxInactiveInterval(3600); // Sekunden
+				RequestDispatcher reqDispatcher = getServletConfig().getServletContext().getRequestDispatcher("/WEB-INF/inc_Login.jsp");
+			    reqDispatcher.forward(request,response);
 			}
 			/*
 	    	out.print("korrekt");
@@ -101,6 +104,10 @@ public class LoginCheck extends HttpServlet{
 			}
 			else if(this.benutzerGruppe==2)
 			{
+				String message = (String) request.getAttribute("Email");
+				String bg = (String) request.getAttribute("Benutzergruppe");
+				out.println(message);
+				out.println(bg);
 				out.print("<img style='float:left;' src='../images/silhouette_m.png'>");
 			}
 			else
@@ -168,8 +175,7 @@ public class LoginCheck extends HttpServlet{
 			out.println("</div>");
 			
 	    }
-	    RequestDispatcher reqDispatcher = getServletConfig().getServletContext().getRequestDispatcher("inc_Login.jsp");
-	    reqDispatcher.forward(request,response);
+	    
 	}
 	
 	public String getBenutzerGruppe() {
