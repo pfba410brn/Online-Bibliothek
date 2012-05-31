@@ -35,6 +35,7 @@ public class JsonConverter {
 	}
 
 	
+
 	public static String convertExemplarBenutzer(List<ExemplarBenutzer> exemplarBenutzerList) {
 		String string = "";
 		String result = "{\"aaData\":[";
@@ -56,7 +57,7 @@ public class JsonConverter {
 					ex.getDatum()+
 					"\",\"" +
 					ex.getDauer()+
-					"\"]" ;
+					" Tage\"]";
 			if(counter != exemplarBenutzerList.size() -1)
 				result += string + ",";
 			else

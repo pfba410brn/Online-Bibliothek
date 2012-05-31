@@ -25,7 +25,7 @@ public class DbTest {
 //	   System.out.println(JsonConverter.convertBenutzer(resultList));
 //	   System.out.println(JsonConverter.convertBuch(buchListe));
 
-		
+		System.out.println(JsonConverter.convertExemplarBenutzer(db.selectAll_ExemplarBenutzer()));
 		
 
 	}
