@@ -1,7 +1,12 @@
 var bib = bib || {};
 
+var benutzerTabelle;
+var buecherTabelle;
+var exemplarTabelle;
+
 $.extend(bib, {
 	init: function() {
+		
 		bib.rechteSetzen();
 		bib.addDataTable();
 		bib.addAusleiheClick();
@@ -22,8 +27,13 @@ $.extend(bib, {
 	addBenutzerManagerClick: function() {
 		$("#benutzerManager").click(function(e) {
 			window.location.href="/Online-Bibliothek/bib/Controller?do=benutzerListe";
+		});	
+	},
+	
+	addExemplarManagerClick: function() {
+		$("#exemplarManager").click(function () {
+			window.location.href="/Online-Bibliothek/bib/Controller?do=exemplarListe";
 		});
-		
 	},
 	
 	rechteSetzen: function() {
@@ -51,7 +61,7 @@ $.extend(bib, {
 	},
 	
 	addDataTable: function() {
-		$('#buecher').dataTable({
+		buecherTabelle = $('#buecher').dataTable({
 			"bProcessing": true,
 			"sAjaxSource": "AjaxController?do=buecherListe",
 	        "oLanguage": {
@@ -77,7 +87,29 @@ $.extend(bib, {
 			}
 	    });
 		
-		$('#benutzer').dataTable({
+		exemplarTabelle = $('#exemplar').dataTable({
+			"bProcessing": true,
+			"sAjaxSource": "AjaxController?do=exemplarListe",
+	        "oLanguage": {
+	            "sProcessing":   "Bitte warten...",
+	            "sLengthMenu":   "_MENU_ Einträge anzeigen",
+	            "sZeroRecords":  "Keine Bücher vorhanden.",
+	            "sInfo":         "_START_ bis _END_ von _TOTAL_ Einträgen",
+	            "sInfoEmpty":    "0 bis 0 von 0 Einträgen",
+	            "sInfoFiltered": "(gefiltert von _MAX_  Einträgen)",
+	            "sInfoPostFix":  "",
+	            "sSearch":       "Suchen",
+	            "sUrl":          "",
+	            "oPaginate": {
+	                "sFirst":    "Erster",
+	                "sPrevious": "Zurück",
+	                "sNext":     "Nächster",
+	                "sLast":     "Letzter"
+	            }
+	        },
+	    });
+		
+		benutzerTabelle = $('#benutzer').dataTable({
 			"bProcessing": true,
 			"sAjaxSource": "AjaxController?do=benutzerListe",
 	        "oLanguage": {
@@ -137,7 +169,6 @@ $.extend(bib, {
 					            fadeOut: 700, 
 					            timeout: 2000, 
 					            showOverlay: false, 
-					            centerY: false, 
 					            css: { 
 					                width: '350px', 
 					                top: '10px', 
@@ -260,6 +291,9 @@ $.extend(bib, {
 				success:function(data) {
 					$("#log").html(data);
 					bib.addAnmeldenClick();
+					bib.addAbmeldenClick();
+					bib.addRegistrierenClick();
+					bib.rechteSetzen();
 				}
 			});
 		});
@@ -284,6 +318,36 @@ $.extend(bib, {
 		$(".warenkorb").each(function() {
 			$(this).click(function() {
 				var isbn = $(this).attr("name");
+				var link = $(this);
+				var status = Number(link.parent().parent().children().eq(3).text());
+				if(status == "0") {
+					$(".growlUI h1").text("Fehler!");
+					  $(".growlUI h2").text("Kein Exemplar mehr vorhanden!");
+					  $.blockUI({ 
+				            message: $(".growlUI"), 
+				            fadeIn: 700, 
+				            fadeOut: 700, 
+				            timeout: 2000, 
+				            showOverlay: false, 
+				            centerY: false, 
+				            css: { 
+				                width: '350px', 
+				                top: '10px', 
+				                left: '', 
+				                right: '10px', 
+				                border: 'none', 
+				                padding: '5px', 
+				                backgroundColor: '#000', 
+				                '-webkit-border-radius': '10px', 
+				                '-moz-border-radius': '10px', 
+				                opacity: .6, 
+				                color: '#fff' 
+				            },
+				            onBlock: function() {
+				            	$("#auswerfen").trigger("click");
+				            }
+				       }); 
+				}else {
 				$.ajax({
 					url: "AjaxController?do=mediumHinzufuegen",
 					type: "GET",
@@ -291,12 +355,11 @@ $.extend(bib, {
 					success: function(data) {
 						$("#WarenkorbBereich").html(data);
 						bib.addIsbnRueckgaengigClick();
-						alert("steht drinne: " + $(this).parent().parent().html());
-						//var status = $(this).parent().parent("td:eq(3)").text();
-						//status -= 1;
-						//$(this).parent().parent("td:eq(3)").text(status);
+						status -= 1;
+						link.parent().parent().children().eq(3).text(status);
 					}
 				});
+				}
 			});
 		});
 	},
@@ -355,6 +418,10 @@ $.extend(bib, {
 					  $("#KundenBereich").html(data);
 					  bib.addKundeEintragen();
 					  $("#WarenkorbBereich, #RueckgabeBereich").html("");
+					  buecherTabelle.fnDraw().ready(function() {
+							  bib.addWarenkorbClick();
+							  bib.addDetailClick();
+					  });
 				  }
 			});
 			

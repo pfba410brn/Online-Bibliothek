@@ -20,6 +20,7 @@ public class Controller extends HttpServlet {
 	static String codes[][] = {
 		new String[] { "buecherListe", "/start.jsp", "buecher"  },
 		new String[] { "benutzerListe", "/start.jsp", "benutzer" },
+		new String[] { "exemplarListe", "/start.jsp", "exemplar" }
 		};
 	
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
