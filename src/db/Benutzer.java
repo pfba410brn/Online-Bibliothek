@@ -111,7 +111,7 @@ public class Benutzer implements Serializable {
 		return this.STRAßE;
 	}
 
-	public void setSTRAÃŸE(String STRAßE) {
+	public void setSTRAßE(String STRAßE) {
 		this.STRAßE = STRAßE;
 	}
 
