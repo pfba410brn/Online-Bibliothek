@@ -208,7 +208,41 @@ $.extend(bib, {
 				data: 	daten,
 				success: function(data) {
 					$.unblockUI();
-					$.blockUI({ message: data });
+					if(data.equals("true")) {
+						$(".growlUI h1").text("Speichern erfolgreich");
+						$(".growlUI h2").text("Benutzer wurde eingetragen.");
+						$.blockUI({ 
+							message: $(".growlUI"), 
+					        fadeIn: 700, 
+					        fadeOut: 700, 
+					        timeout: 2000, 
+					        showOverlay: false, 
+					        centerY: false, 
+					        css: { 
+					        	width: '350px', 
+					            top: '10px', 
+					            left: '', 
+					            right: '10px', 
+					            border: 'none', 
+					            padding: '5px', 
+					            backgroundColor: '#000', 
+					            '-webkit-border-radius': '10px', 
+					            '-moz-border-radius': '10px', 
+					            opacity: .6, 
+					            color: '#fff' 
+					         }
+						});
+					} else {
+						$.blockUI({ 
+							message: data,
+							onBlock: function() {
+								bib.addRegistrierenClick();
+								bib.addCloseClick();
+							}
+						});
+					}
+					
+					
 				}
 			});
 		});
