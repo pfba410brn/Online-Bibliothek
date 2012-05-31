@@ -13,7 +13,14 @@ import db.Buch;
 import db.DbVerwaltung;
 
 import logik.JsonConverter;
-
+/**
+ * 
+ * Die Klasse FetchSomething uebergibt alle Informationen zur Buchdetailseite
+ * 
+ * @version 1.2
+ * @author philipp.renerig
+ *
+ */
 @WebServlet("/bib/fetchSomething")
 public class FetchSomething extends HttpServlet {
 

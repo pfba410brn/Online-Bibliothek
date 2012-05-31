@@ -99,7 +99,7 @@
 	</div>
 <% } else { %>
 	<img style='float:left;' src="../images/silhouette_<%= session_neu.getAttribute("Benutzergruppe") %>.png">
-	<div style='color:#32CD32; text-align:left; margin-left:15px;' id='login_fehler'><b> <%= session_neu.getAttribute("Vorname") %> <%= session_neu.getAttribute("Nachname") %></b></div>
+	<div style='color:#32CD32; text-align:left; margin-left:35px;' id='login_fehler'><b> <%= session_neu.getAttribute("Vorname") %> <%= session_neu.getAttribute("Nachname") %></b></div>
 	<div style='margin-top:59px;' id='login_btn'>
 	<b>
 	<a style='cursor:pointer;' id='abmelden'>Abmelden</a> I
