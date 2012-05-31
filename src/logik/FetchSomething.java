@@ -1,18 +1,10 @@
 package logik;
-import java.util.List;
-
-
-
 import java.io.*;
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
-
-import db.Benutzer;
 import db.Buch;
 import db.DbVerwaltung;
-
-import logik.JsonConverter;
 /**
  * 
  * Die Klasse FetchSomething uebergibt alle Informationen zur Buchdetailseite
