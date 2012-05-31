@@ -195,6 +195,22 @@ public class DbVerwaltung {
             return resultList;
     }
     
+    public Benutzergruppe selectBenutzerGruppeUeberID(Long id){
+        open();
+    
+        Query query = this.em.createNamedQuery("Benutzergruppe.findByGruppenId");
+        query.setParameter("gruppenId",id);
+       
+        @SuppressWarnings("unchecked")
+        List<Benutzergruppe>resultList = query.getResultList();
+        close();
+        if(resultList.isEmpty()){
+        	return null;
+        }else{
+        return resultList.get(0);
+        }
+    }
+    
     public List<ExemplarBenutzer> selectAll_ExemplarBenutzer(){
     
            open();

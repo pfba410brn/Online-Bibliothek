@@ -20,7 +20,7 @@
 		</tr><tr>
 			<td>Telefon:</td>
 			<td><input type="text" name="telefon" /></td>
-		</tr><!-- tr>
+		</tr><tr>
 			<td>Berechtigung*:</td>
 			<td><select name="rechte">
 				<option value="0">Bitte wählen</option>
@@ -28,7 +28,7 @@
 					<option value="1">Administrator</option>
 					<option value="2">Mitarbeiter</option>
 				</select></td>
-		</tr --><tr><td>
+		</tr><tr><td>
 		<div style="margin-top:20px;">
 			<button class="button" id="insert_benutzer">Speichern</button>
 			<button class="button close">Abbrechen</button>
