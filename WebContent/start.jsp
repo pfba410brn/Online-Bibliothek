@@ -24,7 +24,6 @@
 		<!-- Modal_Layer_Inhalte -->
 		<div style="display:none">
 			<div id="inc_benutzer"><jsp:include page="inc_benutzer.jsp"></jsp:include></div>
-			<div id="inc_ausleihe"><jsp:include page="inc_ausleihe.jsp"></jsp:include></div>
 			<div class="growlUI" style="display:none">
             <h1></h1>
             <h2></h2>
