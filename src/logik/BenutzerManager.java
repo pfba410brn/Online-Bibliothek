@@ -25,13 +25,48 @@ public class BenutzerManager extends HttpServlet {
 		
 		if(request.getParameter("do").equals("benutzerAendern")) 
 		{
-			// ÄNDERN
-			out.print("<div id='buchbild'><!-- Bild --></div>");
+			String[] requestArray = {};
+			this.aktuellerBenutzer = db.select_BenutzerUeberID(new Long(request.getParameter("bid")));
+			
+			if(request != null) {
+				
+				requestArray[0] = this.aktuellerBenutzer.getVorname();
+				requestArray[1] = this.aktuellerBenutzer.getNachname();
+				requestArray[2] = this.aktuellerBenutzer.getEmail();
+				requestArray[3] = this.aktuellerBenutzer.getSTRAßE();
+				requestArray[4] = this.aktuellerBenutzer.getPlz();
+				requestArray[5] = this.aktuellerBenutzer.getOrt();
+				requestArray[6] = this.aktuellerBenutzer.getTelefonnr();
+				requestArray[7] = this.aktuellerBenutzer.getBenutzergruppe().getBerechtigung().toString();
+			}
+			
+			String[] printOut = this.validateBenutzer(requestArray); 
+			
+			if(printOut[1].equals("true")) {
+				out.print("true");
+				db.updateBenutzer(this.aktuellerBenutzer);
+			} else {
+				out.print("<h2 style='margin-top:15px; margin-left:15px;'>Benutzer ändern</h2><table class='registrierung'>");
+				out.print("<tr><td colspan='2' style='color:red;'>" + printOut[1] + "</td></tr>");
+				out.print(printOut[0]);
+			}
 			
 		} 
 		else if(request.getParameter("do").equals("benutzerEintragen")) 
 		{
-			String[] printOut = this.validateBenutzer(request); 
+			String[] requestArray = {"","","","","","","","","",""};
+			if(request != null) {
+				
+				requestArray[0] = request.getParameter("vname");
+				requestArray[1] = request.getParameter("nname");
+				requestArray[2] = request.getParameter("email");
+				requestArray[3] = request.getParameter("strasse");
+				requestArray[4] = request.getParameter("plz");
+				requestArray[5] = request.getParameter("ort");
+				requestArray[6] = request.getParameter("telefon");
+				requestArray[7] = request.getParameter("rechte");
+			}
+			String[] printOut = this.validateBenutzer(requestArray); 
 			
 			if(printOut[1].equals("true")) {
 				out.print("true");
@@ -56,7 +91,9 @@ public class BenutzerManager extends HttpServlet {
 		return this.db;
 	}
 
-String[] validateBenutzer(HttpServletRequest request) {
+String[] validateBenutzer(String[] input) {
+	
+	
 	String[] print = {"",""};
 	String check = "checked='checked'";
 	String regMail = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
@@ -64,28 +101,28 @@ String[] validateBenutzer(HttpServletRequest request) {
 	
 	print[0] += "<tr>";
 	print[0] += "<td>Vorname*:</td>";
-	if(!request.getParameter("vname").equals("")) {
-		aktuellerBenutzer.setVorname(request.getParameter("vname"));
-		print[0] += "<td><input type=\"text\" name=\"vname\" value="+request.getParameter("vname")+" /></td>";
+	if(!input[0].equals("")) {
+		aktuellerBenutzer.setVorname(input[0]);
+		print[0] += "<td><input type=\"text\" name=\"vname\" value="+input[0]+" /></td>";
 	} else {
 		print[1] += "Bitte Vorname eingeben<br/>";
 		print[0] += "<td><input type=\"text\" name=\"vname\"/></td>";
 	}
 	print[0] += "</tr><tr>";
 	print[0] += "<td>Nachname*:</td>";
-	if(!request.getParameter("nname").equals("")) {
-		aktuellerBenutzer.setNachname(request.getParameter("nname"));
-		print[0] += "<td><input type=\"text\" name=\"nname\" value="+request.getParameter("nname")+" /></td>";
+	if(!input[1].equals("")) {
+		aktuellerBenutzer.setNachname(input[1]);
+		print[0] += "<td><input type=\"text\" name=\"nname\" value="+input[1]+" /></td>";
 	} else {
 		print[1] += "Bitte Nachname eingeben<br/>";
 		print[0] += "<td><input type=\"text\" name=\"nname\" /></td>";
 	}
 	print[0] += "</tr><tr>";
 	print[0] += "<td>E-Mailadresse*:</td>";
-	if(!request.getParameter("email").equals("")) {
-		if(pat.matcher(request.getParameter("email")).matches()) {
-			aktuellerBenutzer.setEmail(request.getParameter("email"));
-			print[0] += "<td><input type=\"email\" name=\"email\" value="+request.getParameter("email")+" /></td>";
+	if(!input[2].equals("")) {
+		if(pat.matcher(input[2]).matches()) {
+			aktuellerBenutzer.setEmail(input[2]);
+			print[0] += "<td><input type=\"email\" name=\"email\" value="+input[2]+" /></td>";
 		}
 		else {
 			print[1] += "Keine valide E-Mailadresse<br/>";
@@ -99,55 +136,55 @@ String[] validateBenutzer(HttpServletRequest request) {
 	
 	print[0] += "</tr><tr>";
 	print[0] += "<td>Straße*:</td>";
-	if(!request.getParameter("strasse").equals("")) {
-		aktuellerBenutzer.setSTRAßE(request.getParameter("strasse"));
-		print[0] += "<td><input type=\"text\" name=\"strasse\" value="+request.getParameter("strasse")+" /></td>";
+	if(!input[3].equals("")) {
+		aktuellerBenutzer.setSTRAßE(input[3]);
+		print[0] += "<td><input type=\"text\" name=\"strasse\" value="+input[3]+" /></td>";
 	} else {
 		print[1] += "Bitte Strasse eingeben<br/>";
 		print[0] += "<td><input type=\"text\" name=\"strasse\" /></td>";
 	}
 	print[0] += "</tr><tr>";
 	print[0] += "<td>PLZ*:</td>";
-	if(!request.getParameter("plz").equals("")) {
-		aktuellerBenutzer.setPlz(request.getParameter("plz"));
-		print[0] += "<td><input type=\"text\" name=\"plz\" value="+request.getParameter("plz")+" /></td>";
+	if(!input[4].equals("")) {
+		aktuellerBenutzer.setPlz(input[4]);
+		print[0] += "<td><input type=\"text\" name=\"plz\" value="+input[4]+" /></td>";
 	} else {
 		print[1] += "Bitte PLZ eingeben<br/>";
 		print[0] += "<td><input type=\"text\" name=\"plz\" /></td>";
 	}
 	print[0] += "</tr><tr>";
 	print[0] += "<td>Ort*:</td>";
-	if(!request.getParameter("ort").equals("")) {
-		aktuellerBenutzer.setOrt(request.getParameter("ort"));
-		print[0] += "<td><input type=\"text\" name=\"ort\" value="+request.getParameter("ort")+" /></td>";
+	if(!input[5].equals("")) {
+		aktuellerBenutzer.setOrt(input[5]);
+		print[0] += "<td><input type=\"text\" name=\"ort\" value="+input[5]+" /></td>";
 	} else {
 		print[1] += "Bitte Ort eingeben<br/>";
 		print[0] += "<td><input type=\"text\" name=\"ort\" /></td>";
 	}
 	print[0] += "</tr><tr>";
 	print[0] += "<td>Telefon:</td>";
-	if(!request.getParameter("telefon").equals("")) {
-		aktuellerBenutzer.setTelefonnr(request.getParameter("telefon"));
-		print[0] += "<td><input type=\"text\" name=\"telefon\" value="+request.getParameter("telefon")+" /></td>";
+	if(!input[6].equals("")) {
+		aktuellerBenutzer.setTelefonnr(input[6]);
+		print[0] += "<td><input type=\"text\" name=\"telefon\" value="+input[6]+" /></td>";
 	} else {
 		print[0] += "<td><input type=\"text\" name=\"telefon\" /></td>";
 	}
 	print[0] += "</tr><tr>";
-	if(!request.getParameter("rechte").equals("0")) {
+	if(!input[7].equals("0")) {
 		
-		Benutzergruppe bg = this.db.selectBenutzerGruppeUeberID(new Long(request.getParameter("rechte")));
+		Benutzergruppe bg = this.db.selectBenutzerGruppeUeberID(new Long(input[7]));
 		this.aktuellerBenutzer.setBenutzergruppe(bg);		
 		
 		print[0] += "<td>Berechtigung*:</td><td><select name='rechte'><option value='0'>Bitte wählen</option><option value='3'";
-		if(request.getParameter("rechte").equals("3")){
+		if(input[7].equals("3")){
 			print[0] += check;
 		}
 		print[0] += ">Kunde</option><option value='1'";
-		if(request.getParameter("rechte").equals("1")){
+		if(input[7].equals("1")){
 			print[0] += check;
 		}
 		print[0] += ">Administrator</option><option value='2'";
-		if(request.getParameter("rechte").equals("2")) {
+		if(input[7].equals("2")) {
 			print[0] += check;
 		}
 		print[0] += ">Mitarbeiter</option></select></td>";

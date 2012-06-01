@@ -2,7 +2,6 @@ var bib = bib || {};
 
 $.extend(bib, {
 	init: function() {
-		
 		bib.rechteSetzen();
 		bib.addAusleiheClick();
 		bib.addAnmeldenClick();
@@ -103,7 +102,7 @@ $.extend(bib, {
 					                color: '#fff' 
 					            },
 					            onBlock: function() {
-					            	window.location.href="/Online-Bibliothek/bib/Controller?do=benutzerListe";
+					            	benutzerTable.fnReloadAjax();
 					            }
 					       }); 
 					}
@@ -151,6 +150,7 @@ $.extend(bib, {
 	},
 	
 	addBenutzerSpeichernClick: function() {
+		$("#insert_benutzer").unbind("click");
 		$("#insert_benutzer").click(function(e) {
 			var daten = "";
 			$(".registrierung input, .registrierung select").each(function() {
@@ -162,7 +162,6 @@ $.extend(bib, {
 				data: 	daten,
 				success: function(data) {
 					$.unblockUI();
-					alert(data);
 					if(data == "true") {
 						
 						$(".growlUI h1").text("Speichern erfolgreich");
@@ -189,20 +188,35 @@ $.extend(bib, {
 					         }
 						});
 					} else {
-						$.blockUI({ 
-							message: data,
-							onBlock: function() {
-								bib.addBenutzerSpeichern2Click();
-								bib.addCloseClick();
-							}
-						});
+						$('#registrieren').trigger("click", [data]);
 					}
 				}
 			});
 		});
 	},
 	
-	
+	addRegistrierenClick: function() {
+		$('#registrieren').bind("click", function(e, daten) {
+			if(!daten) {
+				$.blockUI({ 
+					message: $('#inc_benutzer'),
+					onBlock:  function() {
+						bib.addBenutzerSpeichernClick();
+						bib.addCloseClick();
+					}
+				});
+				} else {
+					$.blockUI({ 
+						message: daten,
+						onBlock:  function() {
+							bib.addBenutzerSpeichernClick();
+							bib.addCloseClick();
+						}
+					});
+				}
+				
+		});
+	},
 	
 	addAnmeldenClick: function() {
 		$("#anmelden").click(function() {
@@ -360,17 +374,7 @@ $.extend(bib, {
 		});
 	},
 	
-	addRegistrierenClick: function() {
-		$('#registrieren').click(function() {
-			$.blockUI({ 
-				message: $('#inc_benutzer'),
-				onBlock:  function() {
-					bib.addBenutzerSpeichernClick();
-					bib.addCloseClick();
-				}
-			});
-		});
-	},
+	
 	
 	addAusleiheClick: function() {
 		$("#ausleihe").click(function() {

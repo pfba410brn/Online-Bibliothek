@@ -102,8 +102,8 @@
 	<div style='color:#32CD32; text-align:left; margin-left:35px;' id='login_fehler'><b> <%= session_neu.getAttribute("Vorname") %> <%= session_neu.getAttribute("Nachname") %></b></div>
 	<div style='margin-top:59px;' id='login_btn'>
 	<b>
-	<a style='cursor:pointer;' id='abmelden'>Abmelden</a> I
-	<a style='cursor:pointer;' id='registrieren'>Registrieren</a>
+	<a style='cursor:pointer;' id='abmelden'>Abmelden</a> <span class="2">|</span>
+	<a style='cursor:pointer;' id='registrieren' class="2">Registrieren</a>
 	</b>
 	</div>
 <% } %>
