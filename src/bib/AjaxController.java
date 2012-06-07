@@ -16,7 +16,16 @@ import logik.JsonConverter;
 import db.Buch;
 import db.DbVerwaltung;
 
-
+/**
+ * 
+ * Der Ajax-Controller nimmt alle Ajax-HTTP-Requests entgegen und leitet
+ * diese an die entsprechende Logik-Klassen weiter.
+ * 
+ * 
+ * @version 1.0
+ * @author philipp.renerig
+ *
+ */
 @WebServlet("/bib/AjaxController")
 public class AjaxController extends HttpServlet {
 
@@ -24,6 +33,7 @@ public class AjaxController extends HttpServlet {
 	
 	static DbVerwaltung db = new DbVerwaltung();
 	static List<Buch> buchListe = db.selectAll_Buecher();
+	
 	static String tata = JsonConverter.convertBuch(buchListe);
 
 	static String codes[][] = {

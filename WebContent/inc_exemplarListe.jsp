@@ -1,4 +1,14 @@
-<!-- TABELLE_EXEMPLAR -->
+<%
+/**
+* Tabellenvorlage für die Ausleihliste.
+* @author: philipp.renerig
+* @version: 1.0
+*/
+%>
+
+<!-- TABELLE_EXEMPLAR 
+
+-->
 <div id="tabelle" class="2">
 	<table cellpadding="0" cellspacing="0" border="0" class="display" id="exemplar">
 		<thead>

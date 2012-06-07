@@ -1,3 +1,11 @@
+<% 
+/**
+* Das Formular zu Regisrierung von Benutzern.
+* @author philipp.renerig
+* @version 1.0
+*/
+%>
+
 <!-- BENUTZERREGISTRIERUNG -->
 	<h2 style="margin-top:15px; margin-left:15px;">Neuen Benutzer anlegen</h2><table class="registrierung"><tr>
 			<td>Vorname*:</td>

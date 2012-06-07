@@ -9,12 +9,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * 
+ * Der Controller nimmt sämtliche HTTP-Requests entgegen, die nicht
+ * via Ajax gesendet worden sind und leitet diese an die entsprechende Logik-Klassen weiter.
+ * 
+ * 
+ * @version 1.0
+ * @author philipp.renerig
+ *
+*/
 @WebServlet("/bib/Controller")
 public class Controller extends HttpServlet {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 8875458007177265635L;
 	
 	static String codes[][] = {
@@ -22,11 +29,6 @@ public class Controller extends HttpServlet {
 		new String[] { "benutzerListe", "/start.jsp", "benutzer" },
 		new String[] { "exemplarListe", "/start.jsp", "exemplar" }
 		};
-	
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
-		super.doPost(req, resp);
-	}
 
 	public void doGet(HttpServletRequest rq, HttpServletResponse rs) throws ServletException, IOException {
 		String fcode = rq.getParameter("do");

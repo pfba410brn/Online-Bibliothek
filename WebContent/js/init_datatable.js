@@ -1,3 +1,11 @@
+/**
+ * 
+ * Initialisiert die Datentabellen.
+ * 
+ * @author philipp.renerig
+ * @version 1.0
+ */
+
 $.fn.dataTableExt.oApi.fnReloadAjax = function ( oSettings ) {
 
 

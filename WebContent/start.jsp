@@ -1,9 +1,10 @@
  <!-- START.JSP 
- @Autor: 	Sebastian Schniety
+ @Autor: 	Sebastian Schnietz
  @Version:	1.2
  
- Die start.jsp umfasst die komplette Grundstruktur der Online-Bibliothek.
- Von ihr aus werden alle Skripte und JSPs aufgerufen. 
+ Die start.jsp ist das Grundgerüst der Webanwendung.
+ Weitere Bereiche werden includiert (inc_xy.jsp). Der Bereich id="mitte" wird abhängig von dem
+ Parameter "do" befüllt.
  
  -->
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>

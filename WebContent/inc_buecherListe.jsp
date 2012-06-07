@@ -1,3 +1,10 @@
+<%
+/**
+* Tabellenvorlage für die Buecherliste.
+* @author: philipp.renerig
+* @version: 1.0
+*/
+%>
 <!-- TABELLE_BUECHER -->
 <div id="tabelle">
 	<table cellpadding="0" cellspacing="0" border="0" class="display" id="buecher">

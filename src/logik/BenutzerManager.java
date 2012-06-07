@@ -7,7 +7,14 @@ import javax.servlet.http.*;
 import db.Benutzer;
 import db.Benutzergruppe;
 import db.DbVerwaltung;
-
+/**
+ * 
+ * Kümmert sich um die Verwaltung des Benutzer.
+ * 
+ * @version 1.0
+ * @author philipp.renerig
+ *
+*/
 @WebServlet("/bib/BenutzerManager")
 public class BenutzerManager extends HttpServlet {
 
@@ -15,6 +22,14 @@ public class BenutzerManager extends HttpServlet {
 	private Benutzer aktuellerBenutzer;
 	private DbVerwaltung db;
 	
+	/**
+	 * Die Methode verwaltet die Interaktionen 
+	 * auf Benutzer: löschen, ändern, hinzufügen
+	 * 
+	 * @author philipp.renerig
+	 * @param HttpServletRequest request
+	 * @param HttpServletResponse response
+	 */
 	public void doGet(HttpServletRequest request,
 	                    HttpServletResponse response)
 	      throws ServletException, IOException {
@@ -91,6 +106,18 @@ public class BenutzerManager extends HttpServlet {
 		return this.db;
 	}
 
+/**
+ * 
+ * Validiert die Benutzereingaben
+ * 
+ * @version 0.01
+ * @author philipp.renerig
+ * 
+ * @param String[] input Array der Eingaben
+ * @return print[0] beinhaltet das Formular, mit den bereits eingegebenen Values
+ * @return print[1] beinhaltet die Fehlermeldungen in Form eines Strings bzw. true wenn korrekt war
+ *
+ */
 String[] validateBenutzer(String[] input) {
 	
 	

@@ -1,3 +1,19 @@
+/**
+ * Die init.js kümmert sich um das Eventhandling. 
+ * Alle Mausevents werden hier definiert.
+ * 
+ * Um welchen Button es sich handelt lässt sich an dem Selektor des
+ * jQuery-Objetes "$("")" erkennen. Im großteil der Eventhandler wird
+ * eine bestimmte Id angesprochen $("#ID") an die das Event gebunden wird.
+ * 
+ * Sowie die Ausgabe der Ajax-Abfrage "success: " erfolgt zumeist in ein
+ * element mit einer bestimmten ID. success: function(data) { $("#IDAusgabe").html(data)} 
+ * data entspricht hier dem Rückgabewert des Servlets bzw. der JSP
+ * 
+ * @version 1.1
+ * @author philipp.renerig
+ */
+
 var bib = bib || {};
 
 $.extend(bib, {
